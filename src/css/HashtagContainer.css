@@ -1,0 +1,10 @@
+
+.hashtags {
+    background-color: #282c34;
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 20px auto;
+    border-radius: 20px;
+
+}

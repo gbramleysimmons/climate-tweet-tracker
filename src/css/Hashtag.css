@@ -1,0 +1,21 @@
+.Hashtag {
+    color: white;
+    font-weight: bold;
+    width: 100px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid white;
+
+}
+
+.Hashtag:hover {
+    cursor: pointer;
+    border: 2px solid lightgray;
+    color: lightgray;
+}
+
+.selected {
+    border: 2px solid lightgray;
+    color: lightgray;
+}
