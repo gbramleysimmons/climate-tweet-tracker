@@ -1,0 +1,13 @@
+.tweet-feed {
+    width: 90%;
+    margin: 20px auto;
+    height: 700px;
+    border: 1px solid black;
+}
+
+.header {
+	height: 50px;
+	line-height: 50px;
+	margin-bottom: 1px;
+	font-weight: bold;
+}

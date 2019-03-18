@@ -1,0 +1,29 @@
+.tweet {
+    position: relative;
+    min-height: 70px;
+    background-color: #cccccc;
+    margin-bottom: 1px;
+    text-align: left;
+    font-size: 14px;
+    padding-bottom: 12px;
+}
+
+.tweet-image {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 12px;
+    left: 15px;
+    margin: auto;
+}
+
+.tweet-author {
+    padding-top: 12px;
+    margin-left: 80px;
+}
+
+.tweet-text {
+    margin-left: 80px;
+    margin-top: 5px;
+    margin-right: 15px;
+}

@@ -2,6 +2,30 @@ import React, { Component } from 'react';
 import './css/App.css';
 import HashtagContainer from "./HashtagContainer";
 import Graph from "./Graph";
+import TweetContainer from "./TweetContainer";
+
+let tweets = [
+    {
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        author: "Author 1",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        author: "Author 2",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare."
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        author: "Author 3",
+        text: "Lorem ipsum."
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        author: "Author 4",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare. Nam ac sapien et sem viverra consectetur at vel lacus. Donec cursus commodo viverra."
+    }
+];
 
 class App extends Component {
   render() {
@@ -19,8 +43,7 @@ class App extends Component {
             <div className="school">Brown University</div>
             <div className="lab">Climate Development Lab</div>
           </div>
-          <div className="Update"> {/* @Olivia: this div classNameshould be converted to a React Component */}
-          </div>
+          <TweetContainer tweets={tweets}/>
         </div>
       </div>
     );
