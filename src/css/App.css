@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -30,4 +31,43 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.wrapper-left{
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}
+
+.title-block{
+  background-color:#468B5C;
+  width: 450px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px auto;
+}
+
+.title-text{
+  color: white;
+  font-weight: bold;
+}
+
+.wrapper-right{
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.branding-block{
+  display:flex;
+  flex-direction: column;
+}
+
+.school{
+  font-weight: bold;
+}
+.lab{
+  font-weight: bold;
 }
