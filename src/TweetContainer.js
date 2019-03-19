@@ -11,7 +11,7 @@ class TweetContainer extends Component {
     render() {
         return (
             <div className="tweet-feed">
-            	<div className="header">Real-Time</div>
+            	<div className="header">Real-Time Statuses</div>
             	<div className="tweets">
 	            	{this.props.tweets.map(ele => {
 	                    return <Tweet image={ele.image} author={ele.author} text={ele.text}/>;
