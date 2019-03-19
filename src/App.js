@@ -24,6 +24,16 @@ let tweets = [
         image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
         author: "Author 4",
         text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare. Nam ac sapien et sem viverra consectetur at vel lacus. Donec cursus commodo viverra."
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        author: "Author 5",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare."
+    },
+    {
+        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+        author: "Author 6",
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare. Nam ac sapien et sem viverra consectetur at vel lacus. Donec cursus commodo viverra."
     }
 ];
 
