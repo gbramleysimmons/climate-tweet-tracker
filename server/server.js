@@ -11,7 +11,7 @@ const path = require('path');
 app.use(express.static('public'));
 
 const url = 'mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db';
-const conn = db.createConnection(url); 
+const conn = db.createConnection(url);
 conn.connect();
 
 server.listen(8080, function() {
