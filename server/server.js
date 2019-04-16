@@ -17,3 +17,15 @@ conn.connect();
 server.listen(8080, function() {
     console.log('- Server listening on port 8080'.grey);
 });
+
+function addTweet(id, hashtag, contents, author, date) {
+	let values = [];
+	values.push(id);
+	values.push(hashtag);
+	values.push(contents);
+	values.push(author);
+	values.push(date);
+	conn.query('INSERT INTO tweets (id, hashtag, contents, author, date) VALUES(?, ?, ?, ?, ?)', values, function(error, data) {
+		if (error) throw error;
+	});
+}
