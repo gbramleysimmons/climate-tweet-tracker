@@ -13,9 +13,9 @@ const twit = new Twit({
     strictSSL:            false    // optional - requires SSL certificates to be valid.
 
 });
-function addTweet(id, hashtag, contents, author, date) {
-    let values = [id, hashtag, contents, author, date];
-    database.query('INSERT INTO tweets (id, hashtag, contents, author, date) VALUES(?, ?, ?, ?, ?)', values)
+function addTweet(id, hashtag, contents, author, date, image) {
+    let values = [id, hashtag, contents, author, date, image];
+    database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
         .catch(error => {
             console.error(error);
         });
@@ -24,12 +24,12 @@ function addTweet(id, hashtag, contents, author, date) {
 
  function requestTweet(hashtag) {
 
-    twit.get("https://api.twitter.com/1.1/search/tweets.json?q=list&src=typd&lang=en", function(error, data) {
-
+    twit.get("https://api.twitter.com/1.1/search/tweets.json?q=%23" + hashtag + "&src=typd&lang=en", function(error, data) {
+        console.log(data.statuses[0]);
         data.statuses.forEach(ele => {
             console.log(ele.id);
 
-        addTweet(ele.id, hashtag, ele.text, ele.user.screen_name, ele.created_at);
+        addTweet(ele.id, hashtag, ele.text, ele.user.screen_name, ele.created_at, ele.user.profile_image_url);
 
     });
 });
@@ -38,4 +38,4 @@ function addTweet(id, hashtag, contents, author, date) {
 
 
 
-requestTweet("hi");
+requestTweet("pizza");
