@@ -1,4 +1,4 @@
-
+const colors = require('colors');
 const Database = require("./database.js");
 const Login = require("./login.js");
 const http = require('http');
@@ -15,29 +15,7 @@ app.use(express.static('public'));
 
 const database = Database;
 const login = new Login("hi");
-console.log(typeof login);
 
-const twit = require("twit");
-
-
-const T = new twit({
-	consumer_key:	"1avU8KT1N4kNqqcsNqwKSsRmh",
-	consumer_secret: "nJzWdYmire6Bluueps9Hc02uRP4yna5JzN0iY0lWBzIJvnqSZm",
-	access_token:         '1100161013431840770-LX3ZAed0JLhHPQzNjQBBvMoUifFV2a',
-	access_token_secret:  'H2gDkFDJGeadTWlITmujq2pR0yy4MIfUdEq7ekZXCR9Dq',
-	timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
-	strictSSL:            false    // optional - requires SSL certificates to be valid.
-
-});
-
-
-async function requestTweet(hashtag) {
-	let tweets = [];
-	await T.get("https://api.twitter.com/1.1/search/tweets.json?q=hi&src=typd&lang=en", function(error, data) {
-		tweets = data;
-	});
-	return tweets;
-}
 
 server.listen(8080, function() {
     console.log('- Server listening on port 8080'.cyan);

@@ -4,6 +4,9 @@ const url = 'mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db';
 const conn = db.createConnection(url);
 
 
+/**
+ * Models a database with url url.
+ */
 class Database {
     constructor() {
         this.query = this.query.bind(this);

@@ -2,6 +2,9 @@ const crypto = require('crypto');
 const Database = require('./database.js');
 
 
+/**
+ * Class intended to handle administrator login. Stores passwords securely using salted hashing.
+ */
 class Login {
 
     /**
