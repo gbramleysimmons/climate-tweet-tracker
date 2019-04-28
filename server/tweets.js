@@ -1,4 +1,7 @@
 const Twit = require("twit");
+const Database = require('./database.js');
+
+const database = new Database.Database();
 
 
 const twit = new Twit({
@@ -10,6 +13,29 @@ const twit = new Twit({
     strictSSL:            false    // optional - requires SSL certificates to be valid.
 
 });
+function addTweet(id, hashtag, contents, author, date) {
+    let values = [id, hashtag, contents, author, date];
+    database.query('INSERT INTO tweets (id, hashtag, contents, author, date) VALUES(?, ?, ?, ?, ?)', values)
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+
+ function requestTweet(hashtag) {
+
+    twit.get("https://api.twitter.com/1.1/search/tweets.json?q=list&src=typd&lang=en", function(error, data) {
+
+        data.statuses.forEach(ele => {
+            console.log(ele.id);
+
+        addTweet(ele.id, hashtag, ele.text, ele.user.screen_name, ele.created_at);
+
+    });
+});
+}
 
 
 
+
+requestTweet("hi");
