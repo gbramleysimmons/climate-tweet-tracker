@@ -65,8 +65,8 @@ function addTweet(id, hashtag, contents, author, date) {
 }
 
 
-async function getTweets(hashtag) {
-	return database.query('SELECT * FROM tweets WHERE hashtag = ?', hashtag);
+async function getTweets() {
+	return database.query('SELECT * FROM tweets');
 }
 
 function addTweet(id, hashtag, contents, author, date, image) {
