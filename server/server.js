@@ -5,7 +5,6 @@ const Twit = require("twit");
 
 const database = new Database.Database();
 
-
 const twit = new Twit({
 	consumer_key:	"1avU8KT1N4kNqqcsNqwKSsRmh",
 	consumer_secret: "nJzWdYmire6Bluueps9Hc02uRP4yna5JzN0iY0lWBzIJvnqSZm",
@@ -27,8 +26,8 @@ const rl = readline.createInterface({
 const io = require('socket.io').listen(server);
 app.use(express.static('public'));
 
-const login = new Login("hi");
-
+//const login = new Login(); //@grace's version
+const login = new Login.Login(); // when referencing property, you have to use a dot. 
 
 server.listen(8080, function() {
     console.log('- Server listening on port 8080'.cyan);
@@ -36,7 +35,7 @@ server.listen(8080, function() {
 
 
 io.sockets.on('connection', function(socket){
-	socket.on('selectHashtag', function(hashtags, callback){
+	socket.on('selectHashtag', async function(hashtags, callback){
 		//hashtags = list of selected hashtags
 		//callback should update the graph
 	    callback();
@@ -48,11 +47,19 @@ io.sockets.on('connection', function(socket){
 	    callback();
 	});
 
+	//TEMPORARY//
+	socket.on('displayData', async function(){
+		let tweetData = await getTweets();
+		socket.emit('data', tweetData);
+		console.log(tweetData);
+	});
+
     socket.on('error', function(){
         console.log("error");
-    });
+	});
 
 });
+
 
 repl();
 
@@ -103,3 +110,9 @@ function repl () {
 		repl();
 	});
 };
+
+io.listen(8000);
+
+(async () => {
+	console.log(await getTweets());
+})();

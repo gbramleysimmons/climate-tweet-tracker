@@ -21,8 +21,7 @@ function addTweet(id, hashtag, contents, author, date, image) {
         });
 }
 
-
- function requestTweet(hashtag) {
+function requestTweet(hashtag) {
 
     twit.get("https://api.twitter.com/1.1/search/tweets.json?q=%23" + hashtag + "&src=typd&lang=en", function(error, data) {
         console.log(data.statuses[0]);

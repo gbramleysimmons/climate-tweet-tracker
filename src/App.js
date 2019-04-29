@@ -3,6 +3,14 @@ import './css/App.css';
 import HashtagContainer from "./HashtagContainer";
 import Graph from "./Graph";
 import TweetContainer from "./TweetContainer";
+import io from 'socket.io-client';
+
+const socket = io.connect('http://localhost:8000');
+//var socket = io.connect();
+socket.emit('displayData');
+socket.on('data', function(displayData){
+    console.log(displayData);
+});
 
 let tweets = [
     {
