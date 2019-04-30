@@ -4,12 +4,29 @@ import HashtagContainer from "./HashtagContainer";
 import Graph from "./Graph";
 import TweetContainer from "./TweetContainer";
 import io from 'socket.io-client';
+import * as d3 from "d3";
 
 const socket = io.connect('http://localhost:8000');
 //var socket = io.connect();
 socket.emit('displayData');
 socket.on('data', function(displayData){
     console.log(displayData);
+    for (var t in displayData) {
+        console.log("t:"+t);
+    }
+});
+socket.on('incomingFreq', function(freqData) {
+    let hashtags = freqData.hashtags; // returns a list of hashtags with certain length.
+    let dates = freqData.dates;
+    let now = freqData.now; // minute of now
+    let start = freqData.start; // minute of start (where the data starts)
+    let interval = freqData.interval; // one minute
+    let minutes = freqData.minutes; // used to index into the array
+    for (let hashtag in hashtags) {
+        for (let minute in minutes) {
+            //freqData.data[hashtag][minute]; // index into 2D array
+        }
+    }
 });
 
 let tweets = [
@@ -46,6 +63,10 @@ let tweets = [
 ];
 
 class App extends Component {
+  constructor(props) {
+      super(props);
+  }
+
   render() {
     return (
       <div className="App">
@@ -53,8 +74,8 @@ class App extends Component {
           <div className="title-block">
             <div className="title-text">Climate #Hashtag Tracker</div>
           </div>
-          <Graph />
-          <HashtagContainer hashtags={["Lorem", "Ipsum", "Sin", "Dolor"]}/>
+          <Graph data={[5,10,1,3]} width={900} height={500} lines={document.getElementsByClassName('line')}/>
+          <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]}/>
         </div>
         <div className="wrapper-right">
           <div className="branding-block">

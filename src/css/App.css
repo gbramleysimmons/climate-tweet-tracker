@@ -5,7 +5,7 @@ body {
 .App {
   text-align: center;
   display: flex;
-  background-color: #E8E8E8	
+  background-color: #E8E8E8
 }
 
 .App-logo {
@@ -85,4 +85,21 @@ body {
 .lab{
   font-weight: bold;
   font-size: 18px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
 }

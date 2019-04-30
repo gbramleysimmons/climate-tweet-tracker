@@ -33,7 +33,6 @@ server.listen(8080, function() {
     console.log('- Server listening on port 8080'.cyan);
 });
 
-
 io.sockets.on('connection', function(socket){
 	socket.on('selectHashtag', async function(hashtags, callback){
 		//hashtags = list of selected hashtags
@@ -72,7 +71,10 @@ function addTweet(id, hashtag, contents, author, date) {
 }
 
 
-async function getTweets() {
+async function getTweets() { 
+	// we should later include a parameter like a hashtag to cutdown the
+	// number of values we get returned () (we would get about ~20million). 
+	// With the current set up, we would get ~3.5 billion tweets.....
 	return database.query('SELECT * FROM tweets');
 }
 
