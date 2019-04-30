@@ -21,6 +21,7 @@ class Login {
         this.validateLogin = this.validateLogin.bind(this);
         this.sha512 = this.sha512.bind(this);
         this.getSalt = this.getSalt.bind(this);
+        this.removeUser = this.removeUser.bind(this);
     }
 
     /**
@@ -29,16 +30,21 @@ class Login {
      * @param password password to add.
      */
      addNewUser(username, password) {
+
+        const database = this.database;
+        const sha512 = this.sha512;
+        const getSalt = this.getSalt;
         return new Promise(function (resolve, reject) {
-            this.database.query("SELECT * FROM login WHERE username = ?;", [username])
+
+            database.query("SELECT * FROM login WHERE username = ?;", [username])
                 .then((data) => {
                         if (data.length !== 0) {
                             reject("Username has been taken");
 
                         } else {
-                            const salt = this.getSalt();
-                            const hashedPass = this.sha512(password, salt);
-                            this.database.query("INSERT INTO login VALUES (?, ?, ?)", [username, hashedPass, salt])
+                            const salt = getSalt();
+                            const hashedPass =sha512(password, salt);
+                            database.query("INSERT INTO login VALUES (?, ?, ?)", [username, hashedPass, salt])
                                 .then(data => {
                                     resolve();
                                 })
@@ -60,10 +66,15 @@ class Login {
      * @param password
      */
      validateLogin (username, password) {
+        const database = this.database;
+        const sha512 = this.sha512;
        return new Promise (function(resolve, reject) {
-           this.database.query("SELECT * FROM login WHERE username = ?", [username])
+           database.query("SELECT * FROM login WHERE username = ?", [username])
                .then((data) => {
-                   if (this.sha512(password, data[0].salt) === data[0].pass) {
+                   if(data.length === 0) {
+                       resolve(false);
+                   }
+                   if (sha512(password, data[0].salt) === data[0].pass) {
                        resolve(true);
                    } else {
                       resolve(false);
@@ -76,6 +87,19 @@ class Login {
 
     };
 
+     removeUser(username) {
+         const database = this.database;
+         return new Promise (function(resolve, reject) {
+             database.query("DELETE FROM login WHERE username = ?", [username])
+                 .then(() => {
+                    resolve();
+                 })
+                 .catch(error => {
+                     reject(error);
+                 });
+         });
+
+     }
     /**
      * Hashes a password with the input salt using the sha512 system.
      * @param password Password to hash.
@@ -96,10 +120,10 @@ class Login {
      * @returns {string}
      */
     getSalt() {
-        const validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        const validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01234567899";
         let salt = "";
         for (let i = 0; i < 16; i++) {
-            let key = Math.floor(Math.random()*63);
+            let key = Math.floor(Math.random()*validChars.length);
             salt += validChars[key];
         }
         return salt;

@@ -13,6 +13,8 @@ const twit = new Twit({
     strictSSL:            false    // optional - requires SSL certificates to be valid.
 
 });
+
+
 function addTweet(id, hashtag, contents, author, date, image) {
     let values = [id, hashtag, contents, author, date, image];
     database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)

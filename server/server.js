@@ -100,21 +100,56 @@ function requestTweet(hashtag) {
 	});
 }
 
-function repl () {
-	rl.question('Command: ', function (answer) {
-		if (answer === 'exit') {
-			return rl.close();
-		}
-		else if (answer ==="login") {
-			console.log(typeof login);
-		}
+function repl() {
+	rl.question('> ', function (answer) {
 
-		repl();
+		switch(answer) {
+			case 'exit':
+				return rl.close();
+			case "signup":
+				rl.question("username: ", function(username) {
+					rl.question("password: ", function (password) {
+						login.addNewUser(username, password)
+							.then(res => {
+								repl();
+							}) .catch(error => {
+							console.error(error);
+							repl();
+						})
+					})
+				});
+				break;
+			case "login":
+				rl.question("username: ", function(username) {
+					rl.question("password: ", function (password) {
+						login.validateLogin(username, password)
+							.then(valid => {
+								if (valid) {
+									console.log("you have been logged in");
+								} else {
+									console.log("invalid credentials");
+								}
+								repl();
+							})
+							.catch(error => {
+								console.error(error);
+								repl();
+							})
+					})
+				});
+			default:
+				console.log("Command not recongnized");
+				repl();
+				break;
+		}
 	});
 };
 
 io.listen(8000);
 
-(async () => {
-	console.log(await getTweets());
-})();
+repl();
+
+// //wtf is this.
+// (async () => {
+// 	console.log(await getTweets());
+// })();
