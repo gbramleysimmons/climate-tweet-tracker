@@ -3,7 +3,6 @@ const Database = require("./database.js");
 const Login = require("./login.js");
 const TweetRetriever = require('./tweets.js');
 
-
 //foreign dependencies
 const colors = require('colors');
 const Twit = require("twit");
@@ -16,11 +15,9 @@ const readline = require('readline');
 const app = express();
 const server = http.createServer(app);
 
-
 const url = 'mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db';
 const conn = db.createConnection(url);
 const database = new Database(conn);
-
 
 const rl = readline.createInterface({
 	input: process.stdin,
@@ -88,7 +85,7 @@ function repl() {
 				});
 				break;
 			default:
-				console.log("Command not recongnized");
+				console.log("Command not recognized");
 				repl();
 				break;
 		}

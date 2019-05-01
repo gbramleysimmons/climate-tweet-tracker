@@ -12,7 +12,7 @@ class TweetRetriever {
             strictSSL:            false    // optional - requires SSL certificates to be valid.
 
         });
-        this.database = new Database.Database(conn);
+        this.database = new Database(conn);
     }
 
     addTweetToDatabase(id, hashtag, contents, author, date, image) {
