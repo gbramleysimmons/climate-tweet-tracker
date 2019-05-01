@@ -1,111 +1,46 @@
-const colors = require('colors');
+//local files
 const Database = require("./database.js");
 const Login = require("./login.js");
+const TweetRetriever = require('./tweets.js');
+
+
+//foreign dependencies
+const colors = require('colors');
 const Twit = require("twit");
-
-const database = new Database.Database();
-
-const twit = new Twit({
-	consumer_key:	"1avU8KT1N4kNqqcsNqwKSsRmh",
-	consumer_secret: "nJzWdYmire6Bluueps9Hc02uRP4yna5JzN0iY0lWBzIJvnqSZm",
-	access_token:         '1100161013431840770-LX3ZAed0JLhHPQzNjQBBvMoUifFV2a',
-	access_token_secret:  'H2gDkFDJGeadTWlITmujq2pR0yy4MIfUdEq7ekZXCR9Dq',
-	timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
-	strictSSL:            false    // optional - requires SSL certificates to be valid.
-
-});
+const db = require('mysql');
 const http = require('http');
 const express = require('express');
+const readline = require('readline');
+
+//project objects
 const app = express();
 const server = http.createServer(app);
-const readline = require('readline');
+
+
+const url = 'mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db';
+const conn = db.createConnection(url);
+const database = new Database(conn);
+
+
 const rl = readline.createInterface({
 	input: process.stdin,
 	output: process.stdout
 });
+
+const twitter = new TweetRetriever(conn);
 const io = require('socket.io').listen(server);
 app.use(express.static('public'));
 
-//const login = new Login(); //@grace's version
-const login = new Login.Login(); // when referencing property, you have to use a dot. 
-
-server.listen(8080, function() {
-    console.log('- Server listening on port 8080'.cyan);
-});
-
-io.sockets.on('connection', function(socket){
-	socket.on('selectHashtag', async function(hashtags, callback){
-		//hashtags = list of selected hashtags
-		//callback should update the graph
-	    callback();
-	});
-
-	socket.on('changeTimeFrame', function(range, callback){
-		//range = time range to display in graph
-		//callback should update the graph
-	    callback();
-	});
-
-	//TEMPORARY//
-	socket.on('displayData', async function(){
-		let tweetData = await getTweets();
-		socket.emit('data', tweetData);
-		console.log(tweetData);
-	});
-
-    socket.on('error', function(){
-        console.log("error");
-	});
-
-});
+const login = new Login(conn);
 
 
-repl();
-
-function addTweet(id, hashtag, contents, author, date) {
-	let values = [id, hashtag, contents, author, date];
-	database.query('INSERT INTO tweets (id, hashtag, contents, author, date) VALUES(?, ?, ?, ?, ?)', values)
-		.catch(error => {
-			console.error(error);
-		});
-}
-
-
-async function getTweets() { 
-	// we should later include a parameter like a hashtag to cutdown the
-	// number of values we get returned () (we would get about ~20million). 
-	// With the current set up, we would get ~3.5 billion tweets.....
-	return database.query('SELECT * FROM tweets');
-}
-
-function addTweet(id, hashtag, contents, author, date, image) {
-	let values = [id, hashtag, contents, author, date, image];
-	database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
-		.catch(error => {
-			console.error(error);
-		});
-}
-
-
-function requestTweet(hashtag) {
-
-	twit.get("https://api.twitter.com/1.1/search/tweets.json?q=%23" + hashtag + "&src=typd&lang=en", function(error, data) {
-		console.log(data.statuses[0]);
-		data.statuses.forEach(ele => {
-			console.log(ele.id);
-
-			addTweet(ele.id, hashtag, ele.text, ele.user.screen_name, ele.created_at, ele.user.profile_image_url);
-
-		});
-	});
-}
-
+//defines a REPL (read, evaluate, print loop) for this program;
 function repl() {
 	rl.question('> ', function (answer) {
-
 		switch(answer) {
 			case 'exit':
 				return rl.close();
+
 			case "signup":
 				rl.question("username: ", function(username) {
 					rl.question("password: ", function (password) {
@@ -119,6 +54,7 @@ function repl() {
 					})
 				});
 				break;
+
 			case "login":
 				rl.question("username: ", function(username) {
 					rl.question("password: ", function (password) {
@@ -137,6 +73,20 @@ function repl() {
 							})
 					})
 				});
+				break;
+			case "retrieve":
+				rl.question("hashtag", function(answer) {
+					twitter.requestTweetsFromDate(answer, "2019-4-30")
+						.then(data => {
+							console.log("here");
+							console.log(data);
+							repl();
+						}) .catch(error => {
+						console.log(error);
+						repl();
+					})
+				});
+				break;
 			default:
 				console.log("Command not recongnized");
 				repl();
@@ -145,11 +95,43 @@ function repl() {
 	});
 };
 
-io.listen(8000);
+//starts server
+
+//defines socket listeners for this program.
+io.sockets.on('connection', function(socket){
+	socket.on('selectHashtag', async function(hashtags, callback){
+		//hashtags = list of selected hashtags
+		//callback should update the graph
+	    callback();
+	});
+
+	socket.on('changeTimeFrame', function(range, callback){
+		//range = time range to display in graph
+		//callback should update the graph
+	    callback();
+	});
+
+	//TEMPORARY//
+	socket.on('displayData', async function(){
+		let tweetData = twitter.requestTweetsFromDate("test", "2019-05-01");
+		socket.emit('data', tweetData);
+		console.log(tweetData);
+	});
+
+    socket.on('error', function(){
+        console.log("error");
+	});
+
+});
+
 
 repl();
 
-// //wtf is this.
-// (async () => {
-// 	console.log(await getTweets());
-// })();
+server.listen(8080, function() {
+	console.log('- Server listening on port 8080'.cyan);
+});
+
+io.listen(8000);
+
+
+
