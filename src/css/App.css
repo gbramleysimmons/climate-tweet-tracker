@@ -103,3 +103,8 @@ body {
     stroke: steelblue;
     stroke-width: 1.5px;
 }
+#svg{
+    border-style: solid;
+    border-radius: 2px;
+    background-color: white;
+}

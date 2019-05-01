@@ -65,16 +65,24 @@ let tweets = [
 class App extends Component {
   constructor(props) {
       super(props);
+      this.offsetW = 0;
+  }
+
+  componentDidMount() {
+      this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
+      console.log("this.offsetW in App.js:" +this.offsetW);
   }
 
   render() {
+      console.log("svg:"+ document.getElementById('svg'));
+      console.log("this.offsetW in after RENDER:" +this.offsetW);
     return (
       <div className="App">
         <div className="wrapper-left">
           <div className="title-block">
             <div className="title-text">Climate #Hashtag Tracker</div>
           </div>
-          <Graph data={[5,10,1,3]} width={900} height={500} lines={document.getElementsByClassName('line')}/>
+          <Graph data={[5,10,1,3]} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
           <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]}/>
         </div>
         <div className="wrapper-right">

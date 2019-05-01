@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './css/Graph.css';
 import * as d3 from "d3";
+import ReactDOM from 'react-dom';
 
 /**
  * Graph component. Does nothing right now.
@@ -11,10 +12,13 @@ class Graph extends Component {
     constructor(props) {
         super(props)
            this.createDynamicChart = this.createDynamicChart.bind(this);
+           this.referMe = React.createRef();
     }
 
     componentDidMount() {
         this.createDynamicChart();
+        //this.node.width = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
+        console.log("componentDidMount LOG:"+ this.node);
     }
 
     componentDidUpdate() {
@@ -22,29 +26,29 @@ class Graph extends Component {
     }
 
     createDynamicChart() {
-        var myData = "date	New York	San Francisco	Austin\n\
-20111001	63.4	62.7	72.2\n\
-20111002	58.0	59.9	67.7\n\
-20111003	53.3	59.1	69.4\n\
-20111004	55.7	58.8	68.0\n\
-20111005	64.2	58.7	72.4\n\
-20111006	58.8	57.0	77.0\n\
-20111007	57.9	56.7	82.3\n\
-20111008	61.8	56.8	78.9\n\
-20111009	69.3	56.7	68.8\n\
-20111010	71.2	60.1	68.7\n\
-20111011	68.7	61.1	70.3\n\
-20111012	61.8	61.5	75.3\n\
-20111013	63.0	64.3	76.6\n\
-20111014	66.9	67.1	66.6\n\
-20111015	61.7	64.6	68.0\n\
-20111016	61.8	61.6	70.6\n\
-20111017	62.8	61.1	71.1\n\
-20111018	60.8	59.2	70.0\n\
-20111019	62.1	58.9	61.6\n\
-20111020	65.1	57.2	57.4\n\
-20111021	55.6	56.4	64.3\n\
-20111022	54.4	60.7	72.4\n";
+var myData = "date	#cats	#climate	#hi\n\
+201110011235	63	62	72\n\
+201110011240	58	59	67\n\
+201110011245	53	59	69\n\
+201110011250	55	58	68\n\
+201110011255	64	58	72\n\
+201110011300	58	57	77\n\
+201110011305	57.9	56.7	82.3\n\
+201110011310	61.8	56.8	78.9\n\
+201110011315	69.3	56.7	68.8\n\
+201110011320	71.2	60.1	68.7\n\
+201110011325	68.7	61.1	70.3\n\
+201110011330	61.8	61.5	75.3\n\
+201110011335	63.0	64.3	76.6\n\
+201110011340	66.9	67.1	66.6\n\
+201110011345	61.7	64.6	68.0\n\
+201110011350	61.8	61.6	70.6\n\
+201110011355	62.8	61.1	71.1\n\
+201110011400	60.8	59.2	70.0\n\
+201110011405	62.1	58.9	61.6\n\
+201110011410	65.1	57.2	57.4\n\
+201110011415	55.6	56.4	64.3\n\
+201110011420	54.4	60.7	72.4\n";
 
         const node = this.node;
 
@@ -54,10 +58,15 @@ class Graph extends Component {
             bottom: 0,
             left: 0
           },
-          width = 900 - margin.left - margin.right,
-          height = 500 - margin.top - margin.bottom;
+          width = document.getElementsByClassName('wrapper-left')[0].offsetWidth,
+          //width = this.props.width - margin.left - margin.right,
+          //width = this.referMe.offsetWidth,
+          //width = ReactDOM.findDOMNode(this).offsetWidth - margin.left - margin.right,
+          //width = this.props.svg.width - margin.left - margin.right,
+          //width = d3.select('.svg').node().element.getBoundingClientRect().width - margin.left - margin.right,
+          height = this.props.height - margin.top - margin.bottom;
 
-        var parseDate = d3.timeParse("%Y%m%d");
+        var parseDate = d3.timeParse("%Y%m%d%H%M");
 
         var x = d3.scaleTime()
           .range([0, width]);
@@ -80,7 +89,7 @@ class Graph extends Component {
         //       .orient("left");
 
         var line = d3.line()
-          .curve(d3.curveBasis)
+          //.curve(d3.curveBasis)
           .x(function(d) {
             return x(d.date);
           })
@@ -90,8 +99,10 @@ class Graph extends Component {
 
         {/*var svg = d3.select("body").append("svg")*/}
         var svg = d3.select(node)
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
+          //.attr("width", width + margin.left + margin.right)
+          //.attr("height", height + margin.top + margin.bottom)
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("viewBox", "0 0 600 400")
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -103,6 +114,7 @@ class Graph extends Component {
 
         data.forEach(function(d) {
           d.date = parseDate(d.date);
+          //d.date = d3.timeFormat("%Y%m%d%H%M")(d.date);
         });
 
         var cities = color.domain().map(function(name) {
@@ -141,7 +153,7 @@ class Graph extends Component {
           .attr('class', 'legend');
 
         legend.append('rect')
-          .attr('x', width - 20)
+          .attr('x', width - 100)
           .attr('y', function(d, i) {
             return i * 20;
           })
@@ -152,7 +164,7 @@ class Graph extends Component {
           });
 
         legend.append('text')
-          .attr('x', width - 8)
+          .attr('x', width - 88)
           .attr('y', function(d, i) {
             return (i * 20) + 9;
           })
@@ -162,18 +174,19 @@ class Graph extends Component {
 
         svg.append("g")
           .attr("class", "x axis")
-          .attr("transform", "translate(0," + height + ")")
+          .attr("transform", "translate(0," + height - 500 + ")")
           .call(xAxis);
 
-        svg.append("g")
-          .attr("class", "y axis")
-          .call(yAxis)
-          .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", ".71em")
-          .style("text-anchor", "end")
-          .text("Temperature (ºF)");
+        // svg.append("g")
+        //   .attr("class", "y axis")
+        //   .call(yAxis)
+        //   .append("text")
+        //   .attr("transform", "rotate(-90)")
+        //   .attr("transform", "translate("+ 20 +", 0)") // added
+        //   .attr("y", 6)
+        //   .attr("dy", ".71em")
+        //   .style("text-anchor", "end")
+        //   .text("Temperature (ºF)");
 
         var city = svg.selectAll(".city")
           .data(cities)
@@ -300,7 +313,7 @@ class Graph extends Component {
         console.log("lines:"+ this.props.lines);
         console.log("width:"+ this.props.width);
         return (
-            <svg ref={node => this.node = node} width={900} height={500}></svg>
+            <div id="svg"><svg ref={node => this.node = node}></svg></div>
         );
     }
 }
