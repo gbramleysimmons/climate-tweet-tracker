@@ -1,11 +1,13 @@
 body {
-  background-color: #E8E8E8;
+  /* background-color: #E8E8E8; */
+  background-color: #D1E3F9;
 }
 
 .App {
   text-align: center;
   display: flex;
-  background-color: #E8E8E8
+  /* background-color: #E8E8E8 */
+  background-color: #D1E3F9;
 }
 
 .App-logo {
@@ -47,7 +49,9 @@ body {
 }
 
 .title-block{
-  background-color:#468B5C;
+  /* background-color:#468B5C; */
+  /* background-color:#609EEA; */
+  background-color: #0F3A6F;
   width: 100%;
   height: 70px;
   display: flex;
@@ -56,6 +60,7 @@ body {
   margin-top: 25px;
   margin-bottom: 15px;
   border-radius: 10px;
+  font-family: varela;
 }
 
 .title-text{
@@ -76,6 +81,9 @@ body {
   flex-direction: column;
   margin-top: 25px;
   line-height: 200%;
+  font-family: times;
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
 .school{
