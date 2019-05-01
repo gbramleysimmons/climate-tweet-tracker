@@ -110,9 +110,18 @@ io.sockets.on('connection', function(socket){
 
 	//TEMPORARY//
 	socket.on('displayData', async function(){
-		let tweetData = twitter.requestTweetsFromDate("test", "2019-05-01");
+		/*let tweetData = twitter.requestTweetsFromDate("test", "2019-05-01");
 		socket.emit('data', tweetData);
-		console.log(tweetData);
+		console.log(tweetData);*/
+		
+		/*requestTweets("test", "date", function(data) {
+			socket.emit('data', data);
+			console.log(data);
+		});*/
+		requestAllTweets(function(data) {
+			socket.emit('data', data);
+			console.log(data);
+		});
 	});
 
     socket.on('error', function(){
@@ -121,6 +130,27 @@ io.sockets.on('connection', function(socket){
 
 });
 
+async function requestTweets(hashtag, date, callback) {
+	let values = [hashtag, date];
+	database.query('SELECT * FROM tweets WHERE hashtag = ? AND date = ?', values)
+		.then(data => {
+			callback(data);
+		})
+		.catch(error => {
+		    console.error(error);
+		});
+}
+
+//TO-DO: LIMIT SIZE OF DATA RETURNED BY THIS FUNCTION
+async function requestAllTweets(callback) {
+	database.query('SELECT * FROM tweets LIMIT 50')
+		.then(data => {
+			callback(data);
+		})
+		.catch(error => {
+		    console.error(error);
+		});
+}
 
 repl();
 
@@ -129,6 +159,3 @@ server.listen(8080, function() {
 });
 
 io.listen(8000);
-
-
-

@@ -9,14 +9,14 @@ import io from 'socket.io-client';
 const socket = io.connect('http://localhost:8000');
 
 socket.emit('displayData');
-socket.on('data', function(displayData){
+/*socket.on('data', function(displayData){
     console.log(displayData);
     for (var t in displayData) {
         console.log("t:"+t);
     }
 });
 socket.on('incomingFreq', function(freqData) {
-    /*let hashtags = freqData.hashtags; // returns a list of hashtags with certain length.
+    let hashtags = freqData.hashtags; // returns a list of hashtags with certain length.
     let dates = freqData.dates;
     let now = freqData.now; // minute of now
     let start = freqData.start; // minute of start (where the data starts)
@@ -26,8 +26,27 @@ socket.on('incomingFreq', function(freqData) {
         for (let minute in minutes) {
             //freqData.data[hashtag][minute]; // index into 2D array
         }
-    }*/
+    }
+});*/
+
+socket.on('data', function(displayData){
+    console.log(displayData);
+    formatData(displayData);
 });
+
+function formatData(data) {
+    let hashtags = [];
+    for (let t in data) {
+        if (hashtags.indexOf(data[t].hashtag) === -1)
+          hashtags.push(data[t].hashtag);
+    }
+    let myData = "date";
+    for (let x in hashtags) {
+      myData = myData + " #" + hashtags[x];
+    }
+    myData += "\n";
+    console.log(myData);
+}
 
 let tweets = [
     {
