@@ -4,12 +4,12 @@ import HashtagContainer from "./HashtagContainer";
 import Graph from "./Graph";
 import TweetContainer from "./TweetContainer";
 import io from 'socket.io-client';
-import * as d3 from "d3";
+//import * as d3 from "d3";
 
 const socket = io.connect('http://localhost:8000');
-//var socket = io.connect();
+
 socket.emit('displayData');
-socket.on('data', function(displayData){
+/*socket.on('data', function(displayData){
     console.log(displayData);
     for (var t in displayData) {
         console.log("t:"+t);
@@ -27,7 +27,26 @@ socket.on('incomingFreq', function(freqData) {
             //freqData.data[hashtag][minute]; // index into 2D array
         }
     }
+});*/
+
+socket.on('data', function(displayData){
+    console.log(displayData);
+    formatData(displayData);
 });
+
+function formatData(data) {
+    let hashtags = [];
+    for (let t in data) {
+        if (hashtags.indexOf(data[t].hashtag) === -1)
+          hashtags.push(data[t].hashtag);
+    }
+    let myData = "date";
+    for (let x in hashtags) {
+      myData = myData + " #" + hashtags[x];
+    }
+    myData += "\n";
+    console.log(myData);
+}
 
 let tweets = [
     {
