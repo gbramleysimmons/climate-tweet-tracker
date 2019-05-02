@@ -3,7 +3,6 @@ const Database = require("./database.js");
 const Login = require("./login.js");
 const TweetRetriever = require('./tweets.js');
 
-
 //foreign dependencies
 const colors = require('colors');
 const Twit = require("twit");
@@ -33,6 +32,10 @@ app.use(express.static('public'));
 
 const login = new Login(conn);
 
+const authorized = {
+	"repl": false,
+};
+
 
 //defines a REPL (read, evaluate, print loop) for this program;
 function repl() {
@@ -61,6 +64,7 @@ function repl() {
 						login.validateLogin(username, password)
 							.then(valid => {
 								if (valid) {
+									authorized["repl"] = true;
 									console.log("you have been logged in");
 								} else {
 									console.log("invalid credentials");
@@ -75,11 +79,15 @@ function repl() {
 				});
 				break;
 			case "retrieve":
-				rl.question("hashtag", function(answer) {
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				}
+				rl.question("hashtag: ", function(answer) {
 					twitter.requestTweetsFromDate(answer, "2019-4-30")
 						.then(data => {
 							console.log("here");
-							console.log(data);
+							console.log(data.data.statuses);
 							repl();
 						}) .catch(error => {
 						console.log(error);

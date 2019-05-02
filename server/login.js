@@ -11,7 +11,7 @@ class Login {
      * Creates a new login object.
      */
     constructor(conn) {
-        this.database = new Database.Database(conn);
+        this.database = new Database(conn);
         this.database.query("CREATE TABLE IF NOT EXISTS login (\n" +
             "  username TEXT," +
             "  pass VARCHAR(512)," +

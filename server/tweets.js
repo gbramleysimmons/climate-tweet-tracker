@@ -12,11 +12,11 @@ class TweetRetriever {
             strictSSL:            false    // optional - requires SSL certificates to be valid.
 
         });
-        this.database = new Database.Database(conn);
+        this.database = new Database(conn);
     }
 
-    addTweetToDatabase(id, hashtag, contents, author, date, image) {
-        let values = [id, hashtag, contents, author, date, image];
+    addTweetToDatabase(tweet) {
+        let values = [tweet.id, tweet.hashtag, tweet.contents, tweet.author, tweet.date, tweet.image];
         this.database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
             .catch(error => {
                 console.error(error);
@@ -44,6 +44,25 @@ class TweetRetriever {
                 })
             });
         }
+
+    /**
+     * Turns an object retrieved from the twitter api to a parseable objct
+     * @param tweet
+     * @param hashtag
+     * @returns {{date: *, image: *, contents: *, author: *, id: *, hashtag: *}}
+     */
+        tweetObjectToData(tweet, hashtag) {
+            return {
+                id: tweet.id,
+                date: tweet.created_at,
+                contents: tweet.text,
+                hashtag: hashtag,
+                author: tweet.user.name,
+                image: tweet.user.profile_image_url;
+            }
+        }
     }
+
+
 
     module.exports = TweetRetriever;
