@@ -147,17 +147,8 @@ io.sockets.on('connection', function(socket){
 
 	//TEMPORARY//
 	socket.on('displayData', async function(){
-		/*let tweetData = twitter.requestTweetsFromDate("test", "2019-05-01");
-		socket.emit('data', tweetData);
-		console.log(tweetData);*/
-
-		/*requestTweets("test", "date", function(data) {
-			socket.emit('data', data);
-			console.log(data);
-		});*/
 		requestAllTweets(function(data) {
-			socket.emit('data', data);
-			console.log(data);
+			socket.emit('incomingFreq', data);
 		});
 	});
 
@@ -169,7 +160,7 @@ io.sockets.on('connection', function(socket){
 
 async function requestTweets(hashtag, date, callback) {
 	let values = [hashtag, date];
-	database.query('SELECT * FROM tweets WHERE hashtag = ? AND date = ?', values)
+	database.query('SELECT * FROM tweets WHERE hashtag = ? AND date = ? ORDER BY date', values)
 		.then(data => {
 			callback(data);
 		})

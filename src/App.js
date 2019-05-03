@@ -31,23 +31,69 @@ socket.on('incomingFreq', function(freqData) {
     }
 });*/
 
-socket.on('data', function(displayData){
-    console.log(displayData);
-    formatData(displayData);
+socket.on('incomingFreq', function(freqData){
+    let dataString = formatData(freqData);
 });
 
 function formatData(data) {
     let hashtags = [];
     for (let t in data) {
-        if (hashtags.indexOf(data[t].hashtag) === -1)
-          hashtags.push(data[t].hashtag);
+      if (hashtags.indexOf(data[t].hashtag) === -1)
+        hashtags.push(data[t].hashtag);
     }
-    let myData = "date";
+    let myData = [];
+    let row1 = ["date"];
     for (let x in hashtags) {
-      myData = myData + " #" + hashtags[x];
+      row1.push("#" + hashtags[x]);
     }
-    myData += "\n";
-    console.log(myData);
+    myData.push(row1);
+    let intervalSet = new Set();
+    let count = 0;
+    for (let t in data) {
+      let dateString = parseDateString(data[t].date);
+      if (!(intervalSet.has(dateString))) {
+        intervalSet.add(dateString);
+        let rowToAdd = [dateString];
+        for (let i = 0; i < hashtags.length; i++) {
+          rowToAdd.push(0);
+        }
+        myData.push(rowToAdd);
+        count++;
+        let index = hashtags.indexOf(data[t].hashtag);
+        myData[count][index+1]++;
+      }
+      else {
+        let index = hashtags.indexOf(data[t].hashtag);
+        myData[count][index+1]++;
+      }
+    }
+    console.log(dataToString(myData));
+}
+
+function parseDateString(tweetDate) {
+    let dateObj = new Date(tweetDate);
+    let dateString = "";
+    let year = dateObj.getFullYear();
+    let month = ("0" + (dateObj.getMonth()+1)).slice(-2);
+    let date = dateObj.getDate();
+    let hour = ("0" + dateObj.getHours()).slice(-2);
+    let minutes = dateObj.getMinutes();
+    let minutesRounded = ("0" + roundMinutes(minutes)).slice(-2);
+    dateString += year + month + date + hour + minutesRounded;
+    return dateString;
+}
+
+function roundMinutes(minutes) {
+    let roundedDate = Math.floor(minutes / 5) * 5;
+    return roundedDate;
+}
+
+function dataToString(data) {
+  let dataString = "";
+  for (let i = 0; i < data.length; i++) {
+    dataString += data[i].join(" ") + "\n";
+  }
+  return dataString;
 }
 
 let tweets = [
@@ -135,6 +181,7 @@ class App extends Component {
                   <TweetContainer tweets={tweets}/>
               </div>
           </div>}
+
 
       </div>
     );

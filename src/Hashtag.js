@@ -23,8 +23,8 @@ class Hashtag extends Component {
      * @returns {{main, selected}|*}
      */
     generate_color = () => {
-        const possible_colors = [{main: "#3980c6", selected: "#3375b7"}, {main: "#238e57", selected: "#1d7c4c"},
-            {main: "#1d787c", selected: "#18676b"}, {main: "#368e46", selected: "#368e46"}];
+        const possible_colors = [{main: "#3980c6", selected: "#e3f298"}, {main: "#238e57", selected: "#e3f298"},
+            {main: "#1d787c", selected: "#e3f298"}, {main: "#368e46", selected: "#e3f298"}];
         return possible_colors[Math.floor(Math.random() * 4)];
     };
 
@@ -34,9 +34,10 @@ class Hashtag extends Component {
      * selected
      */
     on_click = () => {
-        this.setState({selected: !this.state.selected});
-        this.state.selected ? this.setState({curr_color: this.state.color.selected}):
+        !this.state.selected ? this.setState({curr_color: this.state.color.selected}):
             this.setState({curr_color: this.state.color.main})
+        this.setState({selected: !this.state.selected});
+        console.log("curr_color: "+this.state.curr_color);
     };
 
 

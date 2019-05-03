@@ -5,4 +5,5 @@
     display: flex;
     flex-wrap: wrap;
     border-radius: 20px;
+    margin-top: 10px;
 }
