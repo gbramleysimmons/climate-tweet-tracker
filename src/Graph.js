@@ -27,13 +27,20 @@ class Graph extends Component {
 
     createDynamicChart() {
 var myData = "date	#cats	#climate	#hi\n\
+201110011200	58	57	77\n\
+201110011205	57.9	56.7	77\n\
+201110011210	61.8	56.8	78.9\n\
+201110011215	69.3	56.7	68.8\n\
+201110011220	71.2	60.1	68.7\n\
+201110011225	68.7	61.1	70.3\n\
+201110011230	61.8	61.5	75.3\n\
 201110011235	63	62	72\n\
 201110011240	58	59	67\n\
-201110011245	53	59	69\n\
+201110011245	55	59	69\n\
 201110011250	55	58	68\n\
 201110011255	64	58	72\n\
 201110011300	58	57	77\n\
-201110011305	57.9	56.7	82.3\n\
+201110011305	57.9	56.7	77\n\
 201110011310	61.8	56.8	78.9\n\
 201110011315	69.3	56.7	68.8\n\
 201110011320	71.2	60.1	68.7\n\
@@ -48,23 +55,143 @@ var myData = "date	#cats	#climate	#hi\n\
 201110011405	62.1	58.9	61.6\n\
 201110011410	65.1	57.2	57.4\n\
 201110011415	55.6	56.4	64.3\n\
-201110011420	54.4	60.7	72.4\n";
+201110011420	54.4	60.7	72.4\n\
+201110011425	54.4	60.7	72.4\n\
+201110011430	54.4	60.7	72.4\n\
+201110011435	63	62	72\n\
+201110011440	58	59	67\n\
+201110011445	55	59	69\n\
+201110011450	55	58	68\n\
+201110011455	64	58	72\n\
+201110011500	58	57	77\n\
+201110011505	57.9	56.7	77\n\
+201110011510	61.8	56.8	78.9\n\
+201110011515	69.3	56.7	68.8\n\
+201110011520	71.2	60.1	68.7\n\
+201110011525	68.7	61.1	70.3\n\
+201110011530	61.8	61.5	75.3\n\
+201110011535	63.0	64.3	76.6\n\
+201110011540	66.9	67.1	66.6\n\
+201110011545	61.7	64.6	68.0\n\
+201110011550	61.8	61.6	70.6\n\
+201110011555	62.8	61.1	71.1\n\
+201110011600	60.8	59.2	70.0\n\
+201110011605	62.1	58.9	61.6\n\
+201110011610	65.1	57.2	57.4\n\
+201110011615	55.6	56.4	64.3\n\
+201110011620	54.4	60.7	72.4\n\
+201110011625	54.4	60.7	72.4\n\
+201110011630	54.4	60.7	72.4\n\
+201110011635	63.0	64.3	76.6\n\
+201110011640	66.9	67.1	66.6\n\
+201110011645	61.7	64.6	68.0\n\
+201110011650	61.8	61.6	70.6\n\
+201110011655	62.8	61.1	71.1\n\
+201110011700	60.8	59.2	70.0\n\
+201110011705	62.1	58.9	61.6\n\
+201110011710	65.1	57.2	57.4\n\
+201110011715	55.6	56.4	64.3\n\
+201110011720	54.4	60.7	72.4\n\
+201110011725	54.4	60.7	72.4\n\
+201110011730	54.4	60.7	72.4\n\
+201110011735	63.0	64.3	76.6\n\
+201110011740	66.9	67.1	66.6\n\
+201110011745	61.7	64.6	68.0\n\
+201110011750	61.8	61.6	70.6\n\
+201110011755	62.8	61.1	71.1\n\
+201110011800	60.8	59.2	70.0\n\
+201110011805	62.1	58.9	61.6\n\
+201110011810	65.1	57.2	57.4\n\
+201110011815	55.6	56.4	64.3\n\
+201110011820	54.4	60.7	72.4\n\
+201110011825	54.4	60.7	72.4\n\
+201110011830	54.4	60.7	72.4\n\
+201110011835	63.0	64.3	76.6\n\
+201110011840	66.9	67.1	66.6\n\
+201110011845	61.7	64.6	68.0\n\
+201110011850	61.8	61.6	70.6\n\
+201110011855	62.8	61.1	71.1\n\
+201110011900	60.8	59.2	70.0\n\
+201110011905	62.1	58.9	61.6\n\
+201110011910	65.1	57.2	57.4\n\
+201110011915	55.6	56.4	64.3\n\
+201110011920	54.4	60.7	72.4\n\
+201110011925	54.4	60.7	72.4\n\
+201110011930	54.4	60.7	72.4\n\
+201110011935	63.0	64.3	76.6\n\
+201110011940	66.9	67.1	66.6\n\
+201110011945	61.7	64.6	68.0\n\
+201110011950	61.8	61.6	70.6\n\
+201110011955	62.8	61.1	71.1\n\
+201110012000	60.8	59.2	70.0\n\
+201110012005	62.1	58.9	61.6\n\
+201110012010	65.1	57.2	57.4\n\
+201110012015	55.6	56.4	64.3\n\
+201110012020	54.4	60.7	72.4\n\
+201110012025	54.4	60.7	72.4\n\
+201110012030	54.4	60.7	72.4\n\
+201110012035	63.0	64.3	76.6\n\
+201110012040	66.9	67.1	66.6\n\
+201110012045	61.7	64.6	68.0\n\
+201110012050	61.8	61.6	70.6\n\
+201110012055	62.8	61.1	71.1\n\
+201110012100	60.8	59.2	70.0\n\
+201110012105	62.1	58.9	61.6\n\
+201110012110	65.1	57.2	57.4\n\
+201110012115	55.6	56.4	64.3\n\
+201110012120	54.4	60.7	72.4\n\
+201110012125	54.4	60.7	72.4\n\
+201110012130	54.4	60.7	72.4\n\
+201110012135	63.0	64.3	76.6\n\
+201110012140	66.9	67.1	66.6\n\
+201110012145	61.7	64.6	68.0\n\
+201110012150	61.8	61.6	70.6\n\
+201110012155	62.8	61.1	71.1\n\
+201110012200	60.8	59.2	70.0\n\
+201110012205	62.1	58.9	61.6\n\
+201110012210	65.1	57.2	57.4\n\
+201110012215	55.6	56.4	64.3\n\
+201110012220	54.4	60.7	72.4\n\
+201110012225	54.4	60.7	72.4\n\
+201110012230	54.4	60.7	72.4\n\
+201110012235	63.0	64.3	76.6\n\
+201110012240	66.9	67.1	66.6\n\
+201110012245	61.7	64.6	68.0\n\
+201110012250	61.8	61.6	70.6\n\
+201110012255	62.8	61.1	71.1\n\
+201110012300	60.8	59.2	70.0\n\
+201110012305	62.1	58.9	61.6\n\
+201110012310	65.1	57.2	57.4\n\
+201110012315	55.6	56.4	64.3\n\
+201110012320	54.4	60.7	72.4\n\
+201110012325	54.4	60.7	72.4\n\
+201110012330	54.4	60.7	72.4\n\
+201110012335	63.0	64.3	76.6\n\
+201110012340	66.9	67.1	66.6\n\
+201110012345	61.7	64.6	68.0\n\
+201110012350	61.8	61.6	70.6\n\
+201110012355	62.8	61.1	71.1\n"
+
+
 
         const node = this.node;
 
         var margin = {
-            top: 20,
+            top: 0,
             right: 0,
             bottom: 0,
-            left: 0
+            left: 15
           },
-          width = document.getElementsByClassName('wrapper-left')[0].offsetWidth,
+          width = 1 * (document.getElementsByClassName('wrapper-left')[0].offsetWidth),
           //width = this.props.width - margin.left - margin.right,
           //width = this.referMe.offsetWidth,
           //width = ReactDOM.findDOMNode(this).offsetWidth - margin.left - margin.right,
           //width = this.props.svg.width - margin.left - margin.right,
           //width = d3.select('.svg').node().element.getBoundingClientRect().width - margin.left - margin.right,
-          height = this.props.height - margin.top - margin.bottom;
+          //height = document.getElementsByClassName('wrapper-left')[0].offsetHeight - 100 - document.getElementsByClassName('hashtags')[0].offsetHeight;
+          height = width * 1;
+          document.getElementById('svg').style.height = height * 1;
+          document.getElementById('svg').style.width = width * 1;
 
         var parseDate = d3.timeParse("%Y%m%d%H%M");
 
@@ -98,11 +225,12 @@ var myData = "date	#cats	#climate	#hi\n\
           });
 
         {/*var svg = d3.select("body").append("svg")*/}
+        var string = "0 0 "+width*1.125+" "+height*1
         var svg = d3.select(node)
           //.attr("width", width + margin.left + margin.right)
           //.attr("height", height + margin.top + margin.bottom)
           .attr("preserveAspectRatio", "xMinYMin meet")
-          .attr("viewBox", "0 0 600 400")
+          .attr("viewBox", string)
           .append("g")
           .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -153,29 +281,31 @@ var myData = "date	#cats	#climate	#hi\n\
           .attr('class', 'legend');
 
         legend.append('rect')
-          .attr('x', width - 100)
+          .attr('x', width*0.98)
           .attr('y', function(d, i) {
-            return i * 20;
+            return (i + 1) * height/20;
           })
-          .attr('width', 10)
-          .attr('height', 10)
+          .attr('width', height/68)
+          .attr('height', height/68)
           .style('fill', function(d) {
             return color(d.name);
           });
 
         legend.append('text')
-          .attr('x', width - 88)
+          .attr('x', width*1)
           .attr('y', function(d, i) {
-            return (i * 20) + 9;
+            return (i + 1.3) * height/20;
           })
+          .attr("font-size", height/40 + "px")
           .text(function(d) {
             return d.name;
           });
 
         svg.append("g")
           .attr("class", "x axis")
-          .attr("transform", "translate(0," + height - 500 + ")")
-          .call(xAxis);
+          //.attr("transform", "translate(0," + height - 500 + ")")
+          .call(xAxis)
+          .attr("font-size", height/70 + "px");
 
         // svg.append("g")
         //   .attr("class", "y axis")
@@ -195,6 +325,7 @@ var myData = "date	#cats	#climate	#hi\n\
 
         city.append("path")
           .attr("class", "line")
+          .style("stroke-width", height/430)
           .attr("d", function(d) {
             return line(d.values);
           })
@@ -214,6 +345,7 @@ var myData = "date	#cats	#climate	#hi\n\
           })
           .attr("x", 3)
           .attr("dy", ".35em")
+          .attr("font-size", height/40 + "px")
           .text(function(d) {
             return d.name;
           });
@@ -236,12 +368,12 @@ var myData = "date	#cats	#climate	#hi\n\
           .attr("class", "mouse-per-line");
 
         mousePerLine.append("circle")
-          .attr("r", 7)
+          .attr("r", height/85)
           .style("stroke", function(d) {
             return color(d.name);
           })
           .style("fill", "none")
-          .style("stroke-width", "1px")
+          .style("stroke-width", height/400+"px")
           .style("opacity", "0");
 
         mousePerLine.append("text")
@@ -266,7 +398,8 @@ var myData = "date	#cats	#climate	#hi\n\
             d3.selectAll(".mouse-per-line circle")
               .style("opacity", "1");
             d3.selectAll(".mouse-per-line text")
-              .style("opacity", "1");
+              .style("opacity", "1")
+              .attr("font-size", height/60 + "px");
           })
           .on('mousemove', function() { // mouse moving over canvas
             var mouse = d3.mouse(this);

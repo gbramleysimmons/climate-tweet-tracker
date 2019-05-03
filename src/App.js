@@ -82,7 +82,7 @@ class App extends Component {
           <div className="title-block">
             <div className="title-text">Climate #Hashtag Tracker</div>
           </div>
-          <Graph data={[5,10,1,3]} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
+          <Graph data={[5,10,1,3]} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
           <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]}/>
         </div>
         <div className="wrapper-right">
