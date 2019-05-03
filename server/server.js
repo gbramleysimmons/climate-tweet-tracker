@@ -112,12 +112,6 @@ app.all("/authorize", function (request, response) {
 
 //defines socket listeners for this program.
 io.sockets.on('connection', function(socket){
-	socket.on('selectHashtag', async function(hashtags, callback){
-		//hashtags = list of selected hashtags
-		//callback should update the graph
-	    callback();
-	});
-
 	socket.on('authorize', function(username, password, callback) {
 		console.log(username);
 		console.log(password);
@@ -139,13 +133,6 @@ io.sockets.on('connection', function(socket){
 
 	});
 
-	socket.on('changeTimeFrame', function(range, callback){
-		//range = time range to display in graph
-		//callback should update the graph
-	    callback();
-	});
-
-	//TEMPORARY//
 	socket.on('displayData', async function(){
 		requestAllTweets(function(data) {
 			socket.emit('incomingFreq', data);

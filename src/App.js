@@ -11,28 +11,9 @@ import Console from "./Console";
 const socket = io.connect('http://localhost:8000');
 
 socket.emit('displayData');
-/*socket.on('data', function(displayData){
-    console.log(displayData);
-    for (var t in displayData) {
-        console.log("t:"+t);
-    }
-});
-socket.on('incomingFreq', function(freqData) {
-    let hashtags = freqData.hashtags; // returns a list of hashtags with certain length.
-    let dates = freqData.dates;
-    let now = freqData.now; // minute of now
-    let start = freqData.start; // minute of start (where the data starts)
-    let interval = freqData.interval; // one minute
-    let minutes = freqData.minutes; // used to index into the array
-    for (let hashtag in hashtags) {
-        for (let minute in minutes) {
-            //freqData.data[hashtag][minute]; // index into 2D array
-        }
-    }
-});*/
-
 socket.on('incomingFreq', function(freqData){
     let dataString = formatData(freqData);
+    console.log(dataString);
 });
 
 function formatData(data) {
@@ -67,7 +48,7 @@ function formatData(data) {
         myData[count][index+1]++;
       }
     }
-    console.log(dataToString(myData));
+    return dataToString(myData);
 }
 
 function parseDateString(tweetDate) {
