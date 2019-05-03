@@ -31,6 +31,20 @@ body {
   color: #61dafb;
 }
 
+.login-link {
+  color: grey;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+}
+
+.login-link:hover {
+  color: darkgray;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

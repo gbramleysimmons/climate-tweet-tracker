@@ -1,0 +1,63 @@
+.Login {
+    position: absolute;
+    top: 100px;
+    width: 300px;
+    height: 300px;
+    left: 50vw;
+    margin-left: -150px;
+    z-index: 500;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px solid lightgrey;
+
+}
+
+.login-form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+.login-input {
+    width: 150px;
+    margin: 10px auto;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid lightgrey
+
+}
+
+.login-form input[type="submit"] {
+    width: 100px;
+    border: none;
+    margin: auto;
+    font-weight: bold;
+    outline: none;
+    color: white;
+    border-radius: 10px;
+    background-color: dimgrey;
+    height: 20px;
+
+
+}
+.login-form input[type="submit"]:hover {
+    cursor: pointer;
+    background-color: darkgray;
+}
+
+
+.close-button {
+    color: lightgrey;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    outline: none;
+    border: none;
+}
+
+.close-button:hover {
+    color: darkgray;
+    cursor: pointer;
+}

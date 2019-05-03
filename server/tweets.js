@@ -13,6 +13,12 @@ class TweetRetriever {
 
         });
         this.database = new Database(conn);
+
+        //binds this to expected behavior
+        this.addTweetToDatabase = this.addTweetToDatabase.bind(this);
+        this.requestTweetsFromDate = this.requestTweetsFromDate.bind(this);
+        this.requestToDatabase = this.requestToDatabase.bind(this);
+        this.tweetObjectToData = this.tweetObjectToData.bind(this);
     }
 
     addTweetToDatabase(tweet) {
@@ -45,6 +51,25 @@ class TweetRetriever {
             });
         }
 
+        requestToDatabase(hashtag, date, count) {
+            const twit = this.twit;
+            const database = this.database;
+            const addToDatabase = this.addTweetToDatabase;
+            const tweetObjectToData = this.tweetObjectToData;
+            return new Promise(function (resolve, reject) {
+                const request = "#" + hashtag + " since:" + date;
+                twit.get('search/tweets', {q: request, count: count})
+                    .then(data => {
+                        data.data.statuses.map(ele => addToDatabase(tweetObjectToData(ele)));
+                        resolve(data);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    })
+            });
+
+        }
+
     /**
      * Turns an object retrieved from the twitter api to a parseable objct
      * @param tweet
@@ -58,7 +83,6 @@ class TweetRetriever {
                 contents: tweet.text,
                 hashtag: hashtag,
                 author: tweet.user.name,
-                image: tweet.user.profile_image_url;
             }
         }
     }

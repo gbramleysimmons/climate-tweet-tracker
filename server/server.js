@@ -85,13 +85,16 @@ function repl() {
 					twitter.requestTweetsFromDate(answer, "2019-4-30")
 						.then(data => {
 							console.log("here");
-							console.log(data.data.statuses);
+							const parsed = data.data.statuses.map(ele =>
+							twitter.tweetObjectToData(ele, answer));
+							console.log(parsed);
 							repl();
 						}) .catch(error => {
 						console.log(error);
 						repl();
 					})
 				});
+				q
 				break;
 			default:
 				console.log("Command not recognized");
@@ -101,6 +104,10 @@ function repl() {
 	});
 };
 
+
+app.all("/authorize", function (request, response) {
+
+});
 //starts server
 
 //defines socket listeners for this program.
@@ -109,6 +116,27 @@ io.sockets.on('connection', function(socket){
 		//hashtags = list of selected hashtags
 		//callback should update the graph
 	    callback();
+	});
+
+	socket.on('authorize', function(username, password, callback) {
+		console.log(username);
+		console.log(password);
+		const toSend = {validated: false};
+		login.validateLogin(username, password)
+			.then(res => {
+				if (res) {
+					toSend.validated = true;
+				} else {
+					toSend.error = "Error: Invalid Credentials"
+				}
+				callback(JSON.stringify(toSend))
+
+			}).catch(error => {
+			toSend.error = error.toString();
+			callback(JSON.stringify(toSend));
+
+		})
+
 	});
 
 	socket.on('changeTimeFrame', function(range, callback){
@@ -122,7 +150,7 @@ io.sockets.on('connection', function(socket){
 		/*let tweetData = twitter.requestTweetsFromDate("test", "2019-05-01");
 		socket.emit('data', tweetData);
 		console.log(tweetData);*/
-		
+
 		/*requestTweets("test", "date", function(data) {
 			socket.emit('data', data);
 			console.log(data);
@@ -162,6 +190,8 @@ async function requestAllTweets(callback) {
 }
 
 repl();
+
+app.listen(4567);
 
 server.listen(8080, function() {
 	console.log('- Server listening on port 8080'.cyan);

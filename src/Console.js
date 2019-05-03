@@ -4,18 +4,31 @@ import React, { Component } from 'react';
 class Console extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            displayHashtags: ["displat"],
+            trackHashtags: ["test"]
+        }
     }
+
+
 
     render() {
         return (
             <div className="Console">
                 <div className={"current"}>
                     Current Hashtags Being Tracked:
+                    {this.state.trackHashtags.map(ele => {
+                        return <span>#{ele}</span>
+                    })}
                     <button id={"edit-button"}> Edit</button>
                 </div>
-                <form className={"hashtag-form"}>
-                   Add Hashtags to Track: <input type={"text"} id={"hashtag-input"}/>
-                </form>
+                <div className={"display"}>
+                    Current Hashtags Being Tracked:
+                    {this.state.displayHashtags.map(ele => {
+                        return <span>#{ele}</span>
+                    })}
+                    <button id={"edit-button"}> Edit</button>
+                </div>
                 <button className={"csv-download"}>Export database to a CSV file</button>
 
             </div>
