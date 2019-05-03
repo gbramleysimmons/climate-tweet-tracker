@@ -10,8 +10,8 @@ class Login {
     /**
      * Creates a new login object.
      */
-    constructor() {
-        this.database = new Database.Database();
+    constructor(conn) {
+        this.database = new Database(conn);
         this.database.query("CREATE TABLE IF NOT EXISTS login (\n" +
             "  username TEXT," +
             "  pass VARCHAR(512)," +
@@ -131,6 +131,4 @@ class Login {
 
 }
 
-module.exports = {
-    Login: Login
-};
+module.exports = Login;

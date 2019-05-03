@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const mocha = require('mocha');
 const Database = require("../database.js");
-const database = new Database.Database();
+const database = new Database.Database('mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db');
 const Login = require("../login.js");
 
 //Tests for the database code
@@ -86,8 +86,6 @@ describe("Login.addNewUser()", function() {
                .catch(error => {
                    expect(error).to.equal("");
                })
-
-
         })
 });
 
@@ -149,3 +147,5 @@ describe("Login.removeUser()", function() {
         });
     });
 });
+
+describe("TweetRequest")

@@ -1,19 +1,19 @@
 
-const db = require('mysql');
-const url = 'mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db';
-const conn = db.createConnection(url);
 
 
 /**
  * Models a database with url url.
  */
 class Database {
-    constructor() {
+    constructor(connection) {
+        this.conn = connection;
+
         this.query = this.query.bind(this);
         this.close = this.close.bind(this);
     }
 
     query(statement, args) {
+        const conn = this.conn;
         return new Promise(function (resolve, reject) {
             conn.query(statement, args, function (error, data) {
                 if (error) {
@@ -25,6 +25,7 @@ class Database {
     }
 
     close() {
+        const conn = this.conn;
         return new Promise(function (resolve, reject) {
             conn.end(error => {
                 if (error) {
@@ -38,6 +39,4 @@ class Database {
 }
 
 
-module.exports = {
-    Database: Database
-};
+module.exports = Database;
