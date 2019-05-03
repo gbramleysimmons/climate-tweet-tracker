@@ -37,14 +37,21 @@ socket.on('data', function(displayData){
 function formatData(data) {
     let hashtags = [];
     for (let t in data) {
-        if (hashtags.indexOf(data[t].hashtag) === -1)
-          hashtags.push(data[t].hashtag);
+      if (hashtags.indexOf(data[t].hashtag) === -1)
+        hashtags.push(data[t].hashtag);
     }
-    let myData = "date";
+    /*let myData = "date";
     for (let x in hashtags) {
       myData = myData + " #" + hashtags[x];
     }
     myData += "\n";
+    console.log(myData);*/
+    let myData = [];
+    let row1 = ["date"];
+    for (let x in hashtags) {
+      row1.push("#" + hashtags[x]);
+    }
+    myData.push(row1);
     console.log(myData);
 }
 

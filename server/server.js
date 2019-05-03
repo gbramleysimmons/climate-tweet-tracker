@@ -141,7 +141,7 @@ io.sockets.on('connection', function(socket){
 
 async function requestTweets(hashtag, date, callback) {
 	let values = [hashtag, date];
-	database.query('SELECT * FROM tweets WHERE hashtag = ? AND date = ?', values)
+	database.query('SELECT * FROM tweets WHERE hashtag = ? AND date = ? ORDER BY date', values)
 		.then(data => {
 			callback(data);
 		})
