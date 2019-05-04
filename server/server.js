@@ -135,7 +135,15 @@ io.sockets.on('connection', function(socket){
 
 	socket.on('displayData', async function(){
 		requestAllTweets(function(data) {
-			socket.emit('incomingFreq', data);
+			socket.emit('tweetsForGraph', data);
+		});
+	});
+
+	socket.on('updateFeed', async function(){
+		let hashtags = ["cats", "climate"];
+		requestByHashtag(hashtags, function(data){
+			console.log(data);
+			socket.emit('tweetsForFeed', data);
 		});
 	});
 
@@ -145,9 +153,16 @@ io.sockets.on('connection', function(socket){
 
 });
 
-async function requestTweets(hashtag, date, callback) {
-	let values = [hashtag, date];
-	database.query('SELECT * FROM tweets WHERE hashtag = ? AND date = ? ORDER BY date', values)
+//TO-DO: DECIDE ON LIMIT FOR DATABASE FUNCTIONS
+async function requestByHashtag(hashtags, callback) {
+	let where = "(";
+	let array = [];
+	for (let i = 0; i < hashtags.length; i++) {
+		array.push("?");
+	}
+	where += array.join(",") + ")";
+	query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 50';
+	database.query(query, hashtags)
 		.then(data => {
 			callback(data);
 		})
@@ -156,9 +171,8 @@ async function requestTweets(hashtag, date, callback) {
 		});
 }
 
-//TO-DO: LIMIT SIZE OF DATA RETURNED BY THIS FUNCTION
 async function requestAllTweets(callback) {
-	database.query('SELECT * FROM tweets LIMIT 50')
+	database.query('SELECT * FROM tweets ORDER BY date LIMIT 50')
 		.then(data => {
 			callback(data);
 		})

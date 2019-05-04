@@ -11,7 +11,7 @@ import Console from "./Console";
 const socket = io.connect('http://localhost:8000');
 
 socket.emit('displayData');
-socket.on('incomingFreq', function(freqData){
+socket.on('tweetsForGraph', function(freqData){
     let dataString = formatData(freqData);
     console.log(dataString);
 });
@@ -77,38 +77,17 @@ function dataToString(data) {
   return dataString;
 }
 
-let tweets = [
-    {
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        author: "Author 1",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    },
-    {
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        author: "Author 2",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare."
-    },
-    {
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        author: "Author 3",
-        text: "Lorem ipsum."
-    },
-    {
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        author: "Author 4",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare. Nam ac sapien et sem viverra consectetur at vel lacus. Donec cursus commodo viverra."
-    },
-    {
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        author: "Author 5",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare."
-    },
-    {
-        image: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-        author: "Author 6",
-        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie vehicula ornare. Nam ac sapien et sem viverra consectetur at vel lacus. Donec cursus commodo viverra."
-    }
-];
+function formatTweets(data) {
+  let tweetList = [];
+  for (let t in data) {
+    let tweetObj = {};
+    tweetObj["image"] = data[t].picture;
+    tweetObj["author"] = data[t].author;
+    tweetObj["text"] = data[t].contents;
+    tweetList.push(tweetObj);
+  }
+  return tweetList;
+}
 
 class App extends Component {
   constructor(props) {
@@ -118,13 +97,19 @@ class App extends Component {
           login: false,
           authorized: false,
           user: "",
-          console: false
+          console: false,
+          tweets: []
       }
   }
 
   componentDidMount() {
       this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
       console.log("this.offsetW in App.js:" + this.offsetW);
+      socket.emit('updateFeed');
+      socket.on('tweetsForFeed', (tweetData) => {
+        let tweets = formatTweets(tweetData);
+        this.setState({tweets: tweets});
+      });
   }
 
   toggleLogin = () => {
@@ -159,7 +144,7 @@ class App extends Component {
                       <div className="school">Brown University</div>
                       <div className="lab">Climate Development Lab</div>
                   </div>
-                  <TweetContainer tweets={tweets}/>
+                  <TweetContainer tweets={this.state.tweets}/>
               </div>
           </div>}
 
