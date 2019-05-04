@@ -11,7 +11,6 @@
     border: 2px solid lightgrey;
 
 }
-
 .login-form {
     margin-top: 30px;
     display: flex;
@@ -26,7 +25,6 @@
     border-radius: 10px;
     outline: none;
     border: 1px solid lightgrey
-
 }
 
 .login-form input[type="submit"] {
@@ -39,9 +37,8 @@
     border-radius: 10px;
     background-color: dimgrey;
     height: 20px;
-
-
 }
+
 .login-form input[type="submit"]:hover {
     cursor: pointer;
     background-color: darkgray;
