@@ -2,7 +2,7 @@
     width: 100%;
     height: 450px;
     border: 4px solid lightgrey;
-    background-image: url("../img/graph.png") ;
     background-size: 400px;
     margin-bottom: 15px;
+    border-radius: 20px;
 }

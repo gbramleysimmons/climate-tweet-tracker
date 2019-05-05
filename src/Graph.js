@@ -446,7 +446,9 @@ var myData = "date	#cats	#climate	#hi\n\
         console.log("lines:"+ this.props.lines);
         console.log("width:"+ this.props.width);
         return (
+            <div className={"Graph"}>
             <div id="svg"><svg ref={node => this.node = node}></svg></div>
+            </div>
         );
     }
 }

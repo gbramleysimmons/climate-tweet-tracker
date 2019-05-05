@@ -33,6 +33,7 @@ class Login {
 
         const database = this.database;
         const sha512 = this.sha512;
+
         const getSalt = this.getSalt;
         return new Promise(function (resolve, reject) {
 
@@ -68,7 +69,7 @@ class Login {
      validateLogin (username, password) {
         const database = this.database;
         const sha512 = this.sha512;
-       return new Promise (function(resolve, reject) {
+        return new Promise (function(resolve, reject) {
            database.query("SELECT * FROM login WHERE username = ?", [username])
                .then((data) => {
                    if(data.length === 0) {

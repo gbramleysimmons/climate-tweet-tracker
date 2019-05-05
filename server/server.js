@@ -10,6 +10,8 @@ const db = require('mysql');
 const http = require('http');
 const express = require('express');
 const readline = require('readline');
+const CryptoJS = require('crypto-js');
+
 
 //project objects
 const app = express();
@@ -45,7 +47,7 @@ function repl() {
 			case "signup":
 				rl.question("username: ", function(username) {
 					rl.question("password: ", function (password) {
-						login.addNewUser(username, password)
+						login.addNewUser(username, CryptoJS.SHA256(password).toString())
 							.then(res => {
 								repl();
 							}) .catch(error => {
@@ -59,7 +61,7 @@ function repl() {
 			case "login":
 				rl.question("username: ", function(username) {
 					rl.question("password: ", function (password) {
-						login.validateLogin(username, password)
+						login.validateLogin(username, CryptoJS.SHA256(password).toString())
 							.then(valid => {
 								if (valid) {
 									authorized["repl"] = true;
@@ -94,7 +96,7 @@ function repl() {
 						repl();
 					})
 				});
-				q
+
 				break;
 			default:
 				console.log("Command not recognized");
@@ -161,7 +163,7 @@ async function requestByHashtag(hashtags, callback) {
 		array.push("?");
 	}
 	where += array.join(",") + ")";
-	query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 50';
+	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 50';
 	database.query(query, hashtags)
 		.then(data => {
 			callback(data);

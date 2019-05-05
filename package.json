@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "cryptojs": "^2.5.3",
     "d3": "^5.9.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
     "react-scripts": "2.1.8",
     "socket.io-client": "^2.2.0",
-    "twit": "^2.2.11"
+    "twit": "^2.2.11",
+    "typescript": "^3.4.5"
   },
   "scripts": {
     "start": "react-scripts start",

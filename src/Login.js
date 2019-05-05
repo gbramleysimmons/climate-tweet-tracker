@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {socket} from "./App";
 import "./css/Login.css";
+import CryptoJs from 'crypto-js';
 
 class Login extends Component {
     constructor(props) {
@@ -20,12 +21,7 @@ class Login extends Component {
         event.preventDefault();
 
         const username = event.target[0].value;
-        const password = event.target[1].value;
-
-        const toSend = {
-            username: username,
-            password: password
-        };
+        const password = CryptoJs.SHA256(event.target[1].value).toString();
 
        socket.emit("authorize", username, password, (res) => {
            const response = JSON.parse(res);
