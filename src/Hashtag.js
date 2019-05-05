@@ -34,10 +34,15 @@ class Hashtag extends Component {
      * selected
      */
     on_click = () => {
+        console.log(this.state);
+
         !this.state.selected ? this.setState({curr_color: this.state.color.selected}):
-            this.setState({curr_color: this.state.color.main})
-        this.setState({selected: !this.state.selected});
+            this.setState({curr_color: this.state.color.main});
+
+
         console.log("curr_color: "+this.state.curr_color);
+        console.log(this.state);
+
     };
 
 

@@ -14,12 +14,68 @@ class TweetRetriever {
         });
         this.database = new Database(conn);
 
+        this.database.query("CREATE TABLE IF NOT EXISTS track(hashtag TEXT)");
+        this.database.query("CREATE TABLE IF NOT EXISTS display(hashtag TEXT)");
+
         //binds this to expected behavior
         this.addTweetToDatabase = this.addTweetToDatabase.bind(this);
         this.requestTweetsFromDate = this.requestTweetsFromDate.bind(this);
         this.requestToDatabase = this.requestToDatabase.bind(this);
         this.tweetObjectToData = this.tweetObjectToData.bind(this);
+        this.getCurrentlyTracked = this.getCurrentlyTracked.bind(this);
+        this.addToCurrentlyTracked = this.addToCurrentlyTracked.bind(this);
+        this.removeFromCurrentlyTracked = this.removeFromCurrentlyTracked.bind(this);
+        this.setCurrentlyTracked = this.setCurrentlyTracked.bind(this);
+
     }
+
+    getCurrentlyTracked() {
+        return new Promise((resolve, reject) => {
+            this.database.query("SELECT * FROM track;")
+                .then(data => {
+                    console.log(data);
+                    data.map(ele => {
+                        return ele;
+                    });
+                })
+        })
+    };
+
+    addToCurrentlyTracked(hashtag){
+        return new Promise((resolve, reject) => {
+            this.database.query("INSERT INTO track VALUES(?);", [hashtag])
+                .then(resolve)
+                .catch(error => reject(error));
+        });
+    };
+
+    removeFromCurrentlyTracked(hashtag) {
+        return new Promise((resolve, reject) => {
+            this.database.query("DELETE FROM track WHERE hashtag=?;", [hashtag])
+                .then(resolve)
+                .catch(error => reject(error));
+        });
+    };
+
+    setCurrentlyTracked(hashtags){
+        return new Promise((resolve, reject) => {
+            this.database.query("DELETE FROM track;")
+                .then(() => {
+                    let query = "INSERT INTO track VALUES";
+                    for (let i in query) {
+                        query += "(?),";
+                    }
+                    query.slice(0, query.length-2);
+                    query += ";";
+                    this.database.query(query, hashtags)
+                        .then(resolve)
+                        .catch(error => reject(error))
+                })
+                .catch(error => reject(error));
+        });
+    };
+
+
 
     addTweetToDatabase(tweet) {
         let values = [tweet.id, tweet.hashtag, tweet.contents, tweet.author, tweet.date, tweet.image];
@@ -28,6 +84,9 @@ class TweetRetriever {
                 console.error(error);
             });
     }
+
+
+
 
 
 
