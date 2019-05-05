@@ -173,14 +173,13 @@ io.sockets.on('connection', function(socket){
 
 	});
 
-	socket.on('displayData', async function(){
-		requestAllTweets(function(data) {
+	socket.on('displayData', async function(hashtags){
+		requestByHashtag(hashtags, function(data) {
 			socket.emit('tweetsForGraph', data);
 		});
 	});
 
-	socket.on('updateFeed', async function(){
-		let hashtags = ["cats", "climate"];
+	socket.on('updateFeed', async function(hashtags){
 		requestByHashtag(hashtags, function(data){
 			console.log(data);
 			socket.emit('tweetsForFeed', data);
@@ -201,7 +200,7 @@ async function requestByHashtag(hashtags, callback) {
 		array.push("?");
 	}
 	where += array.join(",") + ")";
-	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 50';
+	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
 	database.query(query, hashtags)
 		.then(data => {
 			callback(data);

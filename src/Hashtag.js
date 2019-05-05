@@ -34,14 +34,16 @@ class Hashtag extends Component {
      * selected
      */
     on_click = () => {
-        console.log(this.state);
+        if (!this.state.selected)  {
+            this.setState({selected: true, curr_color: this.state.color.selected});
+            this.props.toggleSelect(this.props.hashtag, true);
 
-        !this.state.selected ? this.setState({curr_color: this.state.color.selected}):
-            this.setState({curr_color: this.state.color.main});
+        } else {
+            this.setState({selected: false, curr_color: this.state.color.main});
+            this.props.toggleSelect(this.props.hashtag, false);
 
+        }
 
-        console.log("curr_color: "+this.state.curr_color);
-        console.log(this.state);
 
     };
 

@@ -172,8 +172,6 @@ var myData = "date	#cats	#climate	#hi\n\
 201110012350	61.8	61.6	70.6\n\
 201110012355	62.8	61.1	71.1\n"
 
-
-
         const node = this.node;
 
         var margin = {
@@ -412,7 +410,7 @@ var myData = "date	#cats	#climate	#hi\n\
 
             d3.selectAll(".mouse-per-line")
               .attr("transform", function(d, i) {
-                console.log(width/mouse[0])
+                //console.log(width/mouse[0])
                 var xDate = x.invert(mouse[0]),
                     bisect = d3.bisector(function(d) { return d.date; }).right;
                     let idx = bisect(d.values, xDate);
