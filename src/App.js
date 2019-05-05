@@ -6,15 +6,8 @@ import TweetContainer from "./TweetContainer";
 import io from 'socket.io-client';
 import Login from './Login';
 import Console from "./Console";
-//import * as d3 from "d3";
 
 const socket = io.connect('http://localhost:8000');
-
-socket.emit('displayData');
-socket.on('tweetsForGraph', function(freqData){
-    let dataString = formatData(freqData);
-    console.log(dataString);
-});
 
 function formatData(data) {
     let hashtags = [];
@@ -98,7 +91,8 @@ class App extends Component {
           authorized: false,
           user: "",
           console: false,
-          tweets: []
+          tweets: [],
+          data: ""
       }
   }
 
@@ -109,6 +103,12 @@ class App extends Component {
       socket.on('tweetsForFeed', (tweetData) => {
         let tweets = formatTweets(tweetData);
         this.setState({tweets: tweets});
+      });
+      socket.emit('displayData');
+      socket.on('tweetsForGraph', (freqData) => {
+          let dataString = formatData(freqData);
+          this.setState({data: dataString});
+          console.log(dataString);
       });
   }
 
@@ -136,7 +136,7 @@ class App extends Component {
                   <div className="title-block">
                       <div className="title-text">Climate #Hashtag Tracker</div>
                   </div>
-                  <Graph data={[5,10,1,3]} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
+                  <Graph freq={this.state.data} data={[5,10,1,3]} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
                   <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]}/>
               </div>
               <div className="wrapper-right">
