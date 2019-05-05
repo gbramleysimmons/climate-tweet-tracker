@@ -37,7 +37,9 @@ class Hashtag extends Component {
         !this.state.selected ? this.setState({curr_color: this.state.color.selected}):
             this.setState({curr_color: this.state.color.main})
         this.setState({selected: !this.state.selected});
+        this.props.toggleSelect(this.props.hashtag, this.state.selected);
         console.log("curr_color: "+this.state.curr_color);
+        console.log(this.state.selected);
     };
 
 
