@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import "./css/Console.css";
+import {socket} from "./App.js";
 
 
 class Console extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayHashtags: ["display"],
-            trackHashtags: ["test"],
+            displayHashtags: this.props.displaying,
+            trackHashtags: this.props.tracking,
             editingTracking: false,
             editingDisplay: false,
         }
@@ -63,10 +64,25 @@ class Console extends Component {
     };
 
 
+    confirmDisplay = () => {
+        this.toggleDisplay();
+        console.log("confirm!!" + this.state.displayHashtags);
+        socket.emit("setDisplayed", this.state.displayHashtags);
+
+    };
+
+    confirmTracking = () => {
+        this.toggleTracking();
+        socket.emit("setTracked", this.state.trackHashtags);
+
+    };
+
+
     render() {
+        console.log(this.props);
         return (
             <div className="Console">
-                <div className={"current"}>
+                <div className={"current track"}>
                     <h3> Current Hashtags Being Tracked: </h3>
                     {this.state.editingTracking ?
                         <div>
@@ -79,6 +95,8 @@ class Console extends Component {
                                 <input id={"tracking-input"} type={"text"} placeholder={"Add hashtags to track"}/>
                                 <input type={"submit"} value={"Add"}/>
                             </form>
+                            <button onClick={this.confirmTracking}>Confirm</button>
+
                         </div> :<div>
                             {this.state.trackHashtags.map(ele => {
                                 return <div className={"hashtag-curr"} >#{ele}</div>
@@ -90,7 +108,7 @@ class Console extends Component {
 
                 </div>
 
-                <div className={"display"}>
+                <div className={"current display"}>
                     <h3>  Current Hashtags Being Displayed: </h3>
                     {this.state.editingDisplay ?
                         <div>
@@ -103,11 +121,13 @@ class Console extends Component {
                                 <input id={"display-input"} type={"text"} placeholder={"Add hashtags to track"}/>
                                 <input type={"submit"} value={"Add"}/>
                             </form>
+                            <button onClick={this.confirmDisplay}>Confirm</button>
                         </div> :<div>
                             {this.state.displayHashtags.map(ele => {
                                 return <div className={"hashtag-curr"} >#{ele}</div>
                             })}
                             <button className={"admin-button"} onClick={this.toggleDisplay} id={"edit-button"}>Edit</button>
+
                         </div>
 
                     }

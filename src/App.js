@@ -93,7 +93,8 @@ class App extends Component {
           console: false,
           tweets: [],
           data: "",
-          hashtags: []
+          tracking: [],
+          displaying: []
       }
   }
 
@@ -108,9 +109,23 @@ class App extends Component {
       socket.emit('displayData', ["cats", "climate", "pizza"]);
       socket.on('tweetsForGraph', (freqData) => {
           let dataString = formatData(freqData);
+        let tweets = formatTweets(tweetData);
+        this.setState({tweets: tweets});
+      });
+      socket.emit('displayData', ["cats", "climate", "pizza"]);
+      socket.on('tweetsForGraph', (freqData) => {
+          let dataString = formatData(freqData);
           this.setState({data: dataString});
           console.log("App.js freq data: "+dataString);
       });
+
+      socket.on("updateHashtags", (recieved) => {
+          console.log("data!!!");
+          const data = JSON.parse(recieved);
+          console.log(data);
+          this.setState({tracking: data.tracked, displaying: data.displayed})
+          }
+      )
   }
 
   toggleLogin = () => {
@@ -131,11 +146,11 @@ class App extends Component {
   };
 
   render() {
-      console.log("APP line 128 this.state.data: "+this.state.data);
+      console.log(this.state);
     return (
 
       <div className="App">
-          {this.state.console ? <Console/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
+          {this.state.console ? <Console tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
               <div className={"login-link"}>{this.state.authorized ? <span onClick={this.toggleConsole}> Welcome, {this.state.user} </span> : <span onClick={this.toggleLogin}>Admin</span>}</div>
               <div className="wrapper-left">
                   <div className="title-block">

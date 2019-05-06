@@ -11,7 +11,7 @@ const Login = require("../login.js");
 const TweetRetriever = require('../tweets.js');
 
 //Tests for the database code
-describe("Database.query()", function() {
+describe("Database.query()", function(done) {
     it("should make a database query", function () {
         database.query("CREATE TABLE IF NOT EXISTS test (testCol TEXT);")
             .then(() => {
@@ -23,6 +23,7 @@ describe("Database.query()", function() {
                                expect(data).to.have.lengthOf(1);
                                expect(data[0]).to.have.property("testCol");
                                expect(data[0].testCol).to.equal("test");
+                               done();
                            }).catch(error => {
                            expect(error).to.equal("");
                        });
@@ -51,7 +52,6 @@ describe("Login.getSalt()", function() {
       expect(salt2).to.have.lengthOf(16);
       expect(salt1).to.not.equal(salt2);
 
-
     });
 });
 
@@ -76,7 +76,7 @@ describe("Login.sha512()", function() {
 describe("Login.addNewUser()", function() {
     const login = new Login(conn);
 
-    it("should add a user and password to the database", function () {
+    it("should add a user and password to the database", function (done) {
            const name = "addnewuser";
            const password = "password";
            login.addNewUser(name, "")
@@ -89,6 +89,7 @@ describe("Login.addNewUser()", function() {
                            expect(data[0]).to.have.property("username");
                            expect(data[0]).to.have.property("salt");
                            expect(data[0].pass).to.not.equal(password);
+                           done();
                        });
                })
                .catch(error => {
@@ -97,7 +98,7 @@ describe("Login.addNewUser()", function() {
         })
 });
 
-describe("Login.validateLogin()", function() {
+describe("Login.validateLogin()", function(done) {
     const login = new Login(conn);
     it("should check if a username and password combination is in the database", function() {
         const name = "validate";
@@ -109,6 +110,7 @@ describe("Login.validateLogin()", function() {
                     .then(valid => {
                         expect(valid).to.equal(true);
                         login.removeUser(name);
+                        done();
                     }) .catch (error => {
                     login.removeUser(name);
                     expect(error).to.equal("");
@@ -134,7 +136,7 @@ describe("Login.validateLogin()", function() {
 describe("Login.removeUser()", function() {
     const login = new Login(conn);
 
-    it("should remove a user from the database", function() {
+    it("should remove a user from the database", function(done) {
         const name = "removeUserTest";
         const password = "password";
         login.addNewUser(name, password)
@@ -144,6 +146,7 @@ describe("Login.removeUser()", function() {
                         database.query("SELECT * FROM login WHERE username=?", [name])
                             .then(data => {
                                 expect(data).to.have.lengthOf(0);
+                                done();
                             }).catch(error =>  {
                             expect(error).to.equal("");
                         });
@@ -159,18 +162,21 @@ describe("Login.removeUser()", function() {
 
 
 describe("TweetRetriever.addToCurrentlyTracked()", function() {
-    it ("should add a hashtag to the list of currently tracked hashtags", function() {
+    it ("should add a hashtag to the list of currently tracked hashtags", function(done) {
         const tr = new TweetRetriever(conn);
         const database = new Database(conn);
-        tr.addToCurrentlyTracked("test2")
+        tr.addToCurrentlyTracked("test676")
             .then(() => {
-                database.query("SELECT * FROM track WHERE hashtag=test2")
+                database.query("SELECT * FROM track WHERE hashtag=\"test676\"")
                     .then(data => {
                         expect(data).to.have.lengthOf(1);
-                        expect(data[0]).to.have.propertyOf("hashtag");
-                        expect(data[0].hashtag).to.equal("test2");
+                        expect(data[0]).to.have.property("hashtag");
+                        expect(data[0].hashtag).to.equal("test676");
                     }) .then(() => {
                         database.query(("DELETE FROM track;"))
+                        .then(() => {
+                            done();
+                        })
                 })
 
             })
@@ -181,19 +187,67 @@ describe("TweetRetriever.addToCurrentlyTracked()", function() {
 });
 
 describe("TweetRetriever.removeFromCurrentlyTracked()", function () {
-    it("should remove a hashtag from the list of currently tracked hashtags", function () {
+    it("should remove a hashtag from the list of currently tracked hashtags", function (done) {
         const tr = new TweetRetriever(conn);
         const database = new Database(conn);
 
         tr.addToCurrentlyTracked("test2")
             .then(() => {
-                    database.query("SELECT * FROM track WHERE hashtag=test2")
-                        .then(data => {
-                            expect(data).to.have.lengthOf(0);
-                        })
-                })
+                tr.removeFromCurrentlyTracked("test2")
+                    .then(() => {
+                        database.query("SELECT * FROM track WHERE hashtag=\"test2\"")
+                            .then(data => {
+                                console.log(data);
+                                expect(data).to.have.lengthOf(0);
+                                done();
+                            })
+                    })
+            })
+
     })
 });
+
+
+describe("TweetRetriever.setCurrentlyTracked()", function() {
+    it("should set the list of currently tracked hashtags to a specified list", function(done) {
+        const tr = new TweetRetriever(conn);
+        const database = new Database(conn);
+        tr.setCurrentlyTracked(["cats", "dogs", "fish"])
+            .then(() => {
+                database.query("SELECT * FROM track;")
+                    .then(data => {
+                        expect(data).to.have.lengthOf(3);
+                        expect(data[0]).to.have.property("hashtag");
+                        expect(data[0].hashtag).to.equal("cats");
+                        expect(data[1].hashtag).to.equal("dogs");
+                        expect(data[2].hashtag).to.equal("fish");
+                        done();
+                    })
+            })
+    });
+});
+
+
+describe("TweetRetriever.setCurrentlyDisplayed()", function() {
+    it("should set the list of currently tracked hashtags to a specified list", function(done) {
+        const tr = new TweetRetriever(conn);
+        const database = new Database(conn);
+        tr.setCurrentlyDisplayed(["cats", "dogs", "fish"])
+            .then(() => {
+
+                database.query("SELECT * FROM display;")
+                    .then(data => {
+                        expect(data).to.have.lengthOf(3);
+                        expect(data[0]).to.have.property("hashtag");
+                        expect(data[0].hashtag).to.equal("cats");
+                        expect(data[1].hashtag).to.equal("dogs");
+                        expect(data[2].hashtag).to.equal("fish");
+                        done();
+                    })
+            })
+    });
+});
+
 
 
 // describe("TweetRetriever.getCurrentlyTracked()", function() {

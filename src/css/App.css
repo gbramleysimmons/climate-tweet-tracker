@@ -33,15 +33,16 @@ body {
 }
 
 .login-link {
-  color: grey;
+  color: #515151;
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -25px;
+  top: 5px;
+  z-index: 9;
   width: 200px;
 }
 
 .login-link:hover {
-  color: darkgray;
+  color: #353535;
   cursor: pointer;
   text-decoration: underline;
 }

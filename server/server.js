@@ -78,6 +78,7 @@ function repl() {
 					})
 				});
 				break;
+
 			case "retrieve":
 				if (!authorized["repl"]) {
 					console.log("operation not permitted");
@@ -105,7 +106,7 @@ function repl() {
 					rl.question("new hashtag: ", function(answer) {
 						twitter.addToCurrentlyTracked(answer)
 							.then(() => {
-								console.log(answer + " has been added to the tracked set");
+								console.log("#" + answer + " has been added to the tracked set");
 								repl();
 							}) .catch(error => {console.err(error); repl();})
 					});
@@ -116,7 +117,7 @@ function repl() {
 					console.log("operation not permitted");
 					repl();
 				} else {
-					rl.question("hashtag: to remove", function(answer) {
+					rl.question("hashtag to remove: ", function(answer) {
 						twitter.removeFromCurrentlyTracked(answer)
 							.then(() => {
 								console.log(answer + " has been removed from the tracked set");
@@ -127,14 +128,60 @@ function repl() {
 				break;
 			case "get-tracked":
 				twitter.getCurrentlyTracked(answer)
-					.then(repl)
+					.then(data => {
+						data.forEach(ele => console.log(ele));
+						repl();
+						}
+					)
+					.catch(error => {console.err(error); repl()});
+
+				break;
+
+			case "add-displayed":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("new hashtag: ", function(answer) {
+						twitter.addToCurrentlyDisplayed(answer)
+							.then(() => {
+								console.log("#" + answer + " has been added to the displayed set");
+								repl();
+							}) .catch(error => {console.err(error); repl();})
+					});
+				}
+				break;
+			case "remove-displayed":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("hashtag to remove: ", function(answer) {
+						twitter.removeFromCurrentlyDisplayed(answer)
+							.then(() => {
+								console.log(answer + " has been removed from the displayed set");
+								repl();
+							}) .catch(error => {console.err(error); repl();})
+					});
+				}
+				break;
+			case "get-displayed":
+				twitter.getCurrentlyDisplayed(answer)
+					.then(data => {
+							data.forEach(ele => console.log(ele));
+							repl();
+						}
+					)
 					.catch(error => {console.err(error); repl()});
 
 				break;
 			case "help":
-				console.log("login: login with existing credentials \n " +
+				console.log(" login: login with existing credentials \n " +
 					"signup: signup with new credentials \n retrieve: retrieve tweets with specfied hashtags (must be authorized)" +
-					"\n get-tracked: retrieve currently tracked tweets \n add-tracked: add tweet to be tracked \n remove-tracked: remove tweet from tracked list");
+					"\n get-tracked: retrieve currently trackaed hashtags \n add-tracked: add hashtag to be tracked " +
+					"\n remove-tracked: remove tweet from tracked list \n get-displayed: retrieve currently displayable hashtags" +
+					"\n add-displayed: add hashtag to be displayable \n remove-displayed: remove hashtag from display list");
+				repl();
 				break;
 			default:
 				console.log("Command not recognized");
@@ -145,13 +192,21 @@ function repl() {
 };
 
 
-app.all("/authorize", function (request, response) {
-
-});
-//starts server
-
 //defines socket listeners for this program.
 io.sockets.on('connection', function(socket){
+		twitter.getCurrentlyDisplayed()
+			.then(data => {
+				twitter.getCurrentlyTracked()
+					.then(tracked => {
+						const toSend = {
+							displayed: data,
+							tracked: tracked,
+						};
+						socket.emit("updateHashtags", JSON.stringify(toSend));
+					});
+
+			});
+
 	socket.on('authorize', function(username, password, callback) {
 		console.log(username);
 		console.log(password);
@@ -168,10 +223,20 @@ io.sockets.on('connection', function(socket){
 			}).catch(error => {
 			toSend.error = error.toString();
 			callback(JSON.stringify(toSend));
-
 		})
 
 	});
+
+	socket.on("setDisplayed", function(hashtags) {
+		console.log(hashtags);
+		twitter.setCurrentlyDisplayed(hashtags);
+	});
+
+	socket.on("setTracked", function(hashtags) {
+		console.log(hashtags);
+		twitter.setCurrentlyTracked(hashtags);
+	});
+
 
 	socket.on('displayData', async function(hashtags){
 		requestByHashtag(hashtags, function(data) {
@@ -189,6 +254,8 @@ io.sockets.on('connection', function(socket){
     socket.on('error', function(){
         console.log("error");
 	});
+
+
 
 });
 
@@ -210,19 +277,17 @@ async function requestByHashtag(hashtags, callback) {
 		});
 }
 
-async function requestAllTweets(callback) {
-	database.query('SELECT * FROM tweets ORDER BY date LIMIT 50')
-		.then(data => {
-			callback(data);
-		})
-		.catch(error => {
-		    console.error(error);
-		});
-}
+// async function requestAllTweets(callback) {
+// 	database.query('SELECT * FROM tweets ORDER BY date LIMIT 50')
+// 		.then(data => {
+// 			callback(data);
+// 		})
+// 		.catch(error => {
+// 		    console.error(error);
+// 		});
+// }
 
 repl();
-
-app.listen(4567);
 
 server.listen(8080, function() {
 	console.log('- Server listening on port 8080'.cyan);
