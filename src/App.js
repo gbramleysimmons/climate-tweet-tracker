@@ -9,79 +9,6 @@ import Console from "./Console";
 
 const socket = io.connect('http://localhost:8000');
 
-function formatData(data) {
-    let hashtags = [];
-    for (let t in data) {
-      if (hashtags.indexOf(data[t].hashtag) === -1)
-        hashtags.push(data[t].hashtag);
-    }
-    let myData = [];
-    let row1 = ["date"];
-    for (let x in hashtags) {
-      row1.push("#" + hashtags[x]);
-    }
-    myData.push(row1);
-    let intervalSet = new Set();
-    let count = 0;
-    for (let t in data) {
-      let dateString = parseDateString(data[t].date);
-      if (!(intervalSet.has(dateString))) {
-        intervalSet.add(dateString);
-        let rowToAdd = [dateString];
-        for (let i = 0; i < hashtags.length; i++) {
-          rowToAdd.push(0);
-        }
-        myData.push(rowToAdd);
-        count++;
-        let index = hashtags.indexOf(data[t].hashtag);
-        myData[count][index+1]++;
-      }
-      else {
-        let index = hashtags.indexOf(data[t].hashtag);
-        myData[count][index+1]++;
-      }
-    }
-    return dataToString(myData);
-}
-
-function parseDateString(tweetDate) {
-    let dateObj = new Date(tweetDate);
-    let dateString = "";
-    let year = dateObj.getFullYear();
-    let month = ("0" + (dateObj.getMonth()+1)).slice(-2);
-    let date = dateObj.getDate();
-    let hour = ("0" + dateObj.getHours()).slice(-2);
-    let minutes = dateObj.getMinutes();
-    let minutesRounded = ("0" + roundMinutes(minutes)).slice(-2);
-    dateString += year + month + date + hour + minutesRounded;
-    return dateString;
-}
-
-function roundMinutes(minutes) {
-    let roundedDate = Math.floor(minutes / 5) * 5;
-    return roundedDate;
-}
-
-function dataToString(data) {
-  let dataString = "";
-  for (let i = 0; i < data.length; i++) {
-    dataString += data[i].join("\t") + "\n";
-  }
-  return dataString;
-}
-
-function formatTweets(data) {
-  let tweetList = [];
-  for (let t in data) {
-    let tweetObj = {};
-    tweetObj["image"] = data[t].picture;
-    tweetObj["author"] = data[t].author;
-    tweetObj["text"] = data[t].contents;
-    tweetList.push(tweetObj);
-  }
-  return tweetList;
-}
-
 class App extends Component {
   constructor(props) {
       super(props);
@@ -123,7 +50,7 @@ class App extends Component {
   updateFeed = (hashtags) => {
       socket.emit('updateFeed', hashtags);
       socket.on('tweetsForFeed', (tweetData) => {
-        let tweets = formatTweets(tweetData);
+        let tweets = this.formatTweets(tweetData);
         this.setState({tweets: tweets});
       });
   }
@@ -131,7 +58,7 @@ class App extends Component {
   updateGraph = (hashtags) => {
       socket.emit('displayData', hashtags);
       socket.on('tweetsForGraph', (freqData) => {
-          let dataString = formatData(freqData);
+          let dataString = this.formatData(freqData);
           this.setState({data: dataString});
       });
   }
@@ -152,6 +79,81 @@ class App extends Component {
     console.log("hashtags from App.js line 129: "+hashtags);
     this.setState( {hashtags: hashtags} );
   };
+
+  formatData = (data) => {
+    /*let hashtags = [];
+    for (let t in data) {
+      if (hashtags.indexOf(data[t].hashtag) === -1)
+        hashtags.push(data[t].hashtag);
+    }*/
+    let hashtags = this.state.displaying;
+    let myData = [];
+    let row1 = ["date"];
+    for (let x in hashtags) {
+      row1.push("#" + hashtags[x]);
+    }
+    myData.push(row1);
+    let intervalSet = new Set();
+    let count = 0;
+    for (let t in data) {
+      let dateString = this.parseDateString(data[t].date);
+      if (!(intervalSet.has(dateString))) {
+        intervalSet.add(dateString);
+        let rowToAdd = [dateString];
+        for (let i = 0; i < hashtags.length; i++) {
+          rowToAdd.push(0);
+        }
+        myData.push(rowToAdd);
+        count++;
+        let index = hashtags.indexOf(data[t].hashtag);
+        myData[count][index+1]++;
+      }
+      else {
+        let index = hashtags.indexOf(data[t].hashtag);
+        myData[count][index+1]++;
+      }
+    }
+    console.log(myData);
+    return this.dataToString(myData);
+  }
+
+  parseDateString = (tweetDate) => {
+    let dateObj = new Date(tweetDate);
+    let dateString = "";
+    let year = dateObj.getFullYear();
+    let month = ("0" + (dateObj.getMonth()+1)).slice(-2);
+    let date = dateObj.getDate();
+    let hour = ("0" + dateObj.getHours()).slice(-2);
+    let minutes = dateObj.getMinutes();
+    let minutesRounded = ("0" + this.roundMinutes(minutes)).slice(-2);
+    dateString += year + month + date + hour + minutesRounded;
+    return dateString;
+  }
+
+  roundMinutes = (minutes) => {
+    let roundedDate = Math.floor(minutes / 5) * 5;
+    return roundedDate;
+  }
+
+  dataToString = (data) => {
+    let dataString = "";
+    for (let i = 0; i < data.length; i++) {
+      dataString += data[i].join("\t") + "\n";
+    }
+    return dataString;
+  }
+
+  formatTweets = (data) => {
+    let tweetList = [];
+    for (let t in data) {
+      let tweetObj = {};
+      tweetObj["image"] = data[t].picture;
+      tweetObj["author"] = data[t].author;
+      tweetObj["text"] = data[t].contents;
+      tweetList.push(tweetObj);
+    }
+    return tweetList;
+  }
 
   render() {
     //console.log(this.state);
