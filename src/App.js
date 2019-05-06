@@ -150,7 +150,7 @@ class App extends Component {
     return (
 
       <div className="App">
-          {this.state.console ? <Console tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
+          {this.state.console ? <Console close={this.toggleConsole} tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
               <div className={"login-link"}>{this.state.authorized ? <span onClick={this.toggleConsole}> Welcome, {this.state.user} </span> : <span onClick={this.toggleLogin}>Admin</span>}</div>
               <div className="wrapper-left">
                   <div className="title-block">
