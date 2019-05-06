@@ -84,7 +84,7 @@ function repl() {
 					repl();
 				}
 				rl.question("hashtag: ", function(answer) {
-					twitter.requestTweetsFromDate(answer, "2019-4-30")
+					 twitter.requestTweetsFromDate(answer, "2019-4-30")
 						.then(data => {
 							console.log("here");
 							const parsed = data.data.statuses.map(ele =>
@@ -96,7 +96,45 @@ function repl() {
 						repl();
 					})
 				});
+				break;
+			case "add-tracked":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("new hashtag: ", function(answer) {
+						twitter.addToCurrentlyTracked(answer)
+							.then(() => {
+								console.log(answer + " has been added to the tracked set");
+								repl();
+							}) .catch(error => {console.err(error); repl();})
+					});
+				}
+				break;
+			case "remove-tracked":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("hashtag: to remove", function(answer) {
+						twitter.removeFromCurrentlyTracked(answer)
+							.then(() => {
+								console.log(answer + " has been removed from the tracked set");
+								repl();
+							}) .catch(error => {console.err(error); repl();})
+					});
+				}
+				break;
+			case "get-tracked":
+				twitter.getCurrentlyTracked(answer)
+					.then(repl)
+					.catch(error => {console.err(error); repl()});
 
+				break;
+			case "help":
+				console.log("login: login with existing credentials \n " +
+					"signup: signup with new credentials \n retrieve: retrieve tweets with specfied hashtags (must be authorized)" +
+					"\n get-tracked: retrieve currently tracked tweets \n add-tracked: add tweet to be tracked \n remove-tracked: remove tweet from tracked list");
 				break;
 			default:
 				console.log("Command not recognized");
@@ -135,14 +173,13 @@ io.sockets.on('connection', function(socket){
 
 	});
 
-	socket.on('displayData', async function(){
-		requestAllTweets(function(data) {
+	socket.on('displayData', async function(hashtags){
+		requestByHashtag(hashtags, function(data) {
 			socket.emit('tweetsForGraph', data);
 		});
 	});
 
-	socket.on('updateFeed', async function(){
-		let hashtags = ["cats", "climate"];
+	socket.on('updateFeed', async function(hashtags){
 		requestByHashtag(hashtags, function(data){
 			console.log(data);
 			socket.emit('tweetsForFeed', data);
@@ -163,7 +200,7 @@ async function requestByHashtag(hashtags, callback) {
 		array.push("?");
 	}
 	where += array.join(",") + ")";
-	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 50';
+	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
 	database.query(query, hashtags)
 		.then(data => {
 			callback(data);

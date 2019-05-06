@@ -99,12 +99,12 @@ class App extends Component {
   componentDidMount() {
       this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
       console.log("this.offsetW in App.js:" + this.offsetW);
-      socket.emit('updateFeed');
+      socket.emit('updateFeed', ["cats", "climate", "hi", "pizza"]);
       socket.on('tweetsForFeed', (tweetData) => {
         let tweets = formatTweets(tweetData);
         this.setState({tweets: tweets});
       });
-      socket.emit('displayData');
+      socket.emit('displayData', ["cats", "climate", "pizza"]);
       socket.on('tweetsForGraph', (freqData) => {
           let dataString = formatData(freqData);
           this.setState({data: dataString});

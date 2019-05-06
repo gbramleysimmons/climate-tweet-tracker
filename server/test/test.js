@@ -1,8 +1,14 @@
 const expect = require('chai').expect;
 const mocha = require('mocha');
+
+const url = 'mysql://gbramley:cs132@bdognom.cs.brown.edu/gbramley_db';
+const db = require("mysql");
+const conn = db.createConnection(url);
+
 const Database = require("../database.js");
-const database = new Database.Database('mysql://olangley:cs132@bdognom.cs.brown.edu/olangley_db');
+const database = new Database(conn);
 const Login = require("../login.js");
+const TweetRetriever = require('../tweets.js');
 
 //Tests for the database code
 describe("Database.query()", function() {
@@ -31,9 +37,11 @@ describe("Database.query()", function() {
     });
 });
 
+
+
 //Tests for the login code.
 describe("Login.getSalt()", function() {
-    const login = new Login.Login();
+    const login = new Login(conn);
 
     it('should generate a random 16-character alphanumeric salt', function() {
       const salt1 = login.getSalt();
@@ -48,7 +56,7 @@ describe("Login.getSalt()", function() {
 });
 
 describe("Login.sha512()", function() {
-    const login = new Login.Login();
+    const login = new Login(conn);
 
     it('should hash a password with a salt to a 128 digit hexadecimal number', function() {
        const password = "";
@@ -66,7 +74,7 @@ describe("Login.sha512()", function() {
 });
 
 describe("Login.addNewUser()", function() {
-    const login = new Login.Login();
+    const login = new Login(conn);
 
     it("should add a user and password to the database", function () {
            const name = "addnewuser";
@@ -90,7 +98,7 @@ describe("Login.addNewUser()", function() {
 });
 
 describe("Login.validateLogin()", function() {
-    const login = new Login.Login();
+    const login = new Login(conn);
     it("should check if a username and password combination is in the database", function() {
         const name = "validate";
         const password = "password";
@@ -124,7 +132,7 @@ describe("Login.validateLogin()", function() {
 
 
 describe("Login.removeUser()", function() {
-    const login = new Login.Login();
+    const login = new Login(conn);
 
     it("should remove a user from the database", function() {
         const name = "removeUserTest";
@@ -148,4 +156,55 @@ describe("Login.removeUser()", function() {
     });
 });
 
-describe("TweetRequest")
+
+
+describe("TweetRetriever.addToCurrentlyTracked()", function() {
+    it ("should add a hashtag to the list of currently tracked hashtags", function() {
+        const tr = new TweetRetriever(conn);
+        const database = new Database(conn);
+        tr.addToCurrentlyTracked("test2")
+            .then(() => {
+                database.query("SELECT * FROM track WHERE hashtag=test2")
+                    .then(data => {
+                        expect(data).to.have.lengthOf(1);
+                        expect(data[0]).to.have.propertyOf("hashtag");
+                        expect(data[0].hashtag).to.equal("test2");
+                    }) .then(() => {
+                        database.query(("DELETE FROM track;"))
+                })
+
+            })
+
+    })
+
+
+});
+
+describe("TweetRetriever.removeFromCurrentlyTracked()", function () {
+    it("should remove a hashtag from the list of currently tracked hashtags", function () {
+        const tr = new TweetRetriever(conn);
+        const database = new Database(conn);
+
+        tr.addToCurrentlyTracked("test2")
+            .then(() => {
+                    database.query("SELECT * FROM track WHERE hashtag=test2")
+                        .then(data => {
+                            expect(data).to.have.lengthOf(0);
+                        })
+                })
+    })
+});
+
+
+// describe("TweetRetriever.getCurrentlyTracked()", function() {
+//     it("should retrieve the list of currently tracked hashtags", function() {
+//         const tr = new TweetRetriever(conn);
+//         tr.addToCurrentlyTracked("test2")
+//             .then(() => {
+//                 tr.getCurrentlyTracked()
+//                     .then()
+//
+//             });
+//
+//     });
+// });
