@@ -28,7 +28,7 @@ class HashtagContainer extends Component {
           {selectedHashtags: hashtags},
           this.props.callbackFromParent(hashtags)
           );
-	  console.log("HASHTAGS: "+hashtags);
+	  //console.log("HASHTAGS: "+hashtags);
 	};
 
     render() {

@@ -19,12 +19,12 @@ class Graph extends Component {
     componentDidMount() {
         this.createDynamicChart();
         //this.node.width = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
-        console.log("componentDidMount LOG:"+ this.node);
+        //console.log("componentDidMount LOG:"+ this.node);
     }
 
     componentDidUpdate() {
         this.createDynamicChart();
-        console.log("FREQ from componentDidMount: "+this.props.freq);
+        //console.log("FREQ from componentDidMount: "+this.props.freq);
     }
 
     createDynamicChart() {
@@ -36,7 +36,7 @@ class Graph extends Component {
       if (myData.length == 0) {
         return;
       }
-      console.log("MYDATA FROM Graph.JS "+myData);
+      //console.log("MYDATA FROM Graph.JS "+myData);
 // var myData = "date	#cats	#climate	#hi\n\
 // 201110011200	58	57	77\n\
 // 201110011205	57.9	56.7	77\n\

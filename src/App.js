@@ -95,20 +95,28 @@ class App extends Component {
           data: "",
           tracking: [],
           displaying: [],
-          hashtags: {"climate": true, "cats": true, "pizza": true, "hi": true} 
+          hashtags: {} 
       }
   }
 
   componentDidMount() {
       this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
-      console.log("this.offsetW in App.js:" + this.offsetW);
+      //console.log("this.offsetW in App.js:" + this.offsetW);
       socket.on("updateHashtags", (received) => {
-          console.log("data!!!");
+          //console.log("data!!!");
           const data = JSON.parse(received);
-          console.log(data);
+          //console.log(data);
           this.setState({tracking: data.tracked, displaying: data.displayed})
           this.updateFeed(data.displayed);
           this.updateGraph(data.displayed);
+          let hashtagMap = data.displayed.reduce(
+            (hashtags, selected) => ({
+              ...hashtags,
+              [selected]: true
+            }),
+            {}
+          )
+          this.setState({hashtags: hashtagMap});
       });
   }
 
@@ -146,9 +154,8 @@ class App extends Component {
   };
 
   render() {
-      console.log(this.state);
+    //console.log(this.state);
     return (
-
       <div className="App">
           {this.state.console ? <Console close={this.toggleConsole} tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
               <div className={"login-link"}>{this.state.authorized ? <span onClick={this.toggleConsole}> Welcome, {this.state.user} </span> : <span onClick={this.toggleLogin}>Admin</span>}</div>
