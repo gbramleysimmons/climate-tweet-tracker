@@ -28,7 +28,6 @@ class Graph extends Component {
     }
 
     createDynamicChart() {
-<<<<<<< HEAD
       var myData = this.props.freq;
       if (myData.length == 0) {
         return;
