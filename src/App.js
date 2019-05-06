@@ -109,14 +109,14 @@ class App extends Component {
           this.setState({tracking: data.tracked, displaying: data.displayed})
           this.updateFeed(data.displayed);
           this.updateGraph(data.displayed);
-          let hashtagMap = data.displayed.reduce(
+          /*let hashtagMap = data.displayed.reduce(
             (hashtags, selected) => ({
               ...hashtags,
               [selected]: true
             }),
             {}
           )
-          this.setState({hashtags: hashtagMap});
+          this.setState({hashtags: hashtagMap});*/
       });
   }
 
@@ -164,7 +164,7 @@ class App extends Component {
                       <div className="title-text">Climate #Hashtag Tracker</div>
                   </div>
                   <Graph freq={this.state.data} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')} hashtags={this.state.hashtags}/>
-                  <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]} callbackFromParent={this.myCallback}/>
+                  <HashtagContainer hashtags={this.state.displaying} callbackFromParent={this.myCallback}/>
               </div>
               <div className="wrapper-right">
                   <div className="branding-block">

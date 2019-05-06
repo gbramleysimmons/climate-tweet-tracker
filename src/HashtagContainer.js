@@ -14,7 +14,7 @@ class HashtagContainer extends Component {
             selectedHashtags: this.props.hashtags.reduce(
 		    (hashtags, selected) => ({
 		      ...hashtags,
-		      [selected]: true
+		      [selected]: false
 		    }),
 		    {}
 		  )
@@ -28,14 +28,14 @@ class HashtagContainer extends Component {
           {selectedHashtags: hashtags},
           this.props.callbackFromParent(hashtags)
           );
-	  //console.log("HASHTAGS: "+hashtags);
+	  //console.log("HASHTAGS: "+Object.keys(hashtags));
 	};
 
     render() {
         return (
             <div className="hashtags">
-                {this.props.hashtags.map(ele => {
-                    return <Hashtag hashtag={ele} toggleSelect={this.toggleSelect}/>;
+                {this.props.hashtags.map((ele, i) => {
+                    return <Hashtag hashtag={ele} number={i} toggleSelect={this.toggleSelect}/>;
                 })}
             </div>
         );

@@ -12,9 +12,9 @@ class Hashtag extends Component {
         super(props);
         const color = this.generate_color();
         this.state = {
-            selected: true,
+            selected: false,
             color: color,
-            curr_color: color.selected
+            curr_color: color.main
         }
     }
 
@@ -23,9 +23,24 @@ class Hashtag extends Component {
      * @returns {{main, selected}|*}
      */
     generate_color = () => {
-        const possible_colors = [{main: "#3980c6", selected: "#e3f298"}, {main: "#238e57", selected: "#e3f298"},
+        /*const possible_colors = [{main: "#3980c6", selected: "#e3f298"}, {main: "#238e57", selected: "#e3f298"},
             {main: "#1d787c", selected: "#e3f298"}, {main: "#368e46", selected: "#e3f298"}];
-        return possible_colors[Math.floor(Math.random() * 4)];
+        return possible_colors[Math.floor(Math.random() * 4)];*/
+        if (this.props.number === 0) {
+            return {main: "#808080", selected: "#3C9E2C"};
+        }
+        else if (this.props.number === 1) {
+            return {main: "#808080", selected: "#D52B1E"};
+        }
+        else if (this.props.number === 2) {
+            return {main: "#808080", selected: "#FA802D"};
+        }
+        else if (this.props.number === 3) {
+            return {main: "#808080", selected: "#2E76AE"};
+        }
+        else {
+            return {main: "#808080", selected: "black"};
+        }
     };
 
 
