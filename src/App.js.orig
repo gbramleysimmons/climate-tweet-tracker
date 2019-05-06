@@ -92,9 +92,16 @@ class App extends Component {
           user: "",
           console: false,
           tweets: [],
+<<<<<<< HEAD
+          data: "",
+          hashtags: []
+||||||| merged common ancestors
+          data: ""
+=======
           data: "",
           tracking: [],
           displaying: []
+>>>>>>> 9b86ba04dcfae4c26f79d87f40eb0c9515274df7
       }
   }
 
@@ -104,12 +111,6 @@ class App extends Component {
       socket.emit('updateFeed', ["cats", "climate", "hi", "pizza"]);
       socket.on('tweetsForFeed', (tweetData) => {
         let tweets = formatTweets(tweetData);
-        this.setState({tweets: tweets});
-      });
-      socket.emit('displayData', ["cats", "climate", "pizza"]);
-      socket.on('tweetsForGraph', (freqData) => {
-          let dataString = formatData(freqData);
-        let tweets = formatTweets(freqData);
         this.setState({tweets: tweets});
       });
       socket.emit('displayData', ["cats", "climate", "pizza"]);
@@ -150,7 +151,7 @@ class App extends Component {
     return (
 
       <div className="App">
-          {this.state.console ? <Console close={this.toggleConsole} tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
+          {this.state.console ? <Console tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
               <div className={"login-link"}>{this.state.authorized ? <span onClick={this.toggleConsole}> Welcome, {this.state.user} </span> : <span onClick={this.toggleLogin}>Admin</span>}</div>
               <div className="wrapper-left">
                   <div className="title-block">

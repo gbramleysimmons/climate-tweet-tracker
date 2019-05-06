@@ -14,7 +14,7 @@ class HashtagContainer extends Component {
             selectedHashtags: this.props.hashtags.reduce(
 		    (hashtags, selected) => ({
 		      ...hashtags,
-		      [selected]: false
+		      [selected]: true
 		    }),
 		    {}
 		  )
@@ -24,11 +24,18 @@ class HashtagContainer extends Component {
     toggleSelect = (hashtag, selected) => {
 	  let hashtags = this.state.selectedHashtags;
 	  hashtags[hashtag] = selected;
+<<<<<<< HEAD
 	  this.setState(
           {selectedHashtags: hashtags},
           this.props.callbackFromParent(hashtags)
           );
 	  console.log("HASHTAGS: "+hashtags);
+||||||| merged common ancestors
+	  this.setState({selectedHashtags: hashtags});
+	  console.log(hashtags);
+=======
+	  this.setState({selectedHashtags: hashtags});
+>>>>>>> 9b86ba04dcfae4c26f79d87f40eb0c9515274df7
 	};
 
     render() {
