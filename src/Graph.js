@@ -28,6 +28,9 @@ class Graph extends Component {
     }
 
     createDynamicChart() {
+      console.log("this.props.hashtags: "+this.props.hashtags); 
+      console.log("hashtag[#cats] :"+this.props.hashtags["cats"]);
+      
       d3.selectAll("g").remove();
       var myData = this.props.freq;
       if (myData.length == 0) {
@@ -271,9 +274,6 @@ class Graph extends Component {
           d.date = parseDate(d.date);
           //d.date = d3.timeFormat("%Y%m%d%H%M")(d.date);
         });
-
-        console.log("this.props.hashtags: "+this.props.hashtags); 
-        console.log("hashtag[#cats] :"+this.props.hashtags["cats"]);
 
         let hashtags = this.props.hashtags;
         var cities = color.domain().map(function(name) {

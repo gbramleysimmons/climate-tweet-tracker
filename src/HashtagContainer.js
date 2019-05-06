@@ -14,7 +14,7 @@ class HashtagContainer extends Component {
             selectedHashtags: this.props.hashtags.reduce(
 		    (hashtags, selected) => ({
 		      ...hashtags,
-		      [selected]: false
+		      [selected]: true
 		    }),
 		    {}
 		  )

@@ -94,7 +94,8 @@ class App extends Component {
           tweets: [],
           data: "",
           tracking: [],
-          displaying: []
+          displaying: [],
+          hashtags: {"climate": true, "cats": true, "pizza": true, "hi": true} 
       }
   }
 
