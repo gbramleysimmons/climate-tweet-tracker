@@ -12,9 +12,9 @@ class Hashtag extends Component {
         super(props);
         const color = this.generate_color();
         this.state = {
-            selected: false,
+            selected: true,
             color: color,
-            curr_color: color.main
+            curr_color: color.selected
         }
     }
 
