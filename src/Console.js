@@ -82,20 +82,24 @@ class Console extends Component {
         console.log(this.props);
         return (
             <div className="Console">
+                <h1>Admin Console</h1>
+                <div className={"back-button"} onClick={this.props.close}>Back to dashboard</div>
                 <div className={"current track"}>
                     <h3> Current Hashtags Being Tracked: </h3>
                     {this.state.editingTracking ?
                         <div>
                             {this.state.trackHashtags.map(ele => {
-                                return <div className={"hashtag-curr"} >#{ele}
-                                <button onClick={() => this.removeFromTracking(ele)}
-                                        className={"remove-button"}>X</button> </div>
+                                return <div className={"hashtag-curr"} ><button onClick={() => this.removeFromTracking(ele)}
+                                                                                className={"remove-button"}>X</button>  #{ele}
+                                </div>
                             })}
-                            <form onSubmit={this.addSubmitTracking}>
+                            <form className={"submit-form"} onSubmit={this.addSubmitTracking}>
+
                                 <input id={"tracking-input"} type={"text"} placeholder={"Add hashtags to track"}/>
                                 <input type={"submit"} value={"Add"}/>
                             </form>
-                            <button onClick={this.confirmTracking}>Confirm</button>
+
+                            <button className={"admin-button"} onClick={this.confirmTracking}>Confirm</button>
 
                         </div> :<div>
                             {this.state.trackHashtags.map(ele => {
@@ -113,15 +117,15 @@ class Console extends Component {
                     {this.state.editingDisplay ?
                         <div>
                             {this.state.displayHashtags.map(ele => {
-                                return <div className={"hashtag-curr"} >#{ele}
-                                    <button onClick={() => this.removeFromDisplay(ele)}
-                                            className={"remove-button"}>X</button> </div>
+                                return <div className={"hashtag-curr"} > <button onClick={() => this.removeFromDisplay(ele)}
+                                                                                 className={"remove-button"}>X</button> #{ele}
+                                    </div>
                             })}
-                            <form onSubmit={this.addSubmitDisplay}>
+                            <form onSubmit={this.addSubmitDisplay} className={"submit-form"}>
                                 <input id={"display-input"} type={"text"} placeholder={"Add hashtags to track"}/>
                                 <input type={"submit"} value={"Add"}/>
                             </form>
-                            <button onClick={this.confirmDisplay}>Confirm</button>
+                            <button className={"admin-button"}onClick={this.confirmDisplay}>Confirm</button>
                         </div> :<div>
                             {this.state.displayHashtags.map(ele => {
                                 return <div className={"hashtag-curr"} >#{ele}</div>
