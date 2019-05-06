@@ -92,7 +92,8 @@ class App extends Component {
           user: "",
           console: false,
           tweets: [],
-          data: ""
+          data: "",
+          hashtags: []
       }
   }
 
@@ -122,8 +123,13 @@ class App extends Component {
 
   toggleConsole = () => {
       this.setState({console: !this.state.console});
-
   };
+
+  myCallback = (hashtags) => {
+    console.log("hashtags from App.js line 129: "+hashtags);
+    this.setState( {hashtags: hashtags} );
+  };
+
   render() {
       console.log("APP line 128 this.state.data: "+this.state.data);
     return (
@@ -135,8 +141,8 @@ class App extends Component {
                   <div className="title-block">
                       <div className="title-text">Climate #Hashtag Tracker</div>
                   </div>
-                  <Graph freq={this.state.data} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
-                  <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]}/>
+                  <Graph freq={this.state.data} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')} hashtags={this.state.hashtags}/>
+                  <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]} callbackFromParent={this.myCallback}/>
               </div>
               <div className="wrapper-right">
                   <div className="branding-block">

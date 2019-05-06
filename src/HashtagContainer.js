@@ -25,8 +25,11 @@ class HashtagContainer extends Component {
 		console.log(hashtag + ": " + selected);
 	  let hashtags = this.state.selectedHashtags;
 	  hashtags[hashtag] = selected;
-	  this.setState({selectedHashtags: hashtags});
-	  console.log(hashtags);
+	  this.setState(
+          {selectedHashtags: hashtags},
+          this.props.callbackFromParent(hashtags)
+          );
+	  console.log("HASHTAGS: "+hashtags);
 	};
 
     render() {

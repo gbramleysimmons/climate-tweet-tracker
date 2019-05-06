@@ -28,6 +28,7 @@ class Graph extends Component {
     }
 
     createDynamicChart() {
+      d3.selectAll("g").remove();
       var myData = this.props.freq;
       if (myData.length == 0) {
         return;
@@ -189,7 +190,7 @@ class Graph extends Component {
           //width = this.props.svg.width - margin.left - margin.right,
           //width = d3.select('.svg').node().element.getBoundingClientRect().width - margin.left - margin.right,
           //height = document.getElementsByClassName('wrapper-left')[0].offsetHeight - 100 - document.getElementsByClassName('hashtags')[0].offsetHeight;
-          height = width * 0.75,
+          height = width * 0.73,
           margin = {
             top: width/63, //~13
             right: 0,
@@ -199,6 +200,30 @@ class Graph extends Component {
           document.getElementById('svg').style.height = height * 1;
           document.getElementById('svg').style.width = width * 1;
 
+           {/*var svg = d3.select("body").append("svg")*/}
+          var string = "0 0 "+width*1.125+" "+height*1.04
+          var svg = d3.select(node)
+          //.attr("width", width + margin.left + margin.right)
+          //.attr("height", height + margin.top + margin.bottom)
+          .attr("preserveAspectRatio", "xMinYMin meet")
+          .attr("viewBox", string)
+          .append("g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          let initialState = false;
+          for (var key in this.props.hashtags) {
+            if (this.props.hashtags[key]) {
+              initialState = true;
+            }
+          }
+          if (!initialState) {
+            svg.append("text")
+            .text("Please select hashtags below to track their frequency.")
+            .attr("y", height/2)
+            .attr("x", height/3)
+            .attr("font-size", height/30 + "px")
+            return;
+          }
 
         var parseDate = d3.timeParse("%Y%m%d%H%M");
 
@@ -234,15 +259,7 @@ class Graph extends Component {
             return y(d.temperature);
           });
 
-        {/*var svg = d3.select("body").append("svg")*/}
-        var string = "0 0 "+width*1.125+" "+height*1.04
-        var svg = d3.select(node)
-          //.attr("width", width + margin.left + margin.right)
-          //.attr("height", height + margin.top + margin.bottom)
-          .attr("preserveAspectRatio", "xMinYMin meet")
-          .attr("viewBox", string)
-          .append("g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+       // MOVE THE SVG CHUNK RIGHT HERE // 
 
         var data = d3.tsvParse(myData);
 
@@ -255,7 +272,23 @@ class Graph extends Component {
           //d.date = d3.timeFormat("%Y%m%d%H%M")(d.date);
         });
 
+        console.log("this.props.hashtags: "+this.props.hashtags); 
+        console.log("hashtag[#cats] :"+this.props.hashtags["cats"]);
+
+        let hashtags = this.props.hashtags;
         var cities = color.domain().map(function(name) {
+          console.log("name in line 263 :"+name);
+          if (!hashtags[name.slice(1)]) {
+            return {
+              name: "",
+              values: data.map(function(d) {
+                return {
+                  date: "",
+                  temperature: null
+                };
+              })
+            };
+          }
           return {
             name: name,
             values: data.map(function(d) {
@@ -298,6 +331,8 @@ class Graph extends Component {
           .attr('width', height/68)
           .attr('height', height/68)
           .style('fill', function(d) {
+            if (d.name == "") 
+              return "gray";
             return color(d.name);
           });
 
@@ -327,6 +362,7 @@ class Graph extends Component {
           .attr("font-size", height/70 + "px")
           .attr("transform", "translate("+ height/30 +", 0)") // added
           .attr("y", height/100)
+          .attr("x", -height/30)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           .text("number of tweets")
