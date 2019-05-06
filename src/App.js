@@ -102,31 +102,30 @@ class App extends Component {
   componentDidMount() {
       this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
       console.log("this.offsetW in App.js:" + this.offsetW);
-      socket.emit('updateFeed', ["cats", "climate", "hi", "pizza"]);
+      socket.on("updateHashtags", (received) => {
+          console.log("data!!!");
+          const data = JSON.parse(received);
+          console.log(data);
+          this.setState({tracking: data.tracked, displaying: data.displayed})
+          this.updateFeed(data.displayed);
+          this.updateGraph(data.displayed);
+      });
+  }
+
+  updateFeed = (hashtags) => {
+      socket.emit('updateFeed', hashtags);
       socket.on('tweetsForFeed', (tweetData) => {
         let tweets = formatTweets(tweetData);
         this.setState({tweets: tweets});
       });
-      socket.emit('displayData', ["cats", "climate", "pizza"]);
-      socket.on('tweetsForGraph', (freqData) => {
-          let dataString = formatData(freqData);
-        let tweets = formatTweets(freqData);
-        this.setState({tweets: tweets});
-      });
-      socket.emit('displayData', ["cats", "climate", "pizza"]);
+  }
+
+  updateGraph = (hashtags) => {
+      socket.emit('displayData', hashtags);
       socket.on('tweetsForGraph', (freqData) => {
           let dataString = formatData(freqData);
           this.setState({data: dataString});
-          console.log("App.js freq data: "+dataString);
       });
-
-      socket.on("updateHashtags", (recieved) => {
-          console.log("data!!!");
-          const data = JSON.parse(recieved);
-          console.log(data);
-          this.setState({tracking: data.tracked, displaying: data.displayed})
-          }
-      )
   }
 
   toggleLogin = () => {
