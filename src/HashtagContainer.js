@@ -14,7 +14,7 @@ class HashtagContainer extends Component {
             selectedHashtags: this.props.hashtags.reduce(
 		    (hashtags, selected) => ({
 		      ...hashtags,
-		      [selected]: false
+		      [selected]: true
 		    }),
 		    {}
 		  )
@@ -22,15 +22,12 @@ class HashtagContainer extends Component {
     }
 
     toggleSelect = (hashtag, selected) => {
-		console.log(hashtag + ": " + selected);
 	  let hashtags = this.state.selectedHashtags;
 	  hashtags[hashtag] = selected;
 	  this.setState({selectedHashtags: hashtags});
-	  console.log(hashtags);
 	};
 
     render() {
-    	console.log(this.state.selectedHashtags);
         return (
             <div className="hashtags">
                 {this.props.hashtags.map(ele => {
