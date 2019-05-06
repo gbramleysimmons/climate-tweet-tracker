@@ -65,7 +65,7 @@ function roundMinutes(minutes) {
 function dataToString(data) {
   let dataString = "";
   for (let i = 0; i < data.length; i++) {
-    dataString += data[i].join(" ") + "\n";
+    dataString += data[i].join("\t") + "\n";
   }
   return dataString;
 }
@@ -108,7 +108,7 @@ class App extends Component {
       socket.on('tweetsForGraph', (freqData) => {
           let dataString = formatData(freqData);
           this.setState({data: dataString});
-          console.log(dataString);
+          console.log("App.js freq data: "+dataString);
       });
   }
 
@@ -125,8 +125,7 @@ class App extends Component {
 
   };
   render() {
-      console.log("svg:"+ document.getElementById('svg'));
-      console.log("this.offsetW in after RENDER:" +this.offsetW);
+      console.log("APP line 128 this.state.data: "+this.state.data);
     return (
 
       <div className="App">
@@ -136,7 +135,7 @@ class App extends Component {
                   <div className="title-block">
                       <div className="title-text">Climate #Hashtag Tracker</div>
                   </div>
-                  <Graph freq={this.state.data} data={[5,10,1,3]} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
+                  <Graph freq={this.state.data} width={this.offsetW} height={500} lines={document.getElementsByClassName('line')} svg={document.getElementById('svg')}/>
                   <HashtagContainer hashtags={["climate", "cats", "pizza", "hi"]}/>
               </div>
               <div className="wrapper-right">
