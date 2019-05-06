@@ -13,9 +13,6 @@ class Login extends Component {
         }
     }
 
-
-
-
     login = (event) => {
         console.log("here");
         event.preventDefault();

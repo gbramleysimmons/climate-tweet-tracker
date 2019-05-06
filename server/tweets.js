@@ -22,10 +22,16 @@ class TweetRetriever {
         this.requestTweetsFromDate = this.requestTweetsFromDate.bind(this);
         this.requestToDatabase = this.requestToDatabase.bind(this);
         this.tweetObjectToData = this.tweetObjectToData.bind(this);
+
         this.getCurrentlyTracked = this.getCurrentlyTracked.bind(this);
         this.addToCurrentlyTracked = this.addToCurrentlyTracked.bind(this);
         this.removeFromCurrentlyTracked = this.removeFromCurrentlyTracked.bind(this);
         this.setCurrentlyTracked = this.setCurrentlyTracked.bind(this);
+
+        this.getCurrentlyDisplayed = this.getCurrentlyDisplayed.bind(this);
+        this.addToCurrentlyDisplayed= this.addToCurrentlyDisplayed.bind(this);
+        this.removeFromCurrentlyDisplayed = this.removeFromCurrentlyDisplayed.bind(this);
+        this.setCurrentlyDisplayed = this.setCurrentlyDisplayed.bind(this);
 
     }
 
@@ -33,10 +39,9 @@ class TweetRetriever {
         return new Promise((resolve, reject) => {
             this.database.query("SELECT * FROM track;")
                 .then(data => {
-                    console.log(data);
-                    data.map(ele => {
-                        return ele;
-                    });
+                    resolve(data.map(ele => {
+                        return ele.hashtag;
+                    }));
                 })
         })
     };
@@ -59,14 +64,19 @@ class TweetRetriever {
 
     setCurrentlyTracked(hashtags){
         return new Promise((resolve, reject) => {
+            if (hashtags.length === 0) {
+                resolve();
+            }
+            console.log(hashtags);
             this.database.query("DELETE FROM track;")
                 .then(() => {
-                    let query = "INSERT INTO track VALUES";
-                    for (let i in query) {
+                    let query = "INSERT INTO track(hashtag) VALUES";
+                    for (let i in hashtags) {
                         query += "(?),";
                     }
-                    query.slice(0, query.length-2);
+                    query = query.slice(0, query.length-1);
                     query += ";";
+                    console.log(query);
                     this.database.query(query, hashtags)
                         .then(resolve)
                         .catch(error => reject(error))
@@ -76,6 +86,55 @@ class TweetRetriever {
     };
 
 
+    getCurrentlyDisplayed() {
+        return new Promise((resolve, reject) => {
+            this.database.query("SELECT * FROM display;")
+                .then(data => {
+                    resolve(data.map(ele => {
+                        return ele.hashtag;
+                    }));
+                })
+        })
+    };
+
+    addToCurrentlyDisplayed(hashtag){
+        return new Promise((resolve, reject) => {
+            this.database.query("INSERT INTO display VALUES(?);", [hashtag])
+                .then(resolve)
+                .catch(error => reject(error));
+        });
+    };
+
+    removeFromCurrentlyDisplayed(hashtag) {
+        return new Promise((resolve, reject) => {
+            this.database.query("DELETE FROM display WHERE hashtag=?;", [hashtag])
+                .then(resolve)
+                .catch(error => reject(error));
+        });
+    };
+
+    setCurrentlyDisplayed(hashtags){
+        return new Promise((resolve, reject) => {
+            if (hashtags.length === 0) {
+                resolve();
+            }
+            console.log(hashtags);
+            this.database.query("DELETE FROM display;")
+                .then(() => {
+                    let query = "INSERT INTO display(hashtag) VALUES";
+                    for (let i in hashtags) {
+                        query += "(?),";
+                    }
+                    query = query.slice(0, query.length-1);
+                    query += ";";
+                    console.log(query);
+                    this.database.query(query, hashtags)
+                        .then(resolve)
+                        .catch(error => reject(error))
+                })
+                .catch(error => reject(error));
+        });
+    };
 
     addTweetToDatabase(tweet) {
         let values = [tweet.id, tweet.hashtag, tweet.contents, tweet.author, tweet.date, tweet.image];
@@ -84,10 +143,6 @@ class TweetRetriever {
                 console.error(error);
             });
     }
-
-
-
-
 
 
     /**

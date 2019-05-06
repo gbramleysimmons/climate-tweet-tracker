@@ -2,7 +2,7 @@
 
 
 /**
- * Models a database with url url.
+ * Models a SQL database that connects with the specified open connection.
  */
 class Database {
     constructor(connection) {
