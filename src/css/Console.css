@@ -6,7 +6,20 @@
 
 .current {
     margin: 50px;
+
+    background: white;
+    padding: 10px;
+    border-radius: 30px;
+    color: #515151;
 }
+
+.admin-button {
+    border: none;
+
+}
+
+
+
 
 
 

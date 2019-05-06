@@ -82,7 +82,7 @@ class Console extends Component {
         console.log(this.props);
         return (
             <div className="Console">
-                <div className={"current"}>
+                <div className={"current track"}>
                     <h3> Current Hashtags Being Tracked: </h3>
                     {this.state.editingTracking ?
                         <div>
@@ -108,7 +108,7 @@ class Console extends Component {
 
                 </div>
 
-                <div className={"display"}>
+                <div className={"current display"}>
                     <h3>  Current Hashtags Being Displayed: </h3>
                     {this.state.editingDisplay ?
                         <div>
