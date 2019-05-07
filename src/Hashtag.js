@@ -23,20 +23,17 @@ class Hashtag extends Component {
      * @returns {{main, selected}|*}
      */
     generate_color = () => {
-        /*const possible_colors = [{main: "#3980c6", selected: "#e3f298"}, {main: "#238e57", selected: "#e3f298"},
-            {main: "#1d787c", selected: "#e3f298"}, {main: "#368e46", selected: "#e3f298"}];
-        return possible_colors[Math.floor(Math.random() * 4)];*/
         if (this.props.number === 0) {
-            return {main: "#808080", selected: "#3C9E2C"};
+            return {main: "#808080", selected: "#2E76AE"};
         }
         else if (this.props.number === 1) {
-            return {main: "#808080", selected: "#D52B1E"};
-        }
-        else if (this.props.number === 2) {
             return {main: "#808080", selected: "#FA802D"};
         }
+        else if (this.props.number === 2) {
+            return {main: "#808080", selected: "#3C9E2C"};
+        }
         else if (this.props.number === 3) {
-            return {main: "#808080", selected: "#2E76AE"};
+            return {main: "#808080", selected: "#D52B1E"};
         }
         else {
             return {main: "#808080", selected: "black"};
