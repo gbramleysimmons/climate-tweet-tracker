@@ -53,7 +53,7 @@ class App extends Component {
         let tweets = this.formatTweets(tweetData);
         this.setState({tweets: tweets});
       });
-  }
+  };
 
   updateGraph = (hashtags) => {
       socket.emit('displayData', hashtags);
@@ -61,7 +61,7 @@ class App extends Component {
           let dataString = this.formatData(freqData);
           this.setState({data: dataString});
       });
-  }
+  };
 
   toggleLogin = () => {
       this.setState({login: !this.state.login});
@@ -115,7 +115,7 @@ class App extends Component {
     }
     console.log(myData);
     return this.dataToString(myData);
-  }
+  };
 
   parseDateString = (tweetDate) => {
     let dateObj = new Date(tweetDate);
@@ -128,12 +128,12 @@ class App extends Component {
     let minutesRounded = ("0" + this.roundMinutes(minutes)).slice(-2);
     dateString += year + month + date + hour + minutesRounded;
     return dateString;
-  }
+  };
 
   roundMinutes = (minutes) => {
     let roundedDate = Math.floor(minutes / 5) * 5;
     return roundedDate;
-  }
+  };
 
   dataToString = (data) => {
     let dataString = "";
@@ -141,7 +141,7 @@ class App extends Component {
       dataString += data[i].join("\t") + "\n";
     }
     return dataString;
-  }
+  };
 
   formatTweets = (data) => {
     let tweetList = [];
@@ -153,7 +153,7 @@ class App extends Component {
       tweetList.push(tweetObj);
     }
     return tweetList;
-  }
+  };
 
   render() {
     //console.log(this.state);

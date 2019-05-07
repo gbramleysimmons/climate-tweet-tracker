@@ -11,7 +11,6 @@ const http = require('http');
 const express = require('express');
 const readline = require('readline');
 const CryptoJS = require('crypto-js');
-const YAML = require('yaml');
 
 
 //project objects
@@ -27,7 +26,20 @@ const rl = readline.createInterface({
 	output: process.stdout
 });
 
+
 const twitter = new TweetRetriever(conn);
+let tracked;
+
+twitter.getCurrentlyTracked()
+	.then(data => {tracked = data})
+	.catch(error => {console.error(error)});
+
+let displayed;
+twitter.getCurrentlyDisplayed()
+	.then(data => {displayed = data})
+	.catch(error => {console.error(error)});
+
+
 const io = require('socket.io').listen(server);
 app.use(express.static('public'));
 
@@ -79,7 +91,27 @@ function repl() {
 					})
 				});
 				break;
-
+			case "data-csv":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("filename: ", (answer1) => {
+						twitter.writeToCSV(answer1)
+							.catch(error => {console.error(error)});
+					} )
+				}
+				break;
+			case "csv":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("filename: ", (answer1) => {
+						twitter.writeFrequencyDataToCSV(answer1);
+					} )
+				}
+				break;
 			case "retrieve":
 				if (!authorized["repl"]) {
 					console.log("operation not permitted");
@@ -90,7 +122,7 @@ function repl() {
 						.then(data => {
 							console.log("here");
 							const parsed = data.data.statuses.map(ele =>
-							twitter.tweetObjectToData(ele, answer));
+							TweetRetriever.tweetObjectToData(ele, answer));
 							console.log(parsed);
 							repl();
 						}) .catch(error => {
@@ -231,11 +263,18 @@ io.sockets.on('connection', function(socket){
 	socket.on("setDisplayed", function(hashtags) {
 		console.log(hashtags);
 		twitter.setCurrentlyDisplayed(hashtags);
+		displayed = hashtags;
+		io.emit("updateHashtags",JSON.stringify({displayed: displayed, tracked: tracked}));
 	});
 
 	socket.on("setTracked", function(hashtags) {
 		console.log(hashtags);
 		twitter.setCurrentlyTracked(hashtags);
+		tracked = hashtags;
+		io.emit("updateHashtags", JSON.stringify({displayed: displayed, tracked: tracked}));
+
+		io.emit("trackedChange", hashtags);
+
 	});
 
 
@@ -262,6 +301,7 @@ io.sockets.on('connection', function(socket){
 
 
 });
+
 
 //TO-DO: DECIDE ON LIMIT FOR DATABASE FUNCTIONS
 // async function requestByHashtag(hashtags, callback) {

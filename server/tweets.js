@@ -1,6 +1,6 @@
 const Twit = require("twit");
 const Database = require('./database.js');
-
+const fs = require('fs');
 
 class TweetRetriever {
 
@@ -33,7 +33,7 @@ class TweetRetriever {
         this.addTweetToDatabase = this.addTweetToDatabase.bind(this);
         this.requestTweetsFromDate = this.requestTweetsFromDate.bind(this);
         this.requestToDatabase = this.requestToDatabase.bind(this);
-        this.tweetObjectToData = this.tweetObjectToData.bind(this);
+        TweetRetriever.tweetObjectToData = TweetRetriever.tweetObjectToData.bind(this);
 
         this.getCurrentlyTracked = this.getCurrentlyTracked.bind(this);
         this.addToCurrentlyTracked = this.addToCurrentlyTracked.bind(this);
@@ -198,6 +198,36 @@ class TweetRetriever {
     }
 
 
+    writeFrequencyDataToCSV(file) {
+        const stream = fs.createWriteStream(file);
+        this.getCurrentlyTracked()
+
+            .then(async (hashtags) => {
+                hashtags.forEach(ele => {
+                    this.database.query("SELECT COUNT(*) FROM tweets WHERE hashtag=?", ele)
+                        .then(data => {
+                            console.log(data);
+                            stream.write(`${ele}, ${ele[0]["COUNT(*)"]}`);
+                        })
+                })
+            })
+    }
+
+    writeToCSV(file) {
+        return new Promise((resolve,reject) => {
+            this.database.query("SELECT * FROM tweets")
+                .then(data => {
+                    let toWrite = "";
+                    const stream = fs.createWriteStream(file);
+                    data.forEach(ele => {
+                       toWrite += `${ele.id}, ${ele.hashtag}, ${ele.date}, ${ele.contents},`;
+                    });
+                    stream.write(toWrite);
+                }) .catch(error => {reject(error)});
+        });
+
+
+    }
     /**
      * Requests all
      * @param hashtag
@@ -222,7 +252,7 @@ class TweetRetriever {
         const twit = this.twit;
         const database = this.database;
         const addToDatabase = this.addTweetToDatabase;
-        const tweetObjectToData = this.tweetObjectToData;
+        const tweetObjectToData = TweetRetriever.tweetObjectToData;
         return new Promise(function (resolve, reject) {
             const request = "#" + hashtag + " since:" + date;
             twit.get('search/tweets', {q: request, count: count})
@@ -268,7 +298,7 @@ class TweetRetriever {
      * @param hashtag
      * @returns {{date: *, image: *, contents: *, author: *, id: *, hashtag: *}}
      */
-    tweetObjectToData(tweet, hashtag) {
+    static tweetObjectToData(tweet, hashtag) {
         return {
             id: tweet.id,
             date: tweet.created_at,
