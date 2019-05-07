@@ -8,6 +8,7 @@
     "d3": "^5.9.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-loading": "^2.0.3",
     "react-scripts": "2.1.8",
     "socket.io-client": "^2.2.0",
     "twit": "^2.2.11",

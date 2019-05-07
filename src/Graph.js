@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './css/Graph.css';
 import * as d3 from "d3";
 import ReactDOM from 'react-dom';
+import ReactLoading from 'react-loading';
 import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants';
 
 /**
@@ -171,7 +172,7 @@ class Graph extends Component {
           })
         ]);
 
-        /*var legend = svg.selectAll('g')
+        var legend = svg.selectAll('g')
           .data(cities)
           .enter()
           .append('g')
@@ -198,7 +199,7 @@ class Graph extends Component {
           .attr("font-size", height/40 + "px")
           .text(function(d) {
             return d.name;
-          });*/
+          });
 
         svg.append("g")
           .attr("class", "x axis")
