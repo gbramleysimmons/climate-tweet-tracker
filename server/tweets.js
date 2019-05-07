@@ -3,7 +3,17 @@ const Database = require('./database.js');
 
 
 class TweetRetriever {
+
     constructor(conn) {
+        // this.twit = new Twit(
+        //     {consumer_key: "3WxkdRmYbcl5FaoWfGW5915sb",
+        //     consumer_secret: "AolaaOgz66866fGk7xflPq0MPHyMM9rpPl9CTW77bEVxoan8ey",
+        //     access_token: '14377535-3pnCcJZrrfxgohn36OjEfx8r0I5mZBTBnhclYHrYG',
+        //     access_token_secret: 'uZUiOLmKToXNRbtyfQtuhCOu79cEfFgRd6YYpc4mwV6On',
+        //     strictSSL: false    // optional - requires SSL certificates to be valid.
+        //
+        // });
+
         this.twit = new Twit({
             consumer_key:	"1avU8KT1N4kNqqcsNqwKSsRmh",
             consumer_secret: "nJzWdYmire6Bluueps9Hc02uRP4yna5JzN0iY0lWBzIJvnqSZm",
@@ -13,6 +23,8 @@ class TweetRetriever {
 
         });
         this.database = new Database(conn);
+
+        this.lastUpdated = Date.now();
 
         this.database.query("CREATE TABLE IF NOT EXISTS track(hashtag TEXT)");
         this.database.query("CREATE TABLE IF NOT EXISTS display(hashtag TEXT)");
@@ -29,9 +41,13 @@ class TweetRetriever {
         this.setCurrentlyTracked = this.setCurrentlyTracked.bind(this);
 
         this.getCurrentlyDisplayed = this.getCurrentlyDisplayed.bind(this);
-        this.addToCurrentlyDisplayed= this.addToCurrentlyDisplayed.bind(this);
+        this.addToCurrentlyDisplayed = this.addToCurrentlyDisplayed.bind(this);
         this.removeFromCurrentlyDisplayed = this.removeFromCurrentlyDisplayed.bind(this);
         this.setCurrentlyDisplayed = this.setCurrentlyDisplayed.bind(this);
+
+        this.getTweetsToDisplay = this.getTweetsToDisplay.bind(this);
+        this.getTweetsFromDatabase = this.getTweetsFromDatabase.bind(this);
+        this.updateDatabase = this.updateDatabase.bind(this);
 
     }
 
@@ -46,7 +62,7 @@ class TweetRetriever {
         })
     };
 
-    addToCurrentlyTracked(hashtag){
+    addToCurrentlyTracked(hashtag) {
         return new Promise((resolve, reject) => {
             this.database.query("INSERT INTO track VALUES(?);", [hashtag])
                 .then(resolve)
@@ -62,7 +78,7 @@ class TweetRetriever {
         });
     };
 
-    setCurrentlyTracked(hashtags){
+    setCurrentlyTracked(hashtags) {
         return new Promise((resolve, reject) => {
             if (hashtags.length === 0) {
                 resolve();
@@ -74,7 +90,7 @@ class TweetRetriever {
                     for (let i in hashtags) {
                         query += "(?),";
                     }
-                    query = query.slice(0, query.length-1);
+                    query = query.slice(0, query.length - 1);
                     query += ";";
                     console.log(query);
                     this.database.query(query, hashtags)
@@ -86,6 +102,34 @@ class TweetRetriever {
     };
 
 
+    updateDatabase() {
+        const currTime = this.lastUpdated;
+        this.lastUpdated = Date.now();
+        console.log(this.lastUpdated);
+        this.getCurrentlyTracked()
+            .then(data => {
+                for (let i in data) {
+                    this.requestToDatabase(data[i], currTime, 1000);
+                }
+            })
+    }
+
+    getTweetsToDisplay() {
+        return new Promise((resolve, reject) => {
+            this.getCurrentlyDisplayed()
+                .then(data => {
+                    this.getTweetsFromDatabase(data)
+                        .then((tweets) => {
+                            resolve(tweets);
+                        })
+                        .catch(error => reject(error));
+                })
+                .catch(error => reject(error));
+
+        })
+
+    }
+
     getCurrentlyDisplayed() {
         return new Promise((resolve, reject) => {
             this.database.query("SELECT * FROM display;")
@@ -94,10 +138,13 @@ class TweetRetriever {
                         return ele.hashtag;
                     }));
                 })
+                .catch(error => {
+                    reject(error);
+                })
         })
     };
 
-    addToCurrentlyDisplayed(hashtag){
+    addToCurrentlyDisplayed(hashtag) {
         return new Promise((resolve, reject) => {
             this.database.query("INSERT INTO display VALUES(?);", [hashtag])
                 .then(resolve)
@@ -113,7 +160,7 @@ class TweetRetriever {
         });
     };
 
-    setCurrentlyDisplayed(hashtags){
+    setCurrentlyDisplayed(hashtags) {
         return new Promise((resolve, reject) => {
             if (hashtags.length === 0) {
                 resolve();
@@ -125,7 +172,7 @@ class TweetRetriever {
                     for (let i in hashtags) {
                         query += "(?),";
                     }
-                    query = query.slice(0, query.length-1);
+                    query = query.slice(0, query.length - 1);
                     query += ";";
                     console.log(query);
                     this.database.query(query, hashtags)
@@ -138,10 +185,16 @@ class TweetRetriever {
 
     addTweetToDatabase(tweet) {
         let values = [tweet.id, tweet.hashtag, tweet.contents, tweet.author, tweet.date, tweet.image];
-        this.database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
-            .catch(error => {
-                console.error(error);
+        this.database.query('SELECT * FROM tweets WHERE id=?', tweet.id)
+            .then(data => {
+                if (data.length === 0) {
+                    this.database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }
             });
+
     }
 
 
@@ -162,27 +215,52 @@ class TweetRetriever {
                 .catch(error => {
                     reject(error);
                 })
-            });
-        }
+        });
+    }
 
-        requestToDatabase(hashtag, date, count) {
-            const twit = this.twit;
-            const database = this.database;
-            const addToDatabase = this.addTweetToDatabase;
-            const tweetObjectToData = this.tweetObjectToData;
-            return new Promise(function (resolve, reject) {
-                const request = "#" + hashtag + " since:" + date;
-                twit.get('search/tweets', {q: request, count: count})
-                    .then(data => {
-                        data.data.statuses.map(ele => addToDatabase(tweetObjectToData(ele)));
-                        resolve(data);
-                    })
-                    .catch(error => {
-                        reject(error);
-                    })
-            });
+    requestToDatabase(hashtag, date, count) {
+        const twit = this.twit;
+        const database = this.database;
+        const addToDatabase = this.addTweetToDatabase;
+        const tweetObjectToData = this.tweetObjectToData;
+        return new Promise(function (resolve, reject) {
+            const request = "#" + hashtag + " since:" + date;
+            twit.get('search/tweets', {q: request, count: count})
+                .then(data => {
+                    data.data.statuses.map(ele => addToDatabase(tweetObjectToData(ele)));
+                    resolve(data);
+                })
+                .catch(error => {
+                    reject(error);
+                })
+        });
 
-        }
+    }
+
+    getTweetsFromDatabase(hashtags) {
+        return new Promise((resolve, reject) => {
+
+            let query = "SELECT * FROM tweets WHERE";
+
+            for (let i in hashtags) {
+                query += " hashtag=? OR"
+            }
+
+            query = query.slice(0, query.length-3);
+            query += ";";
+
+            this.database.query(query, hashtags)
+                .then((data) => {
+                    const toReturn = [];
+                    for (let i in data) {
+                        console.log(data[i]);
+                        toReturn.push(data[i]);
+                    }
+                    resolve(toReturn);
+                });
+        });
+
+    }
 
     /**
      * Turns an object retrieved from the twitter api to a parseable objct
@@ -190,17 +268,16 @@ class TweetRetriever {
      * @param hashtag
      * @returns {{date: *, image: *, contents: *, author: *, id: *, hashtag: *}}
      */
-        tweetObjectToData(tweet, hashtag) {
-            return {
-                id: tweet.id,
-                date: tweet.created_at,
-                contents: tweet.text,
-                hashtag: hashtag,
-                image: tweet.user.profile_image_url
-            }
+    tweetObjectToData(tweet, hashtag) {
+        return {
+            id: tweet.id,
+            date: tweet.created_at,
+            contents: tweet.text,
+            hashtag: hashtag,
+            image: tweet.user.profile_image_url
         }
     }
+}
 
 
-
-    module.exports = TweetRetriever;
+module.exports = TweetRetriever;
