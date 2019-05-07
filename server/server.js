@@ -281,7 +281,6 @@ io.sockets.on('connection', function(socket){
 		twitter.getTweetsToDisplay()
 			.then(data => {
 				socket.emit('tweetsForGraph', data);
-
 			})
 	});
 
@@ -300,26 +299,6 @@ io.sockets.on('connection', function(socket){
 
 
 });
-
-
-//TO-DO: DECIDE ON LIMIT FOR DATABASE FUNCTIONS
-// async function requestByHashtag(hashtags, callback) {
-// 	let where = "(";
-// 	let array = [];
-// 	for (let i = 0; i < hashtags.length; i++) {
-// 		array.push("?");
-// 	}
-// 	where += array.join(",") + ")";
-// 	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
-// 	database.query(query, hashtags)
-// 		.then(data => {
-// 			callback(data);
-// 		})
-// 		.catch(error => {
-// 		    console.error(error);
-// 		});
-// }
-
 
 twitter.updateDatabase();
 const interval = setInterval(twitter.updateDatabase, 500000);

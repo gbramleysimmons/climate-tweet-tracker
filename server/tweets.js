@@ -283,8 +283,11 @@ class TweetRetriever {
                 .then((data) => {
                     const toReturn = [];
                     for (let i in data) {
+                        //console.log(data[i].date);
+                        //CHECK TWEETS ARE WITHIN 24 HOURS
                         toReturn.push(data[i]);
                     }
+                    console.log(toReturn);
                     resolve(toReturn);
                 });
         });
