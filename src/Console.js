@@ -11,6 +11,7 @@ class Console extends Component {
             trackHashtags: this.props.tracking,
             editingTracking: false,
             editingDisplay: false,
+            displayError: ""
         }
     }
 
@@ -60,6 +61,13 @@ class Console extends Component {
 
     addSubmitDisplay = (event)=> {
         event.preventDefault();
+        if (!(event.target[0].value in this.state.trackHashtags)) {
+            this.setState({displayError: "Error: hashtag not currently being tracked"});
+            return;
+        } else {
+            this.setState({displayError: ""});
+
+        }
         this.addToDisplay(event.target[0].value);
     };
 
@@ -125,6 +133,7 @@ class Console extends Component {
                                 <input id={"display-input"} type={"text"} placeholder={"Add hashtags to track"}/>
                                 <input type={"submit"} value={"Add"}/>
                             </form>
+                            <div className={"display-error"}> {this.state.displayError} </div>
                             <button className={"admin-button"}onClick={this.confirmDisplay}>Confirm</button>
                         </div> :<div>
                             {this.state.displayHashtags.map(ele => {
