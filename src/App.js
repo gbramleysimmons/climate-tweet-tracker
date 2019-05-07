@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-      setTimeout(() => this.setState({ isLoading: false }), 1000);
+      setTimeout(() => this.setState({ isLoading: false }), 800);
       //this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
       console.log("this.offsetW in App.js:" + this.offsetW);
       socket.on("updateHashtags", (received) => {
@@ -82,11 +82,6 @@ class App extends Component {
   };
 
   formatData = (data) => {
-    /*let hashtags = [];
-    for (let t in data) {
-      if (hashtags.indexOf(data[t].hashtag) === -1)
-        hashtags.push(data[t].hashtag);
-    }*/
     let hashtags = this.state.displaying;
     let myData = [];
     let row1 = ["date"];
@@ -157,7 +152,7 @@ class App extends Component {
   }
 
   render() {
-    if(this.state.isLoading) {
+    if((!this.state.data) || this.state.isLoading) {
       return <ReactLoading className={"loading-icon"} type={'spinningBubbles'} color={'white'} height='20%' width='20%'/>; // render the loading component
     }
     return (
