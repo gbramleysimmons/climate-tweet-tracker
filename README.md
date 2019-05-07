@@ -36,4 +36,4 @@ This web application was created with a React.js frontend, using D3 for data vis
 MySQL was used to track and retrieved data. 
 
 Source:
-Much of code for the graph (D3) came from here: https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
+We used the following guide to generate D3 graph: https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
