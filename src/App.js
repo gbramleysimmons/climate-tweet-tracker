@@ -160,7 +160,7 @@ class App extends Component {
 
   render() {
     if((!this.state.data) || this.state.isLoading) {
-      return <ReactLoading className={"loading-icon"} type={'spinningBubbles'} color={'white'} height='20%' width='20%'/>; // render the loading component
+      return <ReactLoading className={"loading-icon"} type={'spinningBubbles'} color={'#90cbf5'} height='20%' width='20%'/>; // render the loading component
     }
     return (
       <div className="App">

@@ -344,10 +344,13 @@ class TweetRetriever {
             }
 
             query = query.slice(0, query.length-3);
-            query += " LIMIT 10000;";
+            query += " LIMIT 1000;";
+
+            console.log(query);
 
             this.database.query(query, hashtags)
                 .then((data) => {
+                    console.log("here!!!!");
                     const toReturn = [];
                     for (let i in data) {
                         //console.log(data[i].date);
@@ -355,7 +358,8 @@ class TweetRetriever {
                         toReturn.push(data[i]);
                     }
                     resolve(toReturn);
-                });
+                })
+                .catch(error => console.err(error));
         });
 
     }

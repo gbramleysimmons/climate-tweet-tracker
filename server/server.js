@@ -246,8 +246,11 @@ function repl() {
 io.sockets.on('connection', function(socket){
 		twitter.getCurrentlyDisplayed()
 			.then(data => {
+				console.log("here".magenta);
 				twitter.getCurrentlyTracked()
 					.then(tracked => {
+						console.log("here".cyan);
+
 						const toSend = {
 							displayed: data,
 							tracked: tracked,
@@ -293,8 +296,11 @@ io.sockets.on('connection', function(socket){
 
 
 	socket.on('displayData', function(hashtags){
+		console.log("displayDataRecieved".green);
 		twitter.getTweetsToDisplay()
+
 			.then(data => {
+				console.log("displayDataIn".red);
 				socket.emit('tweetsForGraph', data);
 			})
 	});
