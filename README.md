@@ -43,3 +43,6 @@ As our data is non-standardized, instead of system tests, user interaction with 
 used to determine functionality. 
 
 The frontend CSS was validated using W3 tools. 
+
+Sources:
+Codes for the graph was generated through D3 using this source: https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
