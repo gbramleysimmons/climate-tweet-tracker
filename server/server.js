@@ -11,6 +11,7 @@ const http = require('http');
 const express = require('express');
 const readline = require('readline');
 const CryptoJS = require('crypto-js');
+const YAML = require('yaml');
 
 
 //project objects
@@ -238,17 +239,20 @@ io.sockets.on('connection', function(socket){
 	});
 
 
-	socket.on('displayData', async function(hashtags){
-		requestByHashtag(hashtags, function(data) {
-			socket.emit('tweetsForGraph', data);
-		});
+	socket.on('displayData', function(hashtags){
+		twitter.getTweetsToDisplay()
+			.then(data => {
+				socket.emit('tweetsForGraph', data);
+
+			})
 	});
 
-	socket.on('updateFeed', async function(hashtags){
-		requestByHashtag(hashtags, function(data){
-			console.log(data);
-			socket.emit('tweetsForFeed', data);
-		});
+
+	socket.on('updateFeed', function(hashtags){
+		twitter.getTweetsToDisplay()
+			.then(data => {
+				socket.emit('tweetsForFeed', data);
+			})
 	});
 
     socket.on('error', function(){
@@ -260,22 +264,25 @@ io.sockets.on('connection', function(socket){
 });
 
 //TO-DO: DECIDE ON LIMIT FOR DATABASE FUNCTIONS
-async function requestByHashtag(hashtags, callback) {
-	let where = "(";
-	let array = [];
-	for (let i = 0; i < hashtags.length; i++) {
-		array.push("?");
-	}
-	where += array.join(",") + ")";
-	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
-	database.query(query, hashtags)
-		.then(data => {
-			callback(data);
-		})
-		.catch(error => {
-		    console.error(error);
-		});
-}
+// async function requestByHashtag(hashtags, callback) {
+// 	let where = "(";
+// 	let array = [];
+// 	for (let i = 0; i < hashtags.length; i++) {
+// 		array.push("?");
+// 	}
+// 	where += array.join(",") + ")";
+// 	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
+// 	database.query(query, hashtags)
+// 		.then(data => {
+// 			callback(data);
+// 		})
+// 		.catch(error => {
+// 		    console.error(error);
+// 		});
+// }
+
+twitter.updateDatabase();
+const interval = setInterval(twitter.updateDatabase, 500000);
 
 // async function requestAllTweets(callback) {
 // 	database.query('SELECT * FROM tweets ORDER BY date LIMIT 50')
@@ -287,10 +294,11 @@ async function requestByHashtag(hashtags, callback) {
 // 		});
 // }
 
-repl();
 
 server.listen(8080, function() {
 	console.log('- Server listening on port 8080'.cyan);
 });
+
+repl();
 
 io.listen(8000);
