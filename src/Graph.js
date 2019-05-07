@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './css/Graph.css';
 import * as d3 from "d3";
 import ReactDOM from 'react-dom';
-import ReactLoading from 'react-loading';
 import { SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION } from 'constants';
 
 /**
