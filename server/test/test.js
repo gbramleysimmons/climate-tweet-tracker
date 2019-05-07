@@ -75,8 +75,7 @@ describe("Login.sha512()", function() {
 
 describe("Login.addNewUser()", function() {
     const login = new Login(conn);
-
-    it("should add a user and password to the database", function (done) {
+    it("should add a user and password to the database", function(done) {
            const name = "addnewuser";
            const password = "password";
            login.addNewUser(name, "")
@@ -94,13 +93,14 @@ describe("Login.addNewUser()", function() {
                })
                .catch(error => {
                    expect(error).to.equal("");
+                   done();
                })
         })
 });
 
 describe("Login.validateLogin()", function(done) {
     const login = new Login(conn);
-    it("should check if a username and password combination is in the database", function() {
+    it("should check if a username and password combination is in the database", function(done) {
         const name = "validate";
         const password = "password";
 
@@ -114,6 +114,7 @@ describe("Login.validateLogin()", function(done) {
                     }) .catch (error => {
                     login.removeUser(name);
                     expect(error).to.equal("");
+                    done();
 
                 })
             }).catch(error =>  {
@@ -248,6 +249,24 @@ describe("TweetRetriever.setCurrentlyDisplayed()", function() {
     });
 });
 
+describe("TweetRetriever.tweetObjectToData()", function() {
+    it("should transform an object retrieved from the twitter API into a object useable by other methods", function(done) {
+        const tr = new TweetRetriever(conn);
+        tr.requestTweetsFromDate("test", "2019-4-30")
+            .then(data => {
+                const parsed = TweetRetriever.tweetObjectToData(data.data.statuses[0], "test");
+                expect(parsed).to.have.property("id");
+                expect(parsed).to.have.property("author");
+                expect(parsed).to.have.property("image");
+                expect(parsed).to.have.property("contents");
+                expect(parsed).to.have.property("hashtag");
+                done();
 
+
+
+
+            })
+    })
+});
 
 

@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f6dd29a-11cc-48cb-beca-7e98c60b0a07" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/test/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/test/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/tweets.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tweets.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4515">
-              <caret line="301" column="36" selection-start-line="301" selection-start-column="36" selection-end-line="301" selection-end-column="36" />
+            <state relative-caret-position="329">
+              <caret line="121" column="69" selection-start-line="121" selection-start-column="60" selection-end-line="121" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -34,10 +33,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/test/test.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="250" selection-start-line="250" selection-end-line="250" />
+            <state relative-caret-position="1365">
+              <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/login.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1410">
+              <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TweetContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/frequency-data.csv">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -50,19 +75,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/css/Console.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="23" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/tweets.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="236" column="48" selection-start-line="236" selection-start-column="48" selection-end-line="236" selection-end-column="48" />
+            <state relative-caret-position="-868">
+              <caret line="291" column="14" selection-start-line="291" selection-start-column="4" selection-end-line="291" selection-end-column="14" />
               <folding>
                 <element signature="n#!!doc;n#tweetObjectToData#0;n#TweetRetriever#0" />
               </folding>
@@ -73,33 +89,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="170" column="5" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
+            <state relative-caret-position="150">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Tweet.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.test.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -129,8 +122,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>console.</find>
-      <find>database</find>
       <find>databse</find>
       <find>twitter</find>
       <find>bod</find>
@@ -156,7 +147,11 @@
       <find>addSubmit</find>
       <find>socket</find>
       <find>update-db</find>
+      <find>loadin</find>
       <find>border</find>
+      <find>requestTwe</find>
+      <find>date</find>
+      <find>0</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -192,12 +187,12 @@
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/Console.js" />
         <option value="$PROJECT_DIR$/src/css/Hashtag.css" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/server/server.js" />
-        <option value="$PROJECT_DIR$/server/test/test.js" />
         <option value="$PROJECT_DIR$/server/tweets.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/server/test/test.js" />
       </list>
     </option>
   </component>
@@ -289,7 +284,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Mocha.Login.removeUser()">
+  <component name="RunManager" selected="Mocha.Login.addNewUser()">
+    <configuration name="Login.addNewUser()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/server/test/test.js</test-file>
+      <test-names>
+        <name value="Login.addNewUser()" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="Login.removeUser()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
@@ -302,6 +312,21 @@
       <test-file>$PROJECT_DIR$/server/test/test.js</test-file>
       <test-names>
         <name value="Login.removeUser()" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Login.validateLogin()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
+      <working-directory>$PROJECT_DIR$/server</working-directory>
+      <pass-parent-env>true</pass-parent-env>
+      <ui>bdd</ui>
+      <extra-mocha-options />
+      <test-kind>SUITE</test-kind>
+      <test-file>$PROJECT_DIR$/server/test/test.js</test-file>
+      <test-names>
+        <name value="Login.validateLogin()" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -320,22 +345,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="TweetRetriever.removeFromCurrentlyTracked()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/server/test/test.js</test-file>
-      <test-names>
-        <name value="TweetRetriever.removeFromCurrentlyTracked()" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="TweetRetriever.setCurrentlyDisplayed()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
+    <configuration name="TweetRetriever.tweetObjectToData()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
@@ -346,22 +356,7 @@
       <test-kind>SUITE</test-kind>
       <test-file>$PROJECT_DIR$/server/test/test.js</test-file>
       <test-names>
-        <name value="TweetRetriever.setCurrentlyDisplayed()" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="TweetRetriever.setCurrentlyTracked()" type="mocha-javascript-test-runner" temporary="true" nameIsGenerated="true">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <mocha-package>$PROJECT_DIR$/server/node_modules/mocha</mocha-package>
-      <working-directory>$PROJECT_DIR$/server</working-directory>
-      <pass-parent-env>true</pass-parent-env>
-      <ui>bdd</ui>
-      <extra-mocha-options />
-      <test-kind>SUITE</test-kind>
-      <test-file>$PROJECT_DIR$/server/test/test.js</test-file>
-      <test-names>
-        <name value="TweetRetriever.setCurrentlyTracked()" />
+        <name value="TweetRetriever.tweetObjectToData()" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -379,20 +374,20 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Mocha.Unnamed" />
       <item itemvalue="Mocha.Login.removeUser()" />
       <item itemvalue="Mocha.TweetRetriever.addToCurrentlyTracked()" />
-      <item itemvalue="Mocha.TweetRetriever.removeFromCurrentlyTracked()" />
-      <item itemvalue="Mocha.TweetRetriever.setCurrentlyDisplayed()" />
-      <item itemvalue="Mocha.TweetRetriever.setCurrentlyTracked()" />
-      <item itemvalue="Mocha.Unnamed" />
+      <item itemvalue="Mocha.TweetRetriever.tweetObjectToData()" />
+      <item itemvalue="Mocha.Login.validateLogin()" />
+      <item itemvalue="Mocha.Login.addNewUser()" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Mocha.Login.addNewUser()" />
+        <item itemvalue="Mocha.Login.validateLogin()" />
+        <item itemvalue="Mocha.TweetRetriever.tweetObjectToData()" />
         <item itemvalue="Mocha.Login.removeUser()" />
         <item itemvalue="Mocha.TweetRetriever.addToCurrentlyTracked()" />
-        <item itemvalue="Mocha.TweetRetriever.removeFromCurrentlyTracked()" />
-        <item itemvalue="Mocha.TweetRetriever.setCurrentlyDisplayed()" />
-        <item itemvalue="Mocha.TweetRetriever.setCurrentlyTracked()" />
       </list>
     </recent_temporary>
   </component>
@@ -427,44 +422,45 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 39m 59s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 40m 10s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 40m 39s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 40m 48s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 41m 25s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 41m 52s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 41m 59s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 42m 25s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
-    <history-entry file="TweetRetriever_addToCurrentlyTracked() - 2019.05.06 at 14h 42m 32s.xml">
-      <configuration name="TweetRetriever.addToCurrentlyTracked()" configurationId="mocha-javascript-test-runner" />
-    </history-entry>
     <history-entry file="Login_removeUser() - 2019.05.06 at 14h 42m 46s.xml">
       <configuration name="Login.removeUser()" configurationId="mocha-javascript-test-runner" />
     </history-entry>
+    <history-entry file="TweetRetriever_tweetObjectToData() - 2019.05.07 at 11h 43m 17s.xml">
+      <configuration name="TweetRetriever.tweetObjectToData()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="TweetRetriever_tweetObjectToData() - 2019.05.07 at 11h 43m 30s.xml">
+      <configuration name="TweetRetriever.tweetObjectToData()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="TweetRetriever_tweetObjectToData() - 2019.05.07 at 11h 43m 43s.xml">
+      <configuration name="TweetRetriever.tweetObjectToData()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="TweetRetriever_tweetObjectToData() - 2019.05.07 at 11h 45m 54s.xml">
+      <configuration name="TweetRetriever.tweetObjectToData()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="TweetRetriever_tweetObjectToData() - 2019.05.07 at 11h 46m 02s.xml">
+      <configuration name="TweetRetriever.tweetObjectToData()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Login_validateLogin() - 2019.05.07 at 11h 47m 09s.xml">
+      <configuration name="Login.validateLogin()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Login_addNewUser() - 2019.05.07 at 11h 47m 55s.xml">
+      <configuration name="Login.addNewUser()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Login_validateLogin() - 2019.05.07 at 11h 48m 05s.xml">
+      <configuration name="Login.validateLogin()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
+    <history-entry file="Login_addNewUser() - 2019.05.07 at 11h 48m 33s.xml">
+      <configuration name="Login.addNewUser()" configurationId="mocha-javascript-test-runner" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79629000" />
+    <option name="totallyTimeSpent" value="80646000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7666068" visible="true" weight="0.16772375" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7666068" visible="true" weight="0.16772375" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.23339318" side_tool="true" weight="0.16772375" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -478,7 +474,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32891566" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32891566" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -512,12 +508,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/App.js</url>
-          <line>34</line>
+          <line>32</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/test/test.js</url>
-          <line>164</line>
+          <line>165</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -529,23 +525,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/server/node_modules/socket.io/lib/socket.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-255">
-          <caret line="527" column="11" selection-start-line="527" selection-start-column="11" selection-end-line="527" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TweetContainer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/HashtagContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -558,13 +537,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/report.20190427.115216.33597.0.001.json">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/login.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/node_modules/mysql/lib/protocol/Parser.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -683,16 +655,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="32">
-          <caret line="170" column="5" selection-start-line="170" selection-start-column="5" selection-end-line="170" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -717,13 +679,6 @@
     <entry file="file://$PROJECT_DIR$/server/package.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/database.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/css/HashtagContainer.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -735,16 +690,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Graph.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="60" column="30" selection-start-line="60" selection-end-line="61" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -784,9 +729,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/favicon.ico">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -794,17 +736,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
+    <entry file="file://$PROJECT_DIR$/server/database.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4515">
-          <caret line="301" column="36" selection-start-line="301" selection-start-column="36" selection-end-line="301" selection-end-column="36" />
+        <state relative-caret-position="170">
+          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/test/test.js">
+    <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="250" selection-start-line="250" selection-end-line="250" />
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Graph.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="60" column="30" selection-start-line="60" selection-end-line="61" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -817,13 +772,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/tweets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="236" column="48" selection-start-line="236" selection-start-column="48" selection-end-line="236" selection-end-column="48" />
+        <state relative-caret-position="-868">
+          <caret line="291" column="14" selection-start-line="291" selection-start-column="4" selection-end-line="291" selection-end-column="14" />
           <folding>
             <element signature="n#!!doc;n#tweetObjectToData#0;n#TweetRetriever#0" />
           </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="121" column="69" selection-start-line="121" selection-start-column="60" selection-end-line="121" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/favicon.ico">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test/test.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1365">
+          <caret line="91" column="26" selection-start-line="91" selection-start-column="26" selection-end-line="91" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1410">
+          <caret line="12" column="23" selection-start-line="12" selection-start-column="23" selection-end-line="12" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TweetContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="49" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/frequency-data.csv">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
 </project>

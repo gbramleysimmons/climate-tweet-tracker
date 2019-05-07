@@ -9,8 +9,6 @@ import Console from "./Console";
 import ReactLoading from 'react-loading';
 import logo from './img/cdllogo2.png';
 
-//to run locally
-// const socket = io.connect('http://localhost:8000');
 
 let host = new URL(window.location.href);
 host.port = 8000;//deployed
