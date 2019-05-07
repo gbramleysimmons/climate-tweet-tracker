@@ -302,6 +302,7 @@ class TweetRetriever {
             date: tweet.created_at,
             contents: tweet.text,
             hashtag: hashtag,
+            author: tweet.user,
             image: tweet.user.profile_image_url
         }
     }
