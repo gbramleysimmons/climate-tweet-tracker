@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f6dd29a-11cc-48cb-beca-7e98c60b0a07" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/tweets.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tweets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -21,17 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="110" column="65" selection-start-line="110" selection-start-column="65" selection-end-line="110" selection-end-column="65" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/safasd">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="12" selection-start-column="12" selection-end-column="12" />
+            <state relative-caret-position="297">
+              <caret line="120" column="28" lean-forward="true" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -39,17 +29,53 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/test.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1062" />
+            <state relative-caret-position="153">
+              <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+            </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/testactual.csv">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/tweets.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="213" column="5" lean-forward="true" selection-start-line="213" selection-start-column="5" selection-end-line="213" selection-end-column="5" />
+            <state relative-caret-position="208">
+              <caret line="259" column="41" selection-start-line="259" selection-start-column="41" selection-end-line="259" selection-end-column="41" />
+              <folding>
+                <element signature="n#!!block;n#getCurrentlyTracked#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#addToCurrentlyTracked#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#removeFromCurrentlyTracked#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#setCurrentlyTracked#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#getTweetsToDisplay#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#getCurrentlyDisplayed#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#addToCurrentlyDisplayed#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#removeFromCurrentlyDisplayed#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#setCurrentlyDisplayed#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#addTweetToDatabase#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#writeFrequencyDataToCSV#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#writeToCSV#0;n#TweetRetriever#0" />
+                <element signature="n#!!doc;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#getTweetsFromDatabase#0;n#TweetRetriever#0" />
+                <element signature="n#!!doc;n#tweetObjectToData#0;n#TweetRetriever#0" />
+                <element signature="n#!!block;n#tweetObjectToData#0;n#TweetRetriever#0" />
+              </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/tasdjhags.csv">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/test4.csv">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -58,34 +84,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/test3.csv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-8749" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/test2.csv">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="41" column="27" lean-forward="true" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Console.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-240">
-              <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
+            <state relative-caret-position="365">
+              <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -97,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/src/index.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -130,8 +132,10 @@
       <find>asyn</find>
       <find>getTweetsFrom</find>
       <find>csv</find>
-      <find>write</find>
       <find>interval</find>
+      <find>write</find>
+      <find>===</find>
+      <find>freq</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -390,7 +394,7 @@
       <workItem from="1556806792126" duration="10184000" />
       <workItem from="1557001007360" duration="11176000" />
       <workItem from="1557150151474" duration="425000" />
-      <workItem from="1557150964459" duration="13100000" />
+      <workItem from="1557150964459" duration="14424000" />
     </task>
     <servers />
   </component>
@@ -427,13 +431,13 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69926000" />
+    <option name="totallyTimeSpent" value="71250000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.7666068" visible="true" weight="0.16772375" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7666068" visible="true" weight="0.16772375" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" sideWeight="0.23339318" side_tool="true" weight="0.16772375" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -447,7 +451,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32891566" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32891566" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32891566" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -481,7 +485,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/App.js</url>
-          <line>25</line>
+          <line>27</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -490,30 +494,16 @@
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/tweets.js</url>
+          <line>249</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/img/graph.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/css/Hashtag.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -786,21 +776,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/test.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1062" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/test3.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-8749" />
@@ -821,25 +796,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="41" column="27" lean-forward="true" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+        <state relative-caret-position="365">
+          <caret line="42" column="27" selection-start-line="42" selection-start-column="27" selection-end-line="42" selection-end-column="27" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
+    <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="110" column="65" selection-start-line="110" selection-start-column="65" selection-end-line="110" selection-end-column="65" />
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/test4.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/realtest.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="1" lean-forward="true" selection-start-column="1" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="120" column="28" lean-forward="true" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/test.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/testactual.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/tasdjhags.csv">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/tweets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="213" column="5" lean-forward="true" selection-start-line="213" selection-start-column="5" selection-end-line="213" selection-end-column="5" />
+        <state relative-caret-position="208">
+          <caret line="259" column="41" selection-start-line="259" selection-start-column="41" selection-end-line="259" selection-end-column="41" />
+          <folding>
+            <element signature="n#!!block;n#getCurrentlyTracked#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#addToCurrentlyTracked#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#removeFromCurrentlyTracked#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#setCurrentlyTracked#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#getTweetsToDisplay#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#getCurrentlyDisplayed#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#addToCurrentlyDisplayed#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#removeFromCurrentlyDisplayed#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#setCurrentlyDisplayed#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#addTweetToDatabase#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#writeFrequencyDataToCSV#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#writeToCSV#0;n#TweetRetriever#0" />
+            <element signature="n#!!doc;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#getTweetsFromDatabase#0;n#TweetRetriever#0" />
+            <element signature="n#!!doc;n#tweetObjectToData#0;n#TweetRetriever#0" />
+            <element signature="n#!!block;n#tweetObjectToData#0;n#TweetRetriever#0" />
+          </folding>
         </state>
       </provider>
     </entry>

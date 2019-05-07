@@ -101,7 +101,6 @@ class TweetRetriever {
         });
     };
 
-
     updateDatabase() {
         const currTime = this.lastUpdated;
         this.lastUpdated = Date.now();
@@ -109,7 +108,8 @@ class TweetRetriever {
         this.getCurrentlyTracked()
             .then(data => {
                 for (let i in data) {
-                    this.requestToDatabase(data[i], currTime, 1000);
+                    let time = new Date(currTime);
+                    this.requestToDatabase(data[i], `${time.getFullYear()}-${time.getMonth()}-${time.getDay()}`, 1000);
                 }
             })
     }
@@ -197,7 +197,6 @@ class TweetRetriever {
 
     }
 
-
     writeFrequencyDataToCSV(file) {
         const stream = fs.createWriteStream(file);
         this.getCurrentlyTracked()
@@ -206,8 +205,7 @@ class TweetRetriever {
                 hashtags.forEach(ele => {
                     this.database.query("SELECT COUNT(*) FROM tweets WHERE hashtag=?", ele)
                         .then(data => {
-                            console.log(data);
-                            stream.write(`${ele}, ${ele[0]["COUNT(*)"]}`);
+                            stream.write(`${ele}, ${data[0]['COUNT(*)']}, `);
                         })
                 })
             })
@@ -228,6 +226,7 @@ class TweetRetriever {
 
 
     }
+
     /**
      * Requests all
      * @param hashtag
@@ -257,6 +256,8 @@ class TweetRetriever {
             const request = "#" + hashtag + " since:" + date;
             twit.get('search/tweets', {q: request, count: count})
                 .then(data => {
+                    console.log("HERE!!!!!!");
+                    console.log(data.data);
                     data.data.statuses.map(ele => addToDatabase(tweetObjectToData(ele)));
                     resolve(data);
                 })
@@ -310,6 +311,5 @@ class TweetRetriever {
         }
     }
 }
-
 
 module.exports = TweetRetriever;
