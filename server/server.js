@@ -26,7 +26,20 @@ const rl = readline.createInterface({
 	output: process.stdout
 });
 
+
 const twitter = new TweetRetriever(conn);
+let tracked;
+
+twitter.getCurrentlyTracked()
+	.then(data => {tracked = data})
+	.catch(error => {console.error(error)});
+
+let displayed;
+twitter.getCurrentlyDisplayed()
+	.then(data => {displayed = data})
+	.catch(error => {console.error(error)});
+
+
 const io = require('socket.io').listen(server);
 app.use(express.static('public'));
 
@@ -78,7 +91,27 @@ function repl() {
 					})
 				});
 				break;
-
+			case "data-csv":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("filename: ", (answer1) => {
+						twitter.writeToCSV(answer1)
+							.catch(error => {console.error(error)});
+					} )
+				}
+				break;
+			case "csv":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				} else {
+					rl.question("filename: ", (answer1) => {
+						twitter.writeFrequencyDataToCSV(answer1);
+					} )
+				}
+				break;
 			case "retrieve":
 				if (!authorized["repl"]) {
 					console.log("operation not permitted");
@@ -87,9 +120,8 @@ function repl() {
 				rl.question("hashtag: ", function(answer) {
 					 twitter.requestTweetsFromDate(answer, "2019-4-30")
 						.then(data => {
-							console.log("here");
 							const parsed = data.data.statuses.map(ele =>
-							twitter.tweetObjectToData(ele, answer));
+							TweetRetriever.tweetObjectToData(ele, answer));
 							console.log(parsed);
 							repl();
 						}) .catch(error => {
@@ -230,25 +262,35 @@ io.sockets.on('connection', function(socket){
 	socket.on("setDisplayed", function(hashtags) {
 		console.log(hashtags);
 		twitter.setCurrentlyDisplayed(hashtags);
+		displayed = hashtags;
+		io.emit("updateHashtags",JSON.stringify({displayed: displayed, tracked: tracked}));
 	});
 
 	socket.on("setTracked", function(hashtags) {
 		console.log(hashtags);
 		twitter.setCurrentlyTracked(hashtags);
+		tracked = hashtags;
+		io.emit("updateHashtags", JSON.stringify({displayed: displayed, tracked: tracked}));
+
+		io.emit("trackedChange", hashtags);
+
 	});
 
 
-	socket.on('displayData', async function(hashtags){
-		requestByHashtag(hashtags, function(data) {
-			socket.emit('tweetsForGraph', data);
-		});
+	socket.on('displayData', function(hashtags){
+		twitter.getTweetsToDisplay()
+			.then(data => {
+				socket.emit('tweetsForGraph', data);
+
+			})
 	});
 
-	socket.on('updateFeed', async function(hashtags){
-		requestByHashtag(hashtags, function(data){
-			console.log(data);
-			socket.emit('tweetsForFeed', data);
-		});
+
+	socket.on('updateFeed', function(hashtags){
+		twitter.getTweetsToDisplay()
+			.then(data => {
+				socket.emit('tweetsForFeed', data);
+			})
 	});
 
     socket.on('error', function(){
@@ -259,26 +301,17 @@ io.sockets.on('connection', function(socket){
 
 });
 
-//TO-DO: DECIDE ON LIMIT FOR DATABASE FUNCTIONS
-async function requestByHashtag(hashtags, callback) {
-	let where = "(";
-	let array = [];
-	for (let i = 0; i < hashtags.length; i++) {
-		array.push("?");
-	}
-	where += array.join(",") + ")";
-	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
-	database.query(query, hashtags)
-		.then(data => {
-			callback(data);
-		})
-		.catch(error => {
-		    console.error(error);
-		});
-}
 
-// async function requestAllTweets(callback) {
-// 	database.query('SELECT * FROM tweets ORDER BY date LIMIT 50')
+//TO-DO: DECIDE ON LIMIT FOR DATABASE FUNCTIONS
+// async function requestByHashtag(hashtags, callback) {
+// 	let where = "(";
+// 	let array = [];
+// 	for (let i = 0; i < hashtags.length; i++) {
+// 		array.push("?");
+// 	}
+// 	where += array.join(",") + ")";
+// 	let query = 'SELECT * FROM tweets WHERE hashtag IN ' + where + ' ORDER BY date LIMIT 200';
+// 	database.query(query, hashtags)
 // 		.then(data => {
 // 			callback(data);
 // 		})
@@ -287,10 +320,15 @@ async function requestByHashtag(hashtags, callback) {
 // 		});
 // }
 
-repl();
+
+twitter.updateDatabase();
+const interval = setInterval(twitter.updateDatabase, 500000);
+
 
 server.listen(8080, function() {
 	console.log('- Server listening on port 8080'.cyan);
 });
+
+repl();
 
 io.listen(8000);
