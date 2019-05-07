@@ -204,16 +204,16 @@ class Graph extends Component {
           .attr("class", "x axis")
           //.attr("transform", "translate(0," + height - 500 + ")")
           .call(xAxis)
-          .attr("font-size", height/70 + "px")
+          .attr("font-size", height/50 + "px")
           .style("stroke-width", height/430);
 
         svg.append("g")
           .attr("class", "y axis")
           .call(yAxis)
-          .attr("font-size", height/70 + "px")
+          .attr("font-size", height/50 + "px")
           .style("stroke-width", height/430)
           .append("text")
-          .attr("font-size", height/70 + "px")
+          .attr("font-size", height/50 + "px")
           .attr("transform", "translate("+ height/30 +", 0)") // added
           .attr("y", height/100)
           .attr("x", -height/30)
