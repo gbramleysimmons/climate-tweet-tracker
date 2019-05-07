@@ -120,7 +120,6 @@ function repl() {
 				rl.question("hashtag: ", function(answer) {
 					 twitter.requestTweetsFromDate(answer, "2019-4-30")
 						.then(data => {
-							console.log("here");
 							const parsed = data.data.statuses.map(ele =>
 							TweetRetriever.tweetObjectToData(ele, answer));
 							console.log(parsed);
@@ -321,18 +320,9 @@ io.sockets.on('connection', function(socket){
 // 		});
 // }
 
+
 twitter.updateDatabase();
 const interval = setInterval(twitter.updateDatabase, 500000);
-
-// async function requestAllTweets(callback) {
-// 	database.query('SELECT * FROM tweets ORDER BY date LIMIT 50')
-// 		.then(data => {
-// 			callback(data);
-// 		})
-// 		.catch(error => {
-// 		    console.error(error);
-// 		});
-// }
 
 
 server.listen(8080, function() {

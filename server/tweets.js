@@ -283,7 +283,6 @@ class TweetRetriever {
                 .then((data) => {
                     const toReturn = [];
                     for (let i in data) {
-                        console.log(data[i]);
                         toReturn.push(data[i]);
                     }
                     resolve(toReturn);

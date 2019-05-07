@@ -171,7 +171,7 @@ class Graph extends Component {
           })
         ]);
 
-        /*var legend = svg.selectAll('g')
+        var legend = svg.selectAll('g')
           .data(cities)
           .enter()
           .append('g')
@@ -198,7 +198,7 @@ class Graph extends Component {
           .attr("font-size", height/40 + "px")
           .text(function(d) {
             return d.name;
-          });*/
+          });
 
         svg.append("g")
           .attr("class", "x axis")

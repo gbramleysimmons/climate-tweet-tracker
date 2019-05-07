@@ -6,6 +6,7 @@ import TweetContainer from "./TweetContainer";
 import io from 'socket.io-client';
 import Login from './Login';
 import Console from "./Console";
+import ReactLoading from 'react-loading';
 
 const socket = io.connect('http://localhost:8000');
 
@@ -14,6 +15,7 @@ class App extends Component {
       super(props);
       this.offsetW = 0;
       this.state = {
+          isLoading: true,
           login: false,
           authorized: false,
           user: "",
@@ -22,17 +24,16 @@ class App extends Component {
           data: "",
           tracking: [],
           displaying: [],
-          hashtags: {} 
+          hashtags: {}
       }
   }
 
   componentDidMount() {
-      this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
-      //console.log("this.offsetW in App.js:" + this.offsetW);
+      setTimeout(() => this.setState({ isLoading: false }), 800);
+      //this.offsetW = document.getElementsByClassName('wrapper-left')[0].offsetWidth;
+      console.log("this.offsetW in App.js:" + this.offsetW);
       socket.on("updateHashtags", (received) => {
-          //console.log("data!!!");
           const data = JSON.parse(received);
-          //console.log(data);
           this.setState({tracking: data.tracked, displaying: data.displayed})
           this.updateFeed(data.displayed);
           this.updateGraph(data.displayed);
@@ -81,11 +82,6 @@ class App extends Component {
   };
 
   formatData = (data) => {
-    /*let hashtags = [];
-    for (let t in data) {
-      if (hashtags.indexOf(data[t].hashtag) === -1)
-        hashtags.push(data[t].hashtag);
-    }*/
     let hashtags = this.state.displaying;
     let myData = [];
     let row1 = ["date"];
@@ -156,7 +152,9 @@ class App extends Component {
   };
 
   render() {
-    //console.log(this.state);
+    if((!this.state.data) || this.state.isLoading) {
+      return <ReactLoading className={"loading-icon"} type={'spinningBubbles'} color={'white'} height='20%' width='20%'/>; // render the loading component
+    }
     return (
       <div className="App">
           {this.state.console ? <Console close={this.toggleConsole} tracking={this.state.tracking} displaying={this.state.displaying}/>: <div className={"App"}> {this.state.login ? <Login authorize={this.authorize} close={this.toggleLogin}/>: null}
