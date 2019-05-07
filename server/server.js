@@ -131,6 +131,10 @@ function repl() {
 					})
 				});
 				break;
+			case "get-tweets":
+				twitter.getTweetsToDisplay()
+					.then(data => console.log(data));
+				break;
 			case "add-tracked":
 				if (!authorized["repl"]) {
 					console.log("operation not permitted");
@@ -198,6 +202,7 @@ function repl() {
 					});
 				}
 				break;
+
 			case "get-displayed":
 				twitter.getCurrentlyDisplayed(answer)
 					.then(data => {

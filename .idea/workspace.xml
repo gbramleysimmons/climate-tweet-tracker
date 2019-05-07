@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8f6dd29a-11cc-48cb-beca-7e98c60b0a07" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/tweets.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/tweets.js" afterDir="false" />
     </list>
@@ -20,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="120" column="28" lean-forward="true" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
+            <state relative-caret-position="-2728">
+              <caret line="128" column="43" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -43,26 +42,14 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/tweets.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="259" column="41" selection-start-line="259" selection-start-column="41" selection-end-line="259" selection-end-column="41" />
+            <state relative-caret-position="235">
+              <caret line="255" column="94" selection-start-line="255" selection-start-column="94" selection-end-line="255" selection-end-column="94" />
               <folding>
-                <element signature="n#!!block;n#getCurrentlyTracked#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#addToCurrentlyTracked#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#removeFromCurrentlyTracked#0;n#TweetRetriever#0" />
                 <element signature="n#!!block;n#setCurrentlyTracked#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#getTweetsToDisplay#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#getCurrentlyDisplayed#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#addToCurrentlyDisplayed#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#removeFromCurrentlyDisplayed#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#setCurrentlyDisplayed#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#addTweetToDatabase#0;n#TweetRetriever#0" />
                 <element signature="n#!!block;n#writeFrequencyDataToCSV#0;n#TweetRetriever#0" />
                 <element signature="n#!!block;n#writeToCSV#0;n#TweetRetriever#0" />
                 <element signature="n#!!doc;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#getTweetsFromDatabase#0;n#TweetRetriever#0" />
                 <element signature="n#!!doc;n#tweetObjectToData#0;n#TweetRetriever#0" />
-                <element signature="n#!!block;n#tweetObjectToData#0;n#TweetRetriever#0" />
               </folding>
             </state>
           </provider>
@@ -127,7 +114,6 @@
       <find>e</find>
       <find>login-li</find>
       <find>login</find>
-      <find>console.log</find>
       <find>update</find>
       <find>asyn</find>
       <find>getTweetsFrom</find>
@@ -136,6 +122,12 @@
       <find>write</find>
       <find>===</find>
       <find>freq</find>
+      <find>console</find>
+      <find>console.log</find>
+      <find>console.log(</find>
+      <find>addTo</find>
+      <find>addToDatabase</find>
+      <find>addTweetToDatabase</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -394,7 +386,7 @@
       <workItem from="1556806792126" duration="10184000" />
       <workItem from="1557001007360" duration="11176000" />
       <workItem from="1557150151474" duration="425000" />
-      <workItem from="1557150964459" duration="14424000" />
+      <workItem from="1557150964459" duration="15136000" />
     </task>
     <servers />
   </component>
@@ -431,7 +423,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71250000" />
+    <option name="totallyTimeSpent" value="71962000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -496,9 +488,15 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/server/tweets.js</url>
-          <line>249</line>
+          <line>246</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/server/tweets.js</url>
+          <line>180</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -824,13 +822,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="120" column="28" lean-forward="true" selection-start-line="120" selection-start-column="28" selection-end-line="120" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/test.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -844,28 +835,23 @@
     <entry file="file://$PROJECT_DIR$/server/tasdjhags.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2728">
+          <caret line="128" column="43" selection-start-line="128" selection-start-column="43" selection-end-line="128" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/tweets.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="259" column="41" selection-start-line="259" selection-start-column="41" selection-end-line="259" selection-end-column="41" />
+        <state relative-caret-position="235">
+          <caret line="255" column="94" selection-start-line="255" selection-start-column="94" selection-end-line="255" selection-end-column="94" />
           <folding>
-            <element signature="n#!!block;n#getCurrentlyTracked#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#addToCurrentlyTracked#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#removeFromCurrentlyTracked#0;n#TweetRetriever#0" />
             <element signature="n#!!block;n#setCurrentlyTracked#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#getTweetsToDisplay#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#getCurrentlyDisplayed#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#addToCurrentlyDisplayed#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#removeFromCurrentlyDisplayed#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#setCurrentlyDisplayed#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#addTweetToDatabase#0;n#TweetRetriever#0" />
             <element signature="n#!!block;n#writeFrequencyDataToCSV#0;n#TweetRetriever#0" />
             <element signature="n#!!block;n#writeToCSV#0;n#TweetRetriever#0" />
             <element signature="n#!!doc;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#requestTweetsFromDate#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#getTweetsFromDatabase#0;n#TweetRetriever#0" />
             <element signature="n#!!doc;n#tweetObjectToData#0;n#TweetRetriever#0" />
-            <element signature="n#!!block;n#tweetObjectToData#0;n#TweetRetriever#0" />
           </folding>
         </state>
       </provider>

@@ -83,7 +83,6 @@ class TweetRetriever {
             if (hashtags.length === 0) {
                 resolve();
             }
-            console.log(hashtags);
             this.database.query("DELETE FROM track;")
                 .then(() => {
                     let query = "INSERT INTO track(hashtag) VALUES";
@@ -92,7 +91,6 @@ class TweetRetriever {
                     }
                     query = query.slice(0, query.length - 1);
                     query += ";";
-                    console.log(query);
                     this.database.query(query, hashtags)
                         .then(resolve)
                         .catch(error => reject(error))
@@ -104,7 +102,6 @@ class TweetRetriever {
     updateDatabase() {
         const currTime = this.lastUpdated;
         this.lastUpdated = Date.now();
-        console.log(this.lastUpdated);
         this.getCurrentlyTracked()
             .then(data => {
                 for (let i in data) {
@@ -165,7 +162,6 @@ class TweetRetriever {
             if (hashtags.length === 0) {
                 resolve();
             }
-            console.log(hashtags);
             this.database.query("DELETE FROM display;")
                 .then(() => {
                     let query = "INSERT INTO display(hashtag) VALUES";
@@ -174,7 +170,6 @@ class TweetRetriever {
                     }
                     query = query.slice(0, query.length - 1);
                     query += ";";
-                    console.log(query);
                     this.database.query(query, hashtags)
                         .then(resolve)
                         .catch(error => reject(error))
@@ -184,6 +179,8 @@ class TweetRetriever {
     };
 
     addTweetToDatabase(tweet) {
+        console.log("TWEEET.....");
+        console.log(tweet);
         let values = [tweet.id, tweet.hashtag, tweet.contents, tweet.author, tweet.date, tweet.image];
         this.database.query('SELECT * FROM tweets WHERE id=?', tweet.id)
             .then(data => {
@@ -256,9 +253,7 @@ class TweetRetriever {
             const request = "#" + hashtag + " since:" + date;
             twit.get('search/tweets', {q: request, count: count})
                 .then(data => {
-                    console.log("HERE!!!!!!");
-                    console.log(data.data);
-                    data.data.statuses.map(ele => addToDatabase(tweetObjectToData(ele)));
+                    data.data.statuses.map(ele => addToDatabase(tweetObjectToData(ele, hashtag)));
                     resolve(data);
                 })
                 .catch(error => {
@@ -278,7 +273,7 @@ class TweetRetriever {
             }
 
             query = query.slice(0, query.length-3);
-            query += ";";
+            query += " LIMIT 500;";
 
             this.database.query(query, hashtags)
                 .then((data) => {
