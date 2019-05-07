@@ -234,8 +234,8 @@ class TweetRetriever {
         this.database.query('SELECT * FROM tweets WHERE id=?', tweet.id)
             .then(data => {
                 if (data.length === 0) {
-                    this.database.query('INSERT INTO tweets (id, hashtag, contents,' +
-                        ' author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
+                    this.database.query('REPLACE INTO tweets (id, hashtag, contents,' +
+                        ' author, date, picture) VALUES(?, ?, ?, ?, ?, ?) ', values)
                         .catch(error => {
                             console.error(error);
                         });
