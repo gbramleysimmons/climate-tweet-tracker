@@ -35,3 +35,5 @@ tokens in the twit object at the top of tweets.js.
 This web application was created with a React.js frontend, using D3 for data visualization, and a Node.js backend. 
 MySQL was used to track and retrieved data. 
 
+Sources:
+Much of code for the graph (D3) came from here: https://bl.ocks.org/larsenmtl/e3b8b7c2ca4787f77d78f58d41c3da91
