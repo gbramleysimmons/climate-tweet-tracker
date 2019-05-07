@@ -109,6 +109,7 @@ function repl() {
 				} else {
 					rl.question("filename: ", (answer1) => {
 						twitter.writeFrequencyDataToCSV(answer1);
+						repl();
 					} )
 				}
 				break;
@@ -271,9 +272,6 @@ io.sockets.on('connection', function(socket){
 		twitter.setCurrentlyTracked(hashtags);
 		tracked = hashtags;
 		io.emit("updateHashtags", JSON.stringify({displayed: displayed, tracked: tracked}));
-
-		io.emit("trackedChange", hashtags);
-
 	});
 
 
