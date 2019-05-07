@@ -1,0 +1,80 @@
+.Console {
+    width: 500px;
+    height: 500px;
+    margin: 100px auto;
+    color: #515151;
+
+}
+
+
+.current {
+    margin: 50px;
+    background: white;
+    padding: 10px;
+    border-radius: 30px;
+}
+
+.back-button:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+.admin-button {
+    border: none;
+    outline: none;
+
+    background-color: #515151;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+.admin-button:hover {
+    background-color: #353535;
+    cursor: pointer;
+}
+
+.submit-form input[type="text"] {
+    width: 150px;
+    margin: 10px auto;
+    border-radius: 10px;
+    outline: none;
+    padding: 3px;
+    height: 20px;
+    border: none;
+    background: #ededed;
+}
+.submit-form input[type="submit"]{
+    background-color: #515151;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    margin: 5px;
+    font-weight: bold;
+    padding: 5px;
+
+}
+
+
+.submit-form input[type="submit"]:hover {
+    background-color: #353535;
+    cursor: pointer;
+}
+
+.remove-button {
+    background: none;
+    color: red;
+    font-weight: bold;
+    outline: none;
+    border: none;
+}
+
+.remove-button:hover {
+    cursor: pointer;
+}
+
+
+
+

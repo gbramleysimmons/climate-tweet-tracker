@@ -1,0 +1,52 @@
+import React, { Component } from 'react';
+import './css/HashtagContainer.css';
+import Hashtag from "./Hashtag";
+
+/**
+ * Wrapper for the hashtags
+ * Expects one prop: hashtags, which is a list of hashtags
+ * @author Grace
+ */
+class HashtagContainer extends Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            selectedHashtags: this.props.hashtags.reduce(
+		    (hashtags, selected) => ({
+		      ...hashtags,
+		      [selected]: true
+		    }),
+		    {}
+		  )
+        }
+    }
+
+    toggleSelect = (hashtag, selected) => {
+	  let hashtags = this.state.selectedHashtags;
+	  hashtags[hashtag] = selected;
+<<<<<<< HEAD
+	  this.setState(
+          {selectedHashtags: hashtags},
+          this.props.callbackFromParent(hashtags)
+          );
+	  console.log("HASHTAGS: "+hashtags);
+||||||| merged common ancestors
+	  this.setState({selectedHashtags: hashtags});
+	  console.log(hashtags);
+=======
+	  this.setState({selectedHashtags: hashtags});
+>>>>>>> 9b86ba04dcfae4c26f79d87f40eb0c9515274df7
+	};
+
+    render() {
+        return (
+            <div className="hashtags">
+                {this.props.hashtags.map(ele => {
+                    return <Hashtag hashtag={ele} toggleSelect={this.toggleSelect}/>;
+                })}
+            </div>
+        );
+    }
+}
+
+export default HashtagContainer;

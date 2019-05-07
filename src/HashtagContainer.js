@@ -8,11 +8,34 @@ import Hashtag from "./Hashtag";
  * @author Grace
  */
 class HashtagContainer extends Component {
+	constructor(props) {
+        super(props);
+        this.state = {
+            selectedHashtags: this.props.hashtags.reduce(
+		    (hashtags, selected) => ({
+		      ...hashtags,
+		      [selected]: false
+		    }),
+		    {}
+		  )
+        }
+    }
+
+    toggleSelect = (hashtag, selected) => {
+	  let hashtags = this.state.selectedHashtags;
+	  hashtags[hashtag] = selected;
+	  this.setState(
+          {selectedHashtags: hashtags},
+          this.props.callbackFromParent(hashtags)
+          );
+	  //console.log("HASHTAGS: "+Object.keys(hashtags));
+	};
+
     render() {
         return (
             <div className="hashtags">
-                {this.props.hashtags.map(ele => {
-                    return <Hashtag hashtag={ele}/>;
+                {this.props.hashtags.map((ele, i) => {
+                    return <Hashtag hashtag={ele} number={i} toggleSelect={this.toggleSelect}/>;
                 })}
             </div>
         );

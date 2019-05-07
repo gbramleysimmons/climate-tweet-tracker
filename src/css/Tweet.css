@@ -6,6 +6,7 @@
     text-align: left;
     font-size: 14px;
     padding-bottom: 12px;
+    font-family: arial;
 }
 
 .tweet-image {
@@ -27,3 +28,6 @@
     margin-top: 5px;
     margin-right: 15px;
 }
+
+.header{
+    font-family: Tahoma, Geneva, sans-serif;}

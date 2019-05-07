@@ -1,11 +1,14 @@
 body {
-  background-color: #E8E8E8;
+  /* background-color: #E8E8E8; */
+  background-color: #D1E3F9;
 }
 
 .App {
   text-align: center;
   display: flex;
-  background-color: #E8E8E8	
+  /* background-color: #E8E8E8 */
+  background-color: #D1E3F9;
+  margin-top: 4px;
 }
 
 .App-logo {
@@ -20,6 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: Tahoma, Geneva, sans-serif;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
@@ -27,6 +31,21 @@ body {
 
 .App-link {
   color: #61dafb;
+}
+
+.login-link {
+  color: #515151;
+  position: absolute;
+  left: -25px;
+  top: 5px;
+  z-index: 9;
+  width: 200px;
+}
+
+.login-link:hover {
+  color: #353535;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @keyframes App-logo-spin {
@@ -42,12 +61,15 @@ body {
   display: flex;
   flex-direction: column;
   width: 70%;
+  max-width: 860px;
   margin-right: 60px;
   margin-left: 50px;
 }
 
 .title-block{
-  background-color:#468B5C;
+  /* background-color:#468B5C; */
+  /* background-color:#609EEA; */
+  background-color: #3a69a3;
   width: 100%;
   height: 70px;
   display: flex;
@@ -56,7 +78,7 @@ body {
   margin-top: 25px;
   margin-bottom: 15px;
   border-radius: 10px;
-}
+  font-family: Tahoma, Geneva, sans-serif;}
 
 .title-text{
   color: white;
@@ -71,18 +93,85 @@ body {
   margin-right: 50px;
 }
 
+/* @media only screen and (max-width: 1048px){
+  .wrapper-right{
+    display: none;
+    width: 1px;
+    height: 1px;
+  };
+  .wrapper-left{
+    display: 0px;
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1049px){
+  .wrapper-left{
+    width: 70%;
+  }
+} */
+
+.branding-wrapper{
+  display:flex;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  margin-left: 5px;
+}
+
+.logo-img{
+  width: 70px;
+  height: 70px;
+}
+
 .branding-block{
   display:flex;
   flex-direction: column;
+  align-items: flex-start;
   margin-top: 25px;
   line-height: 200%;
+  font-family: Tahoma, Geneva, sans-serif;
+  text-transform: capitalize;
+  font-weight: bold;
+  margin-left: 25px;
 }
 
 .school{
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
 }
 .lab{
   font-weight: bold;
   font-size: 18px;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+#svg{
+    border-style: solid;
+    border-radius: 2px;
+    background-color: white;
+}
+
+.loading-icon {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
 }

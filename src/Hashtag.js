@@ -23,9 +23,21 @@ class Hashtag extends Component {
      * @returns {{main, selected}|*}
      */
     generate_color = () => {
-        const possible_colors = [{main: "#3980c6", selected: "#3375b7"}, {main: "#238e57", selected: "#1d7c4c"},
-            {main: "#1d787c", selected: "#18676b"}, {main: "#368e46", selected: "#368e46"}];
-        return possible_colors[Math.floor(Math.random() * 4)];
+        if (this.props.number === 0) {
+            return {main: "#808080", selected: "#2E76AE"};
+        }
+        else if (this.props.number === 1) {
+            return {main: "#808080", selected: "#FA802D"};
+        }
+        else if (this.props.number === 2) {
+            return {main: "#808080", selected: "#3C9E2C"};
+        }
+        else if (this.props.number === 3) {
+            return {main: "#808080", selected: "#D52B1E"};
+        }
+        else {
+            return {main: "#808080", selected: "black"};
+        }
     };
 
 
@@ -34,9 +46,17 @@ class Hashtag extends Component {
      * selected
      */
     on_click = () => {
-        this.setState({selected: !this.state.selected});
-        this.state.selected ? this.setState({curr_color: this.state.color.selected}):
-            this.setState({curr_color: this.state.color.main})
+        if (!this.state.selected)  {
+            this.setState({selected: true, curr_color: this.state.color.selected});
+            this.props.toggleSelect(this.props.hashtag, true);
+
+        } else {
+            this.setState({selected: false, curr_color: this.state.color.main});
+            this.props.toggleSelect(this.props.hashtag, false);
+
+        }
+
+
     };
 
 
