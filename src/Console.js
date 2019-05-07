@@ -56,19 +56,28 @@ class Console extends Component {
     addSubmitTracking = (event)=> {
         event.preventDefault();
         this.addToTracking(event.target[0].value);
+        event.target.reset();
+
     };
 
 
     addSubmitDisplay = (event)=> {
         event.preventDefault();
-        if (!(event.target[0].value in this.state.trackHashtags)) {
+
+        console.log(this.state.trackHashtags);
+        console.log(event.target[0].value in this.state.trackHashtags);
+        if (this.state.trackHashtags.includes(event.target[0].value)) {
+            this.setState({displayError: ""});
+            this.addToDisplay(event.target[0].value);
+
+
+        } else {
             this.setState({displayError: "Error: hashtag not currently being tracked"});
             return;
-        } else {
-            this.setState({displayError: ""});
 
         }
-        this.addToDisplay(event.target[0].value);
+        event.target.reset();
+
     };
 
 

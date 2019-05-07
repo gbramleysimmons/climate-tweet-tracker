@@ -1,19 +1,14 @@
 const Twit = require("twit");
 const Database = require('./database.js');
 const fs = require('fs');
-
+/**
+ * A class that defines tweet-based operations for this program.
+ */
 class TweetRetriever {
 
     constructor(conn) {
-        // this.twit = new Twit(
-        //     {consumer_key: "3WxkdRmYbcl5FaoWfGW5915sb",
-        //     consumer_secret: "AolaaOgz66866fGk7xflPq0MPHyMM9rpPl9CTW77bEVxoan8ey",
-        //     access_token: '14377535-3pnCcJZrrfxgohn36OjEfx8r0I5mZBTBnhclYHrYG',
-        //     access_token_secret: 'uZUiOLmKToXNRbtyfQtuhCOu79cEfFgRd6YYpc4mwV6On',
-        //     strictSSL: false    // optional - requires SSL certificates to be valid.
-        //
-        // });
 
+        //TO SUB OUT DIFFERENT ACCESS TOKENS GO HERE.
         this.twit = new Twit({
             consumer_key:	"1avU8KT1N4kNqqcsNqwKSsRmh",
             consumer_secret: "nJzWdYmire6Bluueps9Hc02uRP4yna5JzN0iY0lWBzIJvnqSZm",
@@ -33,7 +28,6 @@ class TweetRetriever {
         this.addTweetToDatabase = this.addTweetToDatabase.bind(this);
         this.requestTweetsFromDate = this.requestTweetsFromDate.bind(this);
         this.requestToDatabase = this.requestToDatabase.bind(this);
-        TweetRetriever.tweetObjectToData = TweetRetriever.tweetObjectToData.bind(this);
 
         this.getCurrentlyTracked = this.getCurrentlyTracked.bind(this);
         this.addToCurrentlyTracked = this.addToCurrentlyTracked.bind(this);
@@ -51,6 +45,10 @@ class TweetRetriever {
 
     }
 
+    /**
+     * Retrieves the list of currently tracked hashtags.
+     * @returns {Promise<any>}
+     */
     getCurrentlyTracked() {
         return new Promise((resolve, reject) => {
             this.database.query("SELECT * FROM track;")
@@ -62,6 +60,11 @@ class TweetRetriever {
         })
     };
 
+    /**
+     * Adds to the list of currently tracked hashtags.
+     * @param hashtag
+     * @returns {Promise<any>}
+     */
     addToCurrentlyTracked(hashtag) {
         return new Promise((resolve, reject) => {
             this.database.query("INSERT INTO track VALUES(?);", [hashtag])
@@ -70,6 +73,11 @@ class TweetRetriever {
         });
     };
 
+    /**
+     * Removes from the list of currently tracked hashtags
+     * @param hashtag
+     * @returns {Promise<any>}
+     */
     removeFromCurrentlyTracked(hashtag) {
         return new Promise((resolve, reject) => {
             this.database.query("DELETE FROM track WHERE hashtag=?;", [hashtag])
@@ -78,6 +86,11 @@ class TweetRetriever {
         });
     };
 
+    /**
+     * Sets the list of currently tracked hashtags
+     * @param hashtags
+     * @returns {Promise<any>}
+     */
     setCurrentlyTracked(hashtags) {
         return new Promise((resolve, reject) => {
             if (hashtags.length === 0) {
@@ -99,9 +112,20 @@ class TweetRetriever {
         });
     };
 
-    updateDatabase() {
-        const currTime = this.lastUpdated;
-        this.lastUpdated = Date.now();
+    /**
+     * Updates the database from the Twitter API.
+     * @param date (optional, date to request since)
+     */
+    updateDatabase(date) {
+        let currTime;
+        if (date) {
+            currTime=Date.parse(date);
+        } else {
+            currTime = this.lastUpdated;
+            this.lastUpdated = Date.now();
+        }
+
+
         this.getCurrentlyTracked()
             .then(data => {
                 for (let i in data) {
@@ -111,6 +135,10 @@ class TweetRetriever {
             })
     }
 
+    /**
+     * Retrieves tweets from our database to display in the GUI.
+     * @returns {Promise<any>}
+     */
     getTweetsToDisplay() {
         return new Promise((resolve, reject) => {
             this.getCurrentlyDisplayed()
@@ -127,6 +155,10 @@ class TweetRetriever {
 
     }
 
+    /**
+     * Retrieves the list of hashtags currently avaliable to display.
+     * @returns {Promise<any>}
+     */
     getCurrentlyDisplayed() {
         return new Promise((resolve, reject) => {
             this.database.query("SELECT * FROM display;")
@@ -141,6 +173,11 @@ class TweetRetriever {
         })
     };
 
+    /**
+     * Adds a hashtag to the list of currently displayable hashtags,.
+     * @param hashtag
+     * @returns {Promise<any>}
+     */
     addToCurrentlyDisplayed(hashtag) {
         return new Promise((resolve, reject) => {
             this.database.query("INSERT INTO display VALUES(?);", [hashtag])
@@ -149,6 +186,11 @@ class TweetRetriever {
         });
     };
 
+    /**
+     * Removes a hashtag from the list of currently displayable hashtags.
+     * @param hashtag
+     * @returns {Promise<any>}
+     */
     removeFromCurrentlyDisplayed(hashtag) {
         return new Promise((resolve, reject) => {
             this.database.query("DELETE FROM display WHERE hashtag=?;", [hashtag])
@@ -157,6 +199,11 @@ class TweetRetriever {
         });
     };
 
+    /**
+     * Sets the list of currently displayed hashtags to the input list.
+     * @param hashtags
+     * @returns {Promise<any>}
+     */
     setCurrentlyDisplayed(hashtags) {
         return new Promise((resolve, reject) => {
             if (hashtags.length === 0) {
@@ -178,14 +225,17 @@ class TweetRetriever {
         });
     };
 
+    /**
+     * Adds a tweet formatted by tweetObjectToData to the database.
+     * @param tweet
+     */
     addTweetToDatabase(tweet) {
-        console.log("TWEEET.....");
-        console.log(tweet);
         let values = [tweet.id, tweet.hashtag, tweet.contents, tweet.author, tweet.date, tweet.image];
         this.database.query('SELECT * FROM tweets WHERE id=?', tweet.id)
             .then(data => {
                 if (data.length === 0) {
-                    this.database.query('INSERT INTO tweets (id, hashtag, contents, author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
+                    this.database.query('INSERT INTO tweets (id, hashtag, contents,' +
+                        ' author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
                         .catch(error => {
                             console.error(error);
                         });
@@ -194,6 +244,10 @@ class TweetRetriever {
 
     }
 
+    /**
+     * Writes information about tweet frequency to a CSV file with path file.
+     * @param file
+     */
     writeFrequencyDataToCSV(file) {
         const stream = fs.createWriteStream(file);
         this.getCurrentlyTracked()
@@ -208,6 +262,11 @@ class TweetRetriever {
             })
     }
 
+    /**
+     * Writes all data to a csv file with path file.
+     * @param file
+     * @returns {Promise<any>}
+     */
     writeToCSV(file) {
         return new Promise((resolve,reject) => {
             this.database.query("SELECT * FROM tweets")
@@ -244,6 +303,13 @@ class TweetRetriever {
         });
     }
 
+    /**
+     * Requests tweets and adds them to the database.
+     * @param hashtag
+     * @param date
+     * @param count
+     * @returns {Promise<any>}
+     */
     requestToDatabase(hashtag, date, count) {
         const twit = this.twit;
         const database = this.database;
@@ -263,6 +329,11 @@ class TweetRetriever {
 
     }
 
+    /**
+     * Retrieves all tweets from our database with hashtag hashtags.
+     * @param hashtags
+     * @returns {Promise<any>}
+     */
     getTweetsFromDatabase(hashtags) {
         return new Promise((resolve, reject) => {
 
@@ -273,7 +344,7 @@ class TweetRetriever {
             }
 
             query = query.slice(0, query.length-3);
-            query += " LIMIT 500;";
+            query += " LIMIT 10000;";
 
             this.database.query(query, hashtags)
                 .then((data) => {
@@ -283,7 +354,6 @@ class TweetRetriever {
                         //CHECK TWEETS ARE WITHIN 24 HOURS
                         toReturn.push(data[i]);
                     }
-                    console.log(toReturn);
                     resolve(toReturn);
                 });
         });

@@ -249,16 +249,3 @@ describe("TweetRetriever.setCurrentlyDisplayed()", function() {
 });
 
 
-
-// describe("TweetRetriever.getCurrentlyTracked()", function() {
-//     it("should retrieve the list of currently tracked hashtags", function() {
-//         const tr = new TweetRetriever(conn);
-//         tr.addToCurrentlyTracked("test2")
-//             .then(() => {
-//                 tr.getCurrentlyTracked()
-//                     .then()
-//
-//             });
-//
-//     });
-// });

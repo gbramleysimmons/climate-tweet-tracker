@@ -9,7 +9,13 @@ import Console from "./Console";
 import ReactLoading from 'react-loading';
 import logo from './img/cdllogo2.png';
 
-const socket = io.connect('http://localhost:8000');
+//to run locally
+// const socket = io.connect('http://localhost:8000');
+
+let host = new URL(window.location.href);
+host.port = 8000;//deployed
+console.log(host.toString());
+const socket = io.connect(host.toString());
 
 class App extends Component {
   constructor(props) {

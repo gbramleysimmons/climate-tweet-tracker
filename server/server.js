@@ -131,6 +131,16 @@ function repl() {
 					})
 				});
 				break;
+			case "update-db":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				}
+				rl.question("date: ", function (answer) {
+					twitter.updateDatabase(answer);
+					repl();
+				});
+				break;
 			case "get-tweets":
 				twitter.getTweetsToDisplay()
 					.then(data => console.log(data));
@@ -173,6 +183,7 @@ function repl() {
 					.catch(error => {console.err(error); repl()});
 
 				break;
+
 
 			case "add-displayed":
 				if (!authorized["repl"]) {
@@ -218,7 +229,8 @@ function repl() {
 					"signup: signup with new credentials \n retrieve: retrieve tweets with specfied hashtags (must be authorized)" +
 					"\n get-tracked: retrieve currently trackaed hashtags \n add-tracked: add hashtag to be tracked " +
 					"\n remove-tracked: remove tweet from tracked list \n get-displayed: retrieve currently displayable hashtags" +
-					"\n add-displayed: add hashtag to be displayable \n remove-displayed: remove hashtag from display list");
+					"\n add-displayed: add hashtag to be displayable \n remove-displayed: remove hashtag from display list \n" +
+					"update-db: update database since a certain date \n csv: write data to a csv file");
 				repl();
 				break;
 			default:
@@ -311,6 +323,7 @@ server.listen(8080, function() {
 	console.log('- Server listening on port 8080'.cyan);
 });
 
+app.use(express.static("../build"));
 repl();
 
 io.listen(8000);
