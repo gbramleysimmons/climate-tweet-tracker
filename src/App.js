@@ -7,6 +7,7 @@ import io from 'socket.io-client';
 import Login from './Login';
 import Console from "./Console";
 import ReactLoading from 'react-loading';
+import logo from './img/cdllogo2.png';
 
 const socket = io.connect('http://localhost:8000');
 
@@ -167,9 +168,12 @@ class App extends Component {
                   <HashtagContainer hashtags={this.state.displaying} callbackFromParent={this.myCallback}/>
               </div>
               <div className="wrapper-right">
-                  <div className="branding-block">
-                      <div className="school">Brown University</div>
-                      <div className="lab">Climate Development Lab</div>
+                  <div className="branding-wrapper">
+                    <div className="logo"><img className="logo-img" src={logo}></img></div>
+                    <div className="branding-block">
+                        <div className="school">Brown University</div>
+                        <div className="lab">Climate Development Lab</div>
+                    </div>
                   </div>
                   <TweetContainer tweets={this.state.tweets}/>
               </div>
