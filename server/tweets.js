@@ -237,7 +237,7 @@ class TweetRetriever {
                     this.database.query('INSERT INTO tweets (id, hashtag, contents,' +
                         ' author, date, picture) VALUES(?, ?, ?, ?, ?, ?)', values)
                         .catch(error => {
-                            console.error(error);
+
                         });
                 }
             });

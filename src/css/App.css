@@ -1,13 +1,13 @@
 body {
   /* background-color: #E8E8E8; */
-  background-color: #D1E3F9;
+  background-color: white;
 }
 
 .App {
   text-align: center;
   display: flex;
   /* background-color: #E8E8E8 */
-  background-color: #D1E3F9;
+  background-color: white;
   margin-top: 4px;
 }
 
@@ -69,7 +69,7 @@ body {
 .title-block{
   /* background-color:#468B5C; */
   /* background-color:#609EEA; */
-  background-color: #3a69a3;
+  background-color: #90cbf5;
   width: 100%;
   height: 70px;
   display: flex;
@@ -133,9 +133,9 @@ body {
   align-items: flex-start;
   margin-top: 25px;
   line-height: 200%;
+  color: #90cbf5;
   font-family: Tahoma, Geneva, sans-serif;
   text-transform: capitalize;
-  font-weight: bold;
   margin-left: 25px;
 }
 
