@@ -142,6 +142,10 @@ function repl() {
 				});
 				break;
 			case "get-tweets":
+				if (!authorized["repl"]) {
+					console.log("operation not permitted");
+					repl();
+				}
 				twitter.getTweetsToDisplay()
 					.then(data => console.log(data));
 				break;
@@ -242,10 +246,12 @@ function repl() {
 };
 
 
+
 //defines socket listeners for this program.
 io.sockets.on('connection', function(socket){
-		twitter.getCurrentlyDisplayed()
-			.then(data => {
+		console.log("New client connected".green);
+	twitter.getCurrentlyDisplayed()
+		.then(data => {
 				twitter.getCurrentlyTracked()
 					.then(tracked => {
 						const toSend = {
