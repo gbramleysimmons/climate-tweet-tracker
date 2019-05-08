@@ -123,7 +123,7 @@ class App extends Component {
     let dateString = "";
     let year = dateObj.getFullYear();
     let month = ("0" + (dateObj.getMonth()+1)).slice(-2);
-    let date = dateObj.getDate();
+    let date = ("0" + (dateObj.getDate()+1)).slice(-2);
     let hour = ("0" + dateObj.getHours()).slice(-2);
     let minutes = dateObj.getMinutes();
     let minutesRounded = ("0" + this.roundMinutes(minutes)).slice(-2);
